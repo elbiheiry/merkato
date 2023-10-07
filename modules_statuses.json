@@ -1,5 +1,6 @@
 {
     "Auth": true,
     "Category": true,
-    "Type": true
+    "Type": true,
+    "Product": true
 }

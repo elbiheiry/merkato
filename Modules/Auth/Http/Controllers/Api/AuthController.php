@@ -30,42 +30,18 @@ class AuthController extends Controller
 
             $user = User::create($registerRequest->all());
 
-            $code = rand(100000, 999999);
-
             $user->update([
-                'code' => $code,
+                'email_verified_at' => Carbon::now(),
+                'code' => null
             ]);
 
-            Mail::to($user->email)->send(new VerificationMail($user));
+            $token = $user->createToken('verification_token')->plainTextToken;
 
-            return api_response_success('تم إرسال الرمز التعريفي لبريدك الإلكتروني');
+            return api_response_success([
+                'token' => $token,
+                'user' => new UserResource($user),
+            ]);
 
-        } catch (\Throwable $th) {
-            dd($th->getMessage());
-            return api_response_error();
-        }
-    }
-
-    public function verify(VerifyRequest $request)
-    {
-        $user = User::where('email', $request->email)->first();
-
-        try {
-            if ($user->code == $request->code) {
-                $user->update([
-                    'email_verified_at' => Carbon::now(),
-                    'code' => null
-                ]);
-
-                $token = $user->createToken('verification_token')->plainTextToken;
-
-                return api_response_success([
-                    'token' => $token,
-                    'user' => new UserResource($user),
-                ]);
-            } else {
-                return api_response_error('الرقم التعريفي غير صحيح');
-            }
         } catch (\Throwable $th) {
             return api_response_error();
         }
@@ -75,17 +51,6 @@ class AuthController extends Controller
     {
         $user = User::where('email', $loginRequest->email)->first();
         if ($user) {
-            if ($user->email_verified_at == null) {
-                $code = rand(100000, 999999);
-
-                $user->update([
-                    'code' => $code,
-                ]);
-
-                Mail::to($user->email)->send(new VerificationMail($user));
-
-                return api_response_success('تم إرسال الرمز التعريفي لبريدك الإلكتروني');
-            }
             if (Hash::check($loginRequest->password, $user->password)) {
                 $token = $user->createToken('login')->plainTextToken;
 
