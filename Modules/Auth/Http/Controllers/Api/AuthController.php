@@ -19,6 +19,7 @@ use Modules\Auth\Http\Requests\Api\LoginRequest;
 use Modules\Auth\Http\Requests\Api\RegisterRequest;
 use Modules\Auth\Http\Requests\Api\VerifyRequest;
 use Modules\Auth\Transformers\Api\UserResource;
+use Modules\Product\Entities\CartItem;
 
 class AuthController extends Controller
 {
@@ -53,6 +54,19 @@ class AuthController extends Controller
         if ($user) {
             if (Hash::check($loginRequest->password, $user->password)) {
                 $token = $user->createToken('login')->plainTextToken;
+
+                if ($loginRequest->hasHeader('X-Guest-Identifier')) {
+                    $guestIdentifier = $loginRequest->header('X-Guest-Identifier');
+                    $guestCartItems = CartItem::where('guest_identifier', $guestIdentifier)->get();
+    
+                    if ($guestCartItems->isNotEmpty()) {
+                        $guestCartItems->each(function ($cartItem) use ($user) {
+                            $cartItem->user_id = $user->id;
+                            $cartItem->guest_identifier = null;
+                            $cartItem->save();
+                        });
+                    }
+                }
 
                 return api_response_success([
                     'token' => $token,
