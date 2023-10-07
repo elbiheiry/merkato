@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->controller(ProductController::class)->prefix(
 });
 
 Route::middleware('auth:sanctum')->controller(CartController::class)->prefix('cart')->group(function (){
-    Route::get('/all', 'index')->name('index');
+    Route::get('/', 'index')->name('index');
     Route::post('/add-item' , 'addItem')->name('create');
     // Route::post('/apply-coupon' , 'applyCoupon')->name('applyCoupon');
     Route::delete('/delete-cart-item/{id}' , 'deleteCartItem')->name('deleteCartItem');

@@ -38,11 +38,11 @@ class CartItem extends Model
 
         $subtotal = 0;
 
-        if ($product->discount) {
-            $subtotal = $subtotal + ($this->quantity * ($product->price - ($product->price * $product->discount / 100)));
-        }else{
-            $subtotal = $subtotal + ($this->quantity * $product->priceAfterDiscount());
-        }
+        // if ($product->discount) {
+        //     $subtotal = $subtotal + ($this->quantity * ($product->price - ($product->price * $product->discount / 100)));
+        // }else{
+            $subtotal = $subtotal + ($this->quantity * $product->price);
+        // }
     
         return $subtotal;
     }
