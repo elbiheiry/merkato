@@ -1,0 +1,127 @@
+@use "../abstracts/abstracts_all" as *;
+.table {
+  background-color: #fff;
+  margin-bottom: 0 !important;
+  tr {
+    td,
+    th {
+      line-height: 15px;
+      padding: 10px 15px;
+      font-size: 12px;
+      border: 1px solid #edeff7 !important;
+      vertical-align: middle;
+      font-weight: $weight_bold;
+      @include mediaquery(max, tablet) {
+        min-width: 90px !important;
+      }
+    }
+    th {
+      color: $main_color;
+      font-size: 14px;
+      padding: 15px;
+    }
+  }
+  .type {
+    display: inline-block;
+    padding: 5px 15px;
+    line-height: 20px;
+    @include border_radius(25px);
+    text-align: center;
+    font-size: 13px;
+    background-color: #f3f2ff;
+    color: $main_color;
+    margin: 0;
+    min-width: 135px;
+  }
+  .small-wide {
+    width: 40px !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+  }
+}
+
+.dt-buttons {
+  float: left;
+  margin: 0 0 15px;
+}
+.dt-buttons button {
+  margin: 0 5px 0 0 !important;
+  line-height: 40px;
+  padding: 0;
+  border-radius: 3px !important;
+  background-color: #edeff7;
+  color: $main_color;
+  font-family: sans-serif;
+  border: 0 !important;
+  box-shadow: none !important;
+  font-size: 14px;
+  width: 40px !important;
+  -webkit-box-flex: 0 !important;
+  -ms-flex: none !important;
+  flex: none !important;
+}
+a.dt-button:hover,
+a.dt-button:hover:not(.disabled) {
+  background-color: $second_color !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+.dataTables_length {
+  float: left;
+  text-align: left;
+  margin: 15px auto 0;
+}
+.dataTables_length select {
+  background-color: #f2f8f8;
+  border: 0;
+  margin: 0 10px;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 25px 0 10px;
+  border-radius: 0;
+  color: #3a3a3a;
+}
+.dataTable {
+  margin: 0 0 15px;
+  border: 1px solid #f8f8f8;
+}
+
+table.dataTable.no-footer {
+  margin-bottom: 5px;
+}
+.dataTables_wrapper .dataTables_info {
+  clear: both;
+  float: left;
+  margin: 0 0 10px;
+  color: #3a3a3a;
+  line-height: 30px;
+  font-size: 14px;
+}
+.dataTables_wrapper .dataTables_paginate {
+  float: right;
+}
+.page-item.active .page-link {
+  background-color: $main_color;
+  border-color: $main_color;
+  color: #fff;
+}
+.page-link {
+  padding: 0 10px;
+  line-height: 30px;
+  font-size: 14px;
+  border-radius: 0 !important;
+  -webkit-border-radius: 0 !important;
+}
+.page-item.disabled .page-link {
+  font-size: 14px;
+}
+.role {
+  background-color: $green_color;
+  display: inline-block;
+  margin: 2px;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  padding: 2px 7px;
+  @include border_radius(5px);
+}

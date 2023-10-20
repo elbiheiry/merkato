@@ -1,0 +1,32 @@
+// Variables
+// Fonts
+@font-face {
+  font-family: "Somar";
+  src: url("../fonts/Somar-Regular.woff2") format("woff2"),
+    url("../fonts/Somar-Regular.woff") format("woff"),
+    url("../fonts/Somar-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Somar";
+  src: url("../fonts/Somar-SemiBold.woff2") format("woff2"),
+    url("../fonts/Somar-SemiBold.woff") format("woff"),
+    url("../fonts/Somar-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Font Setting
+$main_font:  "Somar";
+$weight_reg: normal;
+$weight_bold: 600;
+
+// Color
+$main_color: #262262;
+$second_color: #f1592a;
+$black_color: #212121;
+$red_color: #800000;
+$green_color: #9ab954;

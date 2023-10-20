@@ -3,5 +3,8 @@
     "Category": true,
     "Type": true,
     "Product": true,
-    "User": true
+    "User": true,
+    "Dashboard": true,
+    "Page": true,
+    "Home": true
 }

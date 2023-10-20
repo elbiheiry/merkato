@@ -1,0 +1,85 @@
+@use "../abstracts/abstracts_all" as *;
+
+/* Aside
+=======================*/
+aside {
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 50px 25px;
+  width: 290px;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  background-color: $main_color;
+  z-index: 9996;
+  @include border_radius(50px 0 0 50px);
+  .logo {
+    display: block;
+    margin: 25px auto 50px;
+    background-color: #fff;
+    padding: 10px 25px;
+    @include border-radius(50px);
+    img {
+      height: 100%;
+    }
+  }
+  .toggle-btn {
+    display: none;
+    position: absolute;
+    top: 15px;
+    inset-inline-end: 25px;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    line-height: 30px;
+    border: 0;
+    color: #ffffff;
+    background-color: $second_color;
+    @include border_radius(50%);
+  }
+  ul {
+    li {
+      display: block;
+      .nav-item {
+        width: 100%;
+        display: block;
+        position: relative;
+        padding: 10px 25px;
+        margin-top: 20px;
+        line-height: 30px;
+        color: #f3f3f3;
+        background-color: rgba(255, 255, 255, 0.06);
+        font-size: 14px;
+        text-align: start;
+        font-weight: $weight_bold;
+        @include border_radius(25px);
+        i {
+          margin-inline-end: 5px;
+          font-size: 16px;
+          vertical-align: sub;
+          line-height: 30px;
+        }
+        &:hover ,
+        &.active {
+          color: $second_color;
+          background-color: #ffffff;
+        }
+      }
+    }
+  }
+}
+@include mediaquery(max, l_desktop) {
+  aside {
+    inset-inline-start: -290px;
+    z-index: 9998;
+    @include transition(0.3s linear all);
+    .toggle-btn {
+      display: block;
+      z-index: 9998;
+    }
+    &.move {
+      inset-inline-start: 0;
+    }
+  }
+}

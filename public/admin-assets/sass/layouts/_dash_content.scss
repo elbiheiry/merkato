@@ -1,0 +1,140 @@
+@use "../abstracts/abstracts_all" as *;
+
+.dashboard_content {
+  position: fixed;
+  inset-inline-start: 320px;
+  inset-inline-end: 30px;
+  top: 100px;
+  bottom: 30px;
+  width: calc(100% - 350px);
+  height: calc(100% - 130px);
+  overflow: hidden;
+  overflow-y: auto;
+  text-align: start;
+  @include mediaquery(max, l_desktop) {
+    inset-inline-start: 30px;
+    inset-inline-end: 30px;
+    width: calc(100% - 60px);
+  }
+  @include mediaquery(max, mobile) {
+    inset-inline-start: 15px;
+    inset-inline-end: 15px;
+    width: calc(100% - 30px);
+  }
+}
+.page_title {
+  margin-bottom: 25px;
+  background-color: #fff;
+  padding: 15px;
+  font-size: 18px;
+  letter-spacing: 0.1px;
+  @include border_radius(5px);
+  position: relative;
+  font-weight: $weight_bold;
+  .btns {
+    position: absolute;
+    left: 10px;
+    top: 13px;
+    margin: auto;
+    .icon_link {
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+      font-size: 15px;
+      i,
+      &::before {
+        line-height: 35px;
+      }
+    }
+  }
+  > i {
+    color: $second_color;
+    margin-inline-end: 3px;
+  }
+  .link {
+    margin: auto;
+    left: 15px;
+    position: absolute;
+    top: 10px;
+    line-height: 35px;
+    font-size: 14px;
+    padding: 0 10px;
+  }
+}
+.widget {
+  background-color: #fff;
+  z-index: 999;
+  padding: 30px;
+  @include border_radius(25px);
+  margin-bottom: 30px;
+  @include mediaquery(max, mobile) {
+    padding: 15px;
+  }
+  .widget_title {
+    margin-bottom: 25px;
+    h3 {
+      color: $main_color;
+      font-weight: $weight_bold;
+      font-size: 18px;
+      line-height: 30px;
+      @include mediaquery(max, mobile) {
+        font-size: 16px;
+      }
+    }
+    i {
+      margin-inline-end: 5px;
+    }
+    .link {
+      line-height: 30px;
+      font-size: 12px;
+    }
+  }
+}
+.counter {
+  position: relative;
+  color: $main_color;
+  text-align: start;
+  background-color: #f3f2ff;
+  padding: 25px;
+  @include border_radius(25px);
+  h3 {
+    font-size: 18px;
+    margin: 0;
+    display: block;
+  }
+  span {
+    margin-top: 5px;
+    display: block;
+    font-size: 24px;
+    font-weight: $weight_bold;
+  }
+  i {
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    inset-inline-end: 25px;
+    font-size: 32px;
+    margin: auto;
+    color: $second_color;
+    height: 50px;
+  }
+  @include mediaquery(max, desktop) {
+    margin-top: 25px;
+  }
+}
+.data_view {
+  background-color: #f8f8f8;
+  padding: 10px 15px;
+  margin: 0 auto 15px;
+  border: 1px solid #edeff7;
+  @include border_radius(5px);
+  font-weight: $weight_bold;
+  h3 {
+    margin: 5px 0 0;
+    font-size: 16px;
+  }
+  span {
+    display: block;
+    font-size: 14px;
+  }
+}

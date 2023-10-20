@@ -11,6 +11,10 @@
 |
 */
 
-Route::prefix('category')->group(function() {
-    Route::get('/', 'CategoryController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Category\Http\Controllers\Dashboard\CategoryController;
+
+Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function () {
+    Route::resource('category' , CategoryController::class);
 });
+

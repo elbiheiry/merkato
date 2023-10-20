@@ -1,5 +1,8 @@
 <?php
 
+use Modules\Auth\Entities\Admin;
+use Modules\Auth\Entities\User;
+
 return [
 
     /*
@@ -15,7 +18,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'admins',
     ],
 
     /*
@@ -38,6 +41,10 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'sanctum' => [
+            'driver' => 'sanctum',
             'provider' => 'users',
         ],
     ],
@@ -60,15 +67,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => Admin::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => User::class,
+        ],
     ],
 
     /*

@@ -30,7 +30,7 @@ class Category extends Model
 
     public function getImagePathAttribute()
     {
-        if (Storage::disk('public')->exists('categories/'.$this->image)) {
+        if ($this->image) {
             return $this->get_image($this->image,  'categories');
         }else{
             return 'https://placehold.co/600x400';

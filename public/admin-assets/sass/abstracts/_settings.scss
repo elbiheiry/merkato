@@ -1,0 +1,213 @@
+@use "abstracts_all" as *;
+/* Setting Style
+======================*/
+*,
+:focus {
+  outline: 0 !important;
+  scroll-behavior: smooth;
+}
+::selection {
+  background-color: $main_color !important;
+  color: #fff !important;
+}
+
+/* Scroll Bar
+======================*/
+
+body {
+  font-family: $main_font;
+  overflow: hidden;
+  width: 100%;
+  background-color: #edeff7;
+  font-weight: $weight_reg;
+}
+/* Scroll Bar
+======================*/
+/* width */
+::-webkit-scrollbar {
+  background-color: $main_color;
+  width: 0px;
+  height: 0;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: $main_color;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: $second_color;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+}
+
+/* Loading 
+=====================*/
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 9999;
+}
+.spinner {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  text-align: center;
+  -webkit-animation: sk-rotate 2s infinite linear;
+  animation: sk-rotate 2s infinite linear;
+}
+.dot1,
+.dot2 {
+  width: 60%;
+  height: 60%;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  border-radius: 100%;
+  -webkit-animation: sk-bounce 2s infinite ease-in-out;
+  animation: sk-bounce 2s infinite ease-in-out;
+}
+.dot1 {
+  background-color: $main_color;
+}
+.dot2 {
+  top: auto;
+  background-color: $second_color;
+  bottom: 0;
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
+}
+@-webkit-keyframes sk-rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes sk-rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes sk-bounce {
+  0%,
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  50% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes sk-bounce {
+  0%,
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  50% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+/* Lists  
+======================*/
+ul {
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-block;
+  }
+}
+
+/* Links 
+======================*/
+a,
+a:hover,
+a:focus {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/*Images
+======================*/
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.link {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  overflow: hidden;
+  line-height: 40px;
+  text-align: center;
+  font-size: 13px;
+  padding: 0 15px;
+  background-color: $main_color;
+  color: #fff;
+  border: 0;
+  @include box_no_shadow;
+  @include border_radius(25px);
+  @include transition(0.3s color linear);
+
+  i {
+    margin-inline-end: 3px;
+  }
+
+  &:hover {
+    color: #fff;
+    background-color: $second_color !important;
+  }
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+  line-height: 40px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 14px;
+  padding: 0;
+  background-color: $second_color;
+  color: #fff;
+  border: 0;
+  @include box_no_shadow;
+  @include border_radius(50%);
+  i {
+    display: block;
+    width: 100%;
+    line-height: 40px;
+  }
+  &:hover {
+    background-color: $main_color;
+    color: #fff;
+  }
+}

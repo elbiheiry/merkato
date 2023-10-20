@@ -1,0 +1,58 @@
+@use "abstracts_all" as *;
+.modal {
+  z-index: 9999;
+  padding: 0 !important;
+  .modal-dialog {
+    margin: auto;
+    top: 40px;
+    width: 96%;
+    max-width: 576px;
+    background-color: #fff;
+    @include border_radius(25px);
+    pointer-events: initial;
+  }
+  .modal-body {
+    padding: 25px;
+  }
+  .close {
+    opacity: 1;
+    text-shadow: none;
+    position: absolute;
+    inset-inline-end: 10px;
+    top: 10px;
+    color: $second_color;
+    font-size: 14px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #0001;
+    @include border_radius(50%);
+    float: none;
+    line-height: 30px;
+  }
+  form {
+    margin: 0;
+  }
+  hr {
+    margin: 25px 0 5px;
+  }
+  .modal_title {
+    color: $main_color;
+    font-weight: $weight_bold;
+    font-size: 18px;
+    margin-bottom: 25px;
+    text-align: start;
+  }
+  .link {
+    margin: 15px auto 0;
+    min-width: 150px;
+  }
+}
+.modal-backdrop.show {
+  opacity: 0.85;
+  z-index: 9998;
+}
+.modal-open {
+  overflow: hidden !important;
+  padding: 0 !important;
+}

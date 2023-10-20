@@ -83,3 +83,19 @@ if (!function_exists('module_path')) {
         return app()->basePath() . DIRECTORY_SEPARATOR . 'Modules' . DIRECTORY_SEPARATOR . $name .  $path;
     }
 }
+
+if (!function_exists('aurl')) {
+    function aurl($path)
+    {
+        return asset('admin-assets/' . $path);
+    }
+}
+
+if (!function_exists('is_active')) {
+    function is_active($route)
+    {
+        if (request()->routeIs($route)) {
+            return 'active';
+        }
+    }
+}
