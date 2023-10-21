@@ -6,5 +6,7 @@
     "User": true,
     "Dashboard": true,
     "Page": true,
-    "Home": true
+    "Home": true,
+    "Order": true,
+    "Coupon": true
 }
