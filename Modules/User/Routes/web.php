@@ -11,6 +11,9 @@
 |
 */
 
-Route::prefix('user')->group(function() {
-    Route::get('/', 'UserController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\User\Http\Controllers\Dashboard\UserController;
+
+Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function () {
+    Route::resource('user' , UserController::class);
 });

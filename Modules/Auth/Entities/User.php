@@ -29,7 +29,8 @@ class User extends Authenticatable
         'district',
         'facility_name',
         'floor',
-        'code' 
+        'code' ,
+        'type'
     ];
 
     /**

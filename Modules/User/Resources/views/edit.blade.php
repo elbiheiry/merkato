@@ -11,30 +11,35 @@
                         <div class="col-12">
                             <div class="widget_title d-flex justify-content-between align-items-center">
                                 <h3 class="m-0">
-                                    <i class="fas fa-plus"></i> مستخدم جديد
+                                    <i class="fas fa-edit"></i> تعديل بيانات العميل
                                 </h3>
                             </div>
                         </div>
                         <div class="col-12">
-                            <form class="ajax-form" action="{{ route('admin.user.store') }}" method="post">
+                            <form class="ajax-form" action="{{ route('admin.user.update', ['user' => $user->id]) }}"
+                                method="put">
                                 @csrf
+                                @method('put')
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>الإسم </label>
-                                            <input type="text" class="form-control" name="name" />
+                                            <input type="text" class="form-control" name="name"
+                                                value="{{ $user->name }}" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>البريد الإلكتروني </label>
-                                            <input type="email" class="form-control" name="email" />
+                                            <input type="email" class="form-control" name="email"
+                                                value="{{ $user->email }}" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>رقم الموبايل</label>
-                                            <input type="text" class="form-control" name="mobile" />
+                                            <input type="text" class="form-control" name="mobile"
+                                                value="{{ $user->mobile }}" />
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -47,46 +52,54 @@
                                         <div class="form-group">
                                             <label>النوع </label>
                                             <select class="form-control" name="type">
-                                                <option value="0">عميل عادي</option>
-                                                <option value="1">عميل مميز</option>
+                                                <option value="0" {{ !$user->type ? 'selected' : '' }}>عميل عادي
+                                                </option>
+                                                <option value="1" {{ $user->type ? 'selected' : '' }}>عميل مميز
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>إسم المنشأة </label>
-                                            <input type="text" class="form-control" name="facility_name" />
+                                            <input type="text" class="form-control" name="facility_name"
+                                                value="{{ $user->facility_name }}" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>رقم المنشأة </label>
-                                            <input type="text" class="form-control" name="facility_number" />
+                                            <input type="text" class="form-control" name="facility_number"
+                                                value="{{ $user->facility_number }}" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>المحافظة </label>
-                                            <input type="text" class="form-control" name="city" />
+                                            <input type="text" class="form-control" name="city"
+                                                value="{{ $user->city }}" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>المنطقة </label>
-                                            <input type="text" class="form-control" name="district" />
+                                            <input type="text" class="form-control" name="district"
+                                                value="{{ $user->district }}" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>إسم الشارع </label>
-                                            <input type="text" class="form-control" name="street" />
+                                            <input type="text" class="form-control" name="street"
+                                                value="{{ $user->street }}" />
                                         </div>
                                     </div>
 
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>رقم الدور </label>
-                                            <input type="text" class="form-control" name="floor" />
+                                            <input type="text" class="form-control" name="floor"
+                                                value="{{ $user->floor }}" />
                                         </div>
                                     </div>
 
@@ -95,61 +108,6 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="widget">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="widget_title d-flex justify-content-between align-items-center">
-                            <h3 class="m-0">
-                                <i class="fas fa-list"></i> المستخدمين
-                            </h3>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-bordered" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th class="small-wide">#</th>
-                                        <th>الإسم</th>
-                                        <th>البريد الإلكتروني</th>
-                                        <th>رقم الموبايل</th>
-                                        <th>النوع</th>
-                                        <th class="text-center"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $x = 1;
-                                    @endphp
-                                    @foreach ($users as $user)
-                                        <tr>
-                                            <td class="small-wide">{{ $x }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->mobile }}</td>
-                                            <td>{{ $user->type ? 'عميل مميز' : 'عميل عادي' }}</td>
-                                            <td class="text-center">
-                                                <a href="{{ route('admin.user.edit', ['user' => $user->id]) }}"
-                                                    class="icon">
-                                                    <i class="fas fa-edit" data-toggle="tooltip" data-placement="top"
-                                                        title="تعديل "></i></a>
-
-                                                <a href="javascript:;" class="icon delete-btn" style="background-color:red"
-                                                    data-url="{{ route('admin.user.destroy', ['user' => $user->id]) }}"><i
-                                                        class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        @php
-                                            $x++;
-                                        @endphp
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <div class="mt-5">
-                                {!! $users->links() !!}
-                            </div>
                         </div>
                     </div>
                 </div>

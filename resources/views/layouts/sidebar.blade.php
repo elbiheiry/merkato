@@ -29,6 +29,13 @@
                 <i class="fas fa-shopping-cart"></i> المنتجات
             </a>
         </li>
+
+        <li>
+            <a href="{{ route('admin.user.index') }}"
+                class="nav-item {{ request()->is('admin/user/*') || request()->is('admin/user') ? 'active' : '' }}">
+                <i class="fas fa-user"></i> المستخدمين
+            </a>
+        </li>
         <li>
             <button class="border-0 nav-item" onclick="$('#logout-form').submit()">
                 <i class="fa fas fa-sign-out-alt"></i> تسجيل خروج
