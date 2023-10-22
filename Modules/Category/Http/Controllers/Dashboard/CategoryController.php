@@ -5,7 +5,6 @@ namespace Modules\Category\Http\Controllers\Dashboard;
 use App\Traits\ImageTrait;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Routing\Controller;
 use Modules\Category\Entities\Category;
@@ -44,7 +43,8 @@ class CategoryController extends Controller
                 'slug' => SlugService::createSlug(Category::class , 'slug' , $request->name , ['unique' => true])
             ]);
 
-            return add_response();
+            $url = route('admin.category.index');
+            return add_response($url);
         } catch (\Throwable $th) {
             return error_response();
         }
@@ -62,32 +62,51 @@ class CategoryController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     * @param Category $category
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        return view('category::edit');
+        return view('category::edit' , ['category' => $category]);
     }
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
+     * @param CategoryRequest $request
+     * @param Category $category
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        try{
+            $data = $request->all();
+            if ($request->name != $category->name) {
+                $data['slug'] = SlugService::createSlug(Category::class , 'slug' , $request->name , ['unique' => true]);
+            }
+
+            if ($request->has('image')) {
+                $this->image_delete($category->image , 'categories');
+                $data['image'] = $this->image_manipulate($request->image , 'categories');
+            }
+
+            $category->update($data);
+
+            $url = route('admin.category.index');
+            return update_response($url);
+        } catch (\Throwable $th) {
+            return error_response();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
+     * @param Category $category
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->back();
     }
 }

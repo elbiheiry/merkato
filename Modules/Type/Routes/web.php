@@ -11,6 +11,9 @@
 |
 */
 
-Route::prefix('type')->group(function() {
-    Route::get('/', 'TypeController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Type\Http\Controllers\Dashboard\TypeController;
+
+Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function () {
+    Route::resource('type' , TypeController::class);
 });

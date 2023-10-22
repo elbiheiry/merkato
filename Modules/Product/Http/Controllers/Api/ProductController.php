@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function index(ProductFilter $filter)
     {
         try {
-            $products = Product::filter($filter)->orderByDesc('id')->get();
+            $products = Product::filter($filter)->orderByDesc('id')->paginate(10);
             $data = ProductResource::collection($products)->response()->getData();
 
             return api_response_success($data);

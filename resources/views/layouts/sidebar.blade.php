@@ -7,12 +7,19 @@
     </a>
     <ul>
         <li>
-            <a href="{{ route('admin.dashboard') }}" class="nav-item {{ is_active('admin.dashboard') }}">
+            <a href="{{ route('admin.dashboard') }}" class="nav-item {{ request()->is('admin') ? 'active' : '' }}">
                 <i class="fas fa-meteor"></i> لوحــة التحكــم
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.category.index') }}" class="nav-item {{ is_active('admin.category.index') }}">
+            <a href="{{ route('admin.type.index') }}"
+                class="nav-item {{ request()->is('admin/type/*') || request()->is('admin/type') ? 'active' : '' }}">
+                <i class="fas fa-info"></i> الأنواع
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.category.index') }}"
+                class="nav-item {{ request()->is('admin/category/*') || request()->is('admin/category') ? 'active' : '' }}">
                 <i class="fas fa-list"></i> الأقسام
             </a>
         </li>

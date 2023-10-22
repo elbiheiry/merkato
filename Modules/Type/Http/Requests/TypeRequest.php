@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Category\Http\Requests\Dashboard;
+namespace Modules\Type\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class CategoryRequest extends FormRequest
+class TypeRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -41,7 +41,6 @@ class CategoryRequest extends FormRequest
     {
         throw new HttpResponseException(response()->json($validator->errors()->first(), 400));
     }
-    
     /**
      * Determine if the user is authorized to make this request.
      *

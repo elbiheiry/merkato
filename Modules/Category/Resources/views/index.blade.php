@@ -71,10 +71,10 @@
                                             </td>
                                             <td>{{ $category->name }}</td>
                                             <td class="text-center">
-                                                {{-- <a href="#send_notes" class="icon" data-target="#send_notes"
-                                                    data-toggle="modal">
-                                                    <i class="far fa-question-circle" data-toggle="tooltip"
-                                                        data-placement="top" title="إرسال ملاحظات "></i></a> --}}
+                                                <a href="{{ route('admin.category.edit', ['category' => $category->slug]) }}"
+                                                    class="icon">
+                                                    <i class="fas fa-edit" data-toggle="tooltip" data-placement="top"
+                                                        title="تعديل "></i></a>
 
                                                 <a href="javascript:;" class="icon delete-btn" style="background-color:red"
                                                     data-url="{{ route('admin.category.destroy', ['category' => $category->slug]) }}"><i

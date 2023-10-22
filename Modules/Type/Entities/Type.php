@@ -31,7 +31,7 @@ class Type extends Model
     public function getImagePathAttribute()
     {
         if (Storage::disk('public')->exists('types/'.$this->image)) {
-            return $this->get_image($this->image,  'categories');
+            return $this->get_image($this->image,  'types');
         }else{
             return 'https://placehold.co/600x400';
         }

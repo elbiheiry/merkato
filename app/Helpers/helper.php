@@ -14,16 +14,22 @@ if (!function_exists('failed_validation')) {
 }
 
 if (!function_exists('add_response')) {
-    function add_response()
+    function add_response($url = null)
     {
-        return response()->json('تم إضافة البيانات بنجاح', 200);
+        return response()->json([
+            'message' => 'تم إضافة البيانات بنجاح',
+            'url' => $url
+        ], 200);
     }
 }
 
 if (!function_exists('update_response')) {
-    function update_response()
+    function update_response($url)
     {
-        return response()->json('تم تحديث البيانات بنجاح', 200);
+        return response()->json([
+            'message' => 'تم تحديث البيانات بنجاح',
+            'url' => $url
+        ], 200);
     }
 }
 
@@ -88,14 +94,5 @@ if (!function_exists('aurl')) {
     function aurl($path)
     {
         return asset('admin-assets/' . $path);
-    }
-}
-
-if (!function_exists('is_active')) {
-    function is_active($route)
-    {
-        if (request()->routeIs($route)) {
-            return 'active';
-        }
     }
 }

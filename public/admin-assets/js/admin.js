@@ -28,9 +28,9 @@ $(document).on('submit' , '.ajax-form' , function () {
         cache: false,
         processData:false,
         success : function (response) {
-            notification("success", response ,"fas fa-check");
+            notification("success", response.message ,"fas fa-check");
             setTimeout(function () {
-                window.location.reload();
+                window.location.href = response.url;
             }, 2000);
         },
         error : function (jqXHR) {
