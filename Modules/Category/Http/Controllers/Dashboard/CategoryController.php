@@ -105,6 +105,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $this->image_delete($category->image , 'categories');
         $category->delete();
 
         return redirect()->back();

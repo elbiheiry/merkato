@@ -32,8 +32,8 @@ class Product extends Model
 
     public function getImagePathAttribute()
     {
-        if (Storage::disk('public')->exists('categories/'.$this->image)) {
-            return $this->get_image($this->image,  'categories');
+        if (Storage::disk('public')->exists('products/'.$this->image)) {
+            return $this->get_image($this->image,  'products');
         }else{
             return 'https://placehold.co/600x400';
         }

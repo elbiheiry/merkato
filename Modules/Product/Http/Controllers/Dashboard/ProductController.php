@@ -2,24 +2,29 @@
 
 namespace Modules\Product\Http\Controllers\Dashboard;
 
+use App\Traits\ImageTrait;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Routing\Controller;
 use Modules\Category\Entities\Category;
 use Modules\Product\Entities\Product;
+use Modules\Product\Http\Requests\ProductRequest;
 use Modules\Type\Entities\Type;
 
 class ProductController extends Controller
 {
+    use ImageTrait;
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        $categories = Category::all()->except('image' , 'created_at' , 'updated_at' , 'slug');
-        $types = Type::all()->except('image' , 'created_at' , 'updated_at' , 'slug');
+        $categories = Category::all('id' , 'name');
+        $types = Type::all('id' , 'name');
 
         $products = app(Pipeline::class)
             ->send(Product::select(['id','name','image','slug','price']))
@@ -45,12 +50,24 @@ class ProductController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     * @param ProductRequest $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        try {
+            $data = $request->except('image');
+
+            $data['image'] = $this->image_manipulate($request->image , 'products');
+
+            Product::create($data);
+
+            $url = route('admin.product.index');
+
+            return add_response($url);
+        } catch (\Throwable $th) {
+            return error_response();
+        }
     }
 
     /**
@@ -65,32 +82,63 @@ class ProductController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     * @param Product $product
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        return view('product::edit');
+        $categories = Category::all()->except('image' , 'created_at' , 'updated_at' , 'slug');
+        $types = Type::all()->except('image' , 'created_at' , 'updated_at' , 'slug');
+
+        return view('product::edit' , [
+            'categories' => $categories,
+            'types' => $types,
+            'product' => $product
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
+     * @param ProductRequest $request
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        try {
+            $data = $request->except('image');
+
+            if ($request->has('image')) {
+                $this->image_delete($product->image , 'products');
+                $data['image'] = $this->image_manipulate($request->image , 'products');
+            }
+
+            if ($request->name != $product->name) {
+                $data['slug'] = SlugService::createSlug(Product::class , 'slug' , $request->name , ['unique' => true]);
+            }
+            
+
+            $product->update($data);
+
+            $url = route('admin.product.index');
+
+            return update_response($url);
+        } catch (\Throwable $th) {
+            return error_response();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
+     * @param Product $product
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $this->image_delete($product->image , 'products');
+
+        $product->delete();
+
+        return redirect()->back();
     }
 }

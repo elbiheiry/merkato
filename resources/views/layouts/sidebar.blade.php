@@ -24,6 +24,12 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('admin.product.index') }}"
+                class="nav-item {{ request()->is('admin/product/*') || request()->is('admin/product') ? 'active' : '' }}">
+                <i class="fas fa-shopping-cart"></i> المنتجات
+            </a>
+        </li>
+        <li>
             <button class="border-0 nav-item" onclick="$('#logout-form').submit()">
                 <i class="fa fas fa-sign-out-alt"></i> تسجيل خروج
             </button>

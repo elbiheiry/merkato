@@ -11,6 +11,9 @@
 |
 */
 
-Route::prefix('product')->group(function() {
-    Route::get('/', 'ProductController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Product\Http\Controllers\Dashboard\ProductController;
+
+Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function () {
+    Route::resource('product' , ProductController::class);
 });
