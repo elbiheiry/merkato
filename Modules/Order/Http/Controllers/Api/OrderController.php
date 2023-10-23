@@ -19,7 +19,7 @@ class OrderController extends Controller
     public function index()
     {
         try {
-            $orders = Order::all()->sortByDesc('id')->where('user_id' , sanctum()->id());
+            $orders = Order::orderByDesc('id')->where('user_id' , sanctum()->id())->paginate(10);
 
             $data = OrderResource::collection($orders)->response()->getData(true);
 
