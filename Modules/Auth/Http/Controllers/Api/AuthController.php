@@ -186,7 +186,11 @@ class AuthController extends Controller
         try {
             $user = User::find(sanctum()->id());
 
-            $user->orders()->delete();
+            foreach ($user->orders as $key => $order) {
+                $order->items()->delete();
+                $order->delete();
+            }
+            
             $user->addresses()->delete();
 
             return api_response_success('تم حذف الحساب بنجاح');
