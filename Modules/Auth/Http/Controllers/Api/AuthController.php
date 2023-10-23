@@ -112,6 +112,10 @@ class AuthController extends Controller
 
         $code = rand(100000, 999999);
 
+        $user->update([
+            'code' => $code
+        ]);
+
         if (!$userpassreset = PasswordReset::where('email', $user->email)->first()) {
             $userpassreset = PasswordReset::create([
                 'email' => $user->email,

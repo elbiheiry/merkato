@@ -35,7 +35,7 @@ class ForgetPasswordEmail extends Mailable
     {
         return new Envelope(
             subject: 'إعادة تعيين كلمة المرور',
-            from: new Address('info@merkato.com' , 'Merkato')
+            from: new Address('send-email@mercato-hub.com' , 'Mercato')
         );
     }
 
