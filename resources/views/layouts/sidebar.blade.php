@@ -29,11 +29,22 @@
                 <i class="fas fa-shopping-cart"></i> المنتجات
             </a>
         </li>
-
+        <li>
+            <a href="{{ route('admin.coupon.index') }}"
+                class="nav-item {{ request()->is('admin/coupon/*') || request()->is('admin/coupon') ? 'active' : '' }}">
+                <i class="fas fa-percent"></i> كوبونات الخصم
+            </a>
+        </li>
         <li>
             <a href="{{ route('admin.user.index') }}"
                 class="nav-item {{ request()->is('admin/user/*') || request()->is('admin/user') ? 'active' : '' }}">
                 <i class="fas fa-user"></i> المستخدمين
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.order.index') }}"
+                class="nav-item {{ request()->is('admin/order/*') || request()->is('admin/order') ? 'active' : '' }}">
+                <i class="fas fa-info"></i> الطلبات
             </a>
         </li>
         <li>

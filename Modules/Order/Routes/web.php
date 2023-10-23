@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Route;
+use Modules\Order\Http\Controllers\Dashboard\OrderController;
 
-Route::prefix('order')->group(function() {
-    Route::get('/', 'OrderController@index');
+Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function () {
+    Route::resource('order' , OrderController::class);
 });

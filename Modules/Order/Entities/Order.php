@@ -34,4 +34,21 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function getStatus()
+    {
+        switch ($this->status) {
+            case 'preparing':
+                return 'قيد التجهيز';
+                break;
+
+            case 'delivered':
+                return 'تم التسليم';
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+    }
 }

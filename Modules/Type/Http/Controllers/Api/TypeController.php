@@ -18,6 +18,10 @@ class TypeController extends Controller
     {
         try {
             $types = Type::all()->except(['created_at' , 'updated_at'])->sortByDesc('id');
+
+            if (sanctum()->user()->type == '1') {
+                $types = $types->except('3');
+            }
             $data = TypeResource::collection($types)->response()->getData();
 
             return api_response_success($data);

@@ -6,5 +6,6 @@
         <div class="user">
             <span>{{ auth()->user()->name }}</span>
         </div>
+        <button class="toggle-btn icon fa fa-bars"></button>
     </ul>
 </div>

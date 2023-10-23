@@ -85,7 +85,7 @@ class CouponController extends Controller
     
             Coupon::where('code' , $request['coupon_code'])->decrement('usage_count');
 
-            return api_response_success('تمإلغاء استخدام هذا الكوبون');
+            return api_response_success('تم إلغاء استخدام هذا الكوبون');
         } catch (\Throwable $th) {
             return api_response_error();
         }
