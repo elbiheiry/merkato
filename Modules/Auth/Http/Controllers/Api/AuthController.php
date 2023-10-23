@@ -184,7 +184,10 @@ class AuthController extends Controller
     public function delete_account(Request $request)
     {
         try {
-            sanctum()->user()->delete();
+            $user = User::find(sanctum()->id());
+
+            $user->orders()->delete();
+            $user->addresses()->delete();
 
             return api_response_success('تم حذف الحساب بنجاح');
         } catch (\Throwable $th) {
