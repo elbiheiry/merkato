@@ -191,8 +191,10 @@ class AuthController extends Controller
                 $order->delete();
             }
             
-            $user->addresses()->delete();
-
+            foreach ($user->addresses as $key => $address) {
+                $address->delete();
+            }
+        
             return api_response_success('تم حذف الحساب بنجاح');
         } catch (\Throwable $th) {
             return api_response_error();
