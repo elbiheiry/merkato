@@ -27,4 +27,6 @@ Route::middleware([])
         
         Route::post('/forget-password' , 'forget_password')->name('forget_password');
         Route::post('/change-password' , 'change_password')->name('change_password');
+
+        Route::delete('/delete-account' , 'delete_account')->name('delete');
     });

@@ -81,7 +81,6 @@ class AuthController extends Controller
         }
     }
 
-
     /**
      * logout user
      *
@@ -180,5 +179,16 @@ class AuthController extends Controller
             'token' => $token,
             'user' => new UserResource($user)
         ]);
+    }
+
+    public function delete_account(Request $request)
+    {
+        try {
+            sanctum()->user()->delete();
+
+            return api_response_success('تم حذف الحساب بنجاح');
+        } catch (\Throwable $th) {
+            return api_response_error();
+        }
     }
 }
