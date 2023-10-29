@@ -21,7 +21,8 @@ class ProductRequest extends FormRequest
             'image' => $this->isMethod('post') ? ['required' , 'image' , 'max:2024'] : ['image' , 'max:2024'],
             'name' => ['required' , 'string' , 'max:255'],
             'description' => ['required' , 'string' , 'max:255'],
-            'price' => ['required' , 'numeric']
+            'price' => ['required' , 'numeric'],
+            'special_price' => ['required' , 'numeric']
         ];
     }
 
@@ -33,7 +34,8 @@ class ProductRequest extends FormRequest
             'category_id' => 'القسم',
             'type_id' => 'النوع',
             'description' => 'الوصف',
-            'price' => 'السعر'
+            'price' => 'السعر',
+            'special_price' => 'السعر للعملاء المميزين'
         ];   
     }
 

@@ -62,8 +62,14 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>السعر </label>
+                                            <label>السعر العادي</label>
                                             <input type="number" class="form-control" name="price" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>السعر للعملاء المميزين</label>
+                                            <input type="number" class="form-control" name="special_price" />
                                         </div>
                                     </div>
 
@@ -91,7 +97,8 @@
                                         <th class="small-wide">#</th>
                                         <th>الصورة</th>
                                         <th>الإسم</th>
-                                        <th>السعر</th>
+                                        <th>السعر العادي</th>
+                                        <th>السعر للعملاء المميزين</th>
                                         <th class="text-center"></th>
                                     </tr>
                                 </thead>
@@ -106,6 +113,7 @@
                                             </td>
                                             <td>{{ $product->name }}</td>
                                             <td>{{ $product->price }}</td>
+                                            <td>{{ $product->special_price }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('admin.product.edit', ['product' => $product->slug]) }}"
                                                     class="icon">

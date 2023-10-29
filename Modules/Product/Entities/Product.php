@@ -13,7 +13,7 @@ class Product extends Model
 {
     use HasFactory , ImageTrait , Sluggable;
 
-    protected $fillable = ['id' , 'name' , 'description' , 'price' , 'category_id' , 'type_id' , 'slug' , 'image'];
+    protected $fillable = ['id' , 'name' , 'description' , 'price' , 'category_id' , 'type_id' , 'slug' , 'image' , 'special_price'];
 
     protected $hidden = ['created_at' , 'updated_at'];
     /**
@@ -37,6 +37,11 @@ class Product extends Model
         }else{
             return 'https://placehold.co/600x400';
         }
+    }
+
+    public function getPrice()
+    {
+        return sanctum()->user()->type == 1 ? $this->special_price : $this->price;
     }
 
     public function scopeFilter($query,ProductFilter $filter)

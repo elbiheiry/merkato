@@ -11,6 +11,9 @@
 |
 */
 
-Route::prefix('page')->group(function() {
-    Route::get('/', 'PageController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Page\Http\Controllers\Dashboard\PageController;
+
+Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function () {
+    Route::resource('page' , PageController::class);
 });

@@ -12,6 +12,18 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('admin.banner.index') }}"
+                class="nav-item {{ request()->is('admin/banner') ? 'active' : '' }}">
+                <i class="fas fa-image"></i> البانر
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.offer.index') }}"
+                class="nav-item {{ request()->is('admin/offer') || request()->is('admin/offer/*') ? 'active' : '' }}">
+                <i class="fas fa-award"></i> العروض
+            </a>
+        </li>
+        <li>
             <a href="{{ route('admin.type.index') }}"
                 class="nav-item {{ request()->is('admin/type/*') || request()->is('admin/type') ? 'active' : '' }}">
                 <i class="fas fa-info"></i> الأنواع
@@ -45,6 +57,12 @@
             <a href="{{ route('admin.order.index') }}"
                 class="nav-item {{ request()->is('admin/order/*') || request()->is('admin/order') ? 'active' : '' }}">
                 <i class="fas fa-info"></i> الطلبات
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.page.index') }}"
+                class="nav-item {{ request()->is('admin/page/*') || request()->is('admin/page') ? 'active' : '' }}">
+                <i class="fas fa-info"></i> الصفحات
             </a>
         </li>
         <li>

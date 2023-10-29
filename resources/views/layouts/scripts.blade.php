@@ -9,6 +9,7 @@
 <script src="{{ aurl('vendor/counterto.js') }}"></script>
 <script src="{{ aurl('vendor/datatable/datatables.min.js') }}"></script>
 <script src="{{ aurl('vendor/file/file.js') }}"></script>
+<script src="{{ aurl('vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ aurl('js/main.js') }}"></script>
 <script src="{{ aurl('js/admin.js') }}"></script>
 @stack('js')

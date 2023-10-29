@@ -11,7 +11,7 @@ class Banner extends Model
 {
     use HasFactory , ImageTrait;
 
-    protected $fillable = [];
+    protected $fillable = ['title' , 'subtitle' , 'image' ];
     
     // protected static function newFactory()
     // {
@@ -20,7 +20,7 @@ class Banner extends Model
 
     public function getImagePathAttribute()
     {
-        if (Storage::disk('public')->exists('offers/'.$this->image)) {
+        if (Storage::disk('public')->exists('banners/'.$this->image)) {
             return $this->get_image($this->image,  'banners');
         }else{
             return $this->image;
