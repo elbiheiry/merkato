@@ -41,7 +41,7 @@ class Product extends Model
 
     public function getPrice()
     {
-        return sanctum()->user()->type == 1 ? $this->special_price : $this->price;
+        return $this->price;
     }
 
     public function scopeFilter($query,ProductFilter $filter)

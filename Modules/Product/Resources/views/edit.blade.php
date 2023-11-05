@@ -78,14 +78,6 @@
                                                 value="{{ $product->price }}" />
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>السعر للعملاء المميزين</label>
-                                            <input type="number" class="form-control" name="special_price"
-                                                value="{{ $product->special_price }}" />
-                                        </div>
-                                    </div>
-
 
                                     <div class="col-12">
                                         <button class="link"><span> حفظ</span></button>

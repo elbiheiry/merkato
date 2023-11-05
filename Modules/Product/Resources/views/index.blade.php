@@ -62,14 +62,8 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>السعر العادي</label>
+                                            <label>السعر </label>
                                             <input type="number" class="form-control" name="price" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>السعر للعملاء المميزين</label>
-                                            <input type="number" class="form-control" name="special_price" />
                                         </div>
                                     </div>
 

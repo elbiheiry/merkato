@@ -22,7 +22,7 @@ class ProductRequest extends FormRequest
             'name' => ['required' , 'string' , 'max:255'],
             'description' => ['required' , 'string' , 'max:255'],
             'price' => ['required' , 'numeric'],
-            'special_price' => ['required' , 'numeric']
+            // 'special_price' => ['required' , 'numeric']
         ];
     }
 
