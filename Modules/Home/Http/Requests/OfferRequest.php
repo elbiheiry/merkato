@@ -17,7 +17,8 @@ class OfferRequest extends FormRequest
     {
         return [
             'image' => $this->isMethod('post') ? ['required' , 'image' , 'max:2024'] : ['image' , 'max:2024'],
-            'name' => ['required' , 'string' , 'max:255']
+            'name' => ['required' , 'string' , 'max:255'],
+            'related_products' => ['required' , 'array' , 'min:1']
         ];
     }
 
@@ -25,7 +26,8 @@ class OfferRequest extends FormRequest
     {
         return [
             'image' => 'الصورة',
-            'name' => 'عنوان العرض'
+            'name' => 'عنوان العرض',
+            'related_products' => 'المنتجات المرتبطة بالعرض'
         ];   
     }
 

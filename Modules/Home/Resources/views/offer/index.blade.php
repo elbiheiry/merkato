@@ -32,6 +32,16 @@
                                             <input type="text" class="form-control" name="name" />
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>المنتجات المرتبطة بالعرض </label>
+                                            <select class="form-control select2" name="related_products[]" multiple>
+                                                @foreach ($products as $product)
+                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="col-12">
                                         <button class="link"><span> حفظ</span></button>

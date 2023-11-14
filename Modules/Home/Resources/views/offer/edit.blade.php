@@ -38,6 +38,18 @@
                                                 value="{{ $offer->name }}" />
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>المنتجات المرتبطة بالعرض </label>
+                                            <select class="form-control select2" name="related_products[]" multiple>
+                                                @foreach ($products as $product)
+                                                    <option value="{{ $product->id }}"
+                                                        {{ $product->related_products ? (in_array($product->id, json_decode($offer->related_products, true)) ? 'selected' : '') : '' }}>
+                                                        {{ $product->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="col-12">
                                         <button class="link"><span> حفظ</span></button>

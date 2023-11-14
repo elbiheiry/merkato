@@ -12,7 +12,7 @@ class Offer extends Model
     use HasFactory , ImageTrait;
 
     protected $fillable = [
-        'id' , 'name' , 'image'
+        'id' , 'name' , 'image' , 'related_products'
     ];
     
     // protected static function newFactory()

@@ -21,5 +21,6 @@
     <link rel="stylesheet" href="{{ aurl('vendor/flatpicker/flatpickr.min.css') }}" />
     <link rel="stylesheet" href="{{ aurl('vendor/datatable/datatables.min.css') }}" />
     <link rel="stylesheet" href="{{ aurl('css/style.css') }}" />
+    <link href="{{ aurl('css/select2.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ aurl('vendor/file/file.css') }}">
 </head>

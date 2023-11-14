@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Home\Entities\Offer;
 use Modules\Home\Http\Requests\OfferRequest;
+use Modules\Product\Entities\Product;
 
 class OfferController extends Controller
 {
@@ -20,8 +21,9 @@ class OfferController extends Controller
     public function index()
     {
         $offers = Offer::all();
+        $products = Product::all();
         
-        return view('home::offer.index' , compact('offers'));
+        return view('home::offer.index' , compact('offers' , 'products'));
     }
 
     /**
@@ -44,6 +46,7 @@ class OfferController extends Controller
             Offer::create([
                 'name' => $request->name,
                 'image' => $this->image_manipulate($request->image , 'offers'),
+                'related_products' => json_encode($request->related_products)
             ]);
 
             $url = route('admin.offer.index');
@@ -71,7 +74,9 @@ class OfferController extends Controller
      */
     public function edit(Offer $offer)
     {
-        return view('home::offer.edit' , compact('offer'));
+        $products = Product::all();
+
+        return view('home::offer.edit' , compact('offer' , 'products'));
     }
 
     /**
@@ -84,7 +89,8 @@ class OfferController extends Controller
     {
         try {
             $data = [
-                'name' => $request->name
+                'name' => $request->name,
+                'related_products' => json_encode($request->related_products)
             ];
             if ($request->has('image')) {
                 $this->image_delete($offer->image , 'offers');
