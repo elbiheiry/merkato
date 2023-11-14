@@ -23,7 +23,7 @@ class HomeController extends Controller
         try {
             $offers = Offer::all()->except('id' , 'created_at' , 'updated_at');
             $banner = Banner::first();
-            $categories = Category::all()->except('created_at' , 'updated_at');
+            $categories = Category::all()->except(['created_at' , 'updated_at'])->sortByDesc('id');
 
             return api_response_success([
                 'banner' => new BannerResource($banner),
