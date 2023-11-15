@@ -41,7 +41,7 @@ class Product extends Model
 
     public function getPrice()
     {
-        if ($this->discount) {
+        if ($this->discount || $this->discount != 0) {
             return $this->price - ($this->price * $this->discount / 100);
         }
         return $this->price;

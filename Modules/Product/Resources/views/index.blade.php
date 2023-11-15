@@ -66,6 +66,12 @@
                                             <input type="number" class="form-control" name="price" />
                                         </div>
                                     </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>الخصم </label>
+                                            <input type="number" class="form-control" name="discount" />
+                                        </div>
+                                    </div>
 
                                     <div class="col-12">
                                         <button class="link"><span> حفظ</span></button>
