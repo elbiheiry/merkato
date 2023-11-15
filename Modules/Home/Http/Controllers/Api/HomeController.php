@@ -21,7 +21,7 @@ class HomeController extends Controller
     public function index()
     {
         try {
-            $offers = Offer::all()->except('id' , 'created_at' , 'updated_at');
+            $offers = Offer::all()->except('created_at' , 'updated_at');
             $banner = Banner::first();
             $categories = Category::all()->except(['created_at' , 'updated_at'])->sortByDesc('id');
 
@@ -62,7 +62,9 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        return view('home::show');
+        $offer = Offer::find($id);
+
+        return api_response_success(new OfferResource($offer));
     }
 
     /**

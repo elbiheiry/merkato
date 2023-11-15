@@ -18,3 +18,5 @@ use Modules\Home\Http\Controllers\Api\HomeController;
 Route::middleware('auth:sanctum')->controller(HomeController::class)->prefix('home')->group(function (){
     Route::get('/' , 'index')->name('index');
 });
+
+Route::get('/offer/{id}' , [HomeController::class , 'show'])->name('show.offer');

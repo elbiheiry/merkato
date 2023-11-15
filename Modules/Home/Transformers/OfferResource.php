@@ -16,7 +16,7 @@ class OfferResource extends JsonResource
      */
     public function toArray($request)
     {
-        $products = Product::whereIn('id' , json_decode($this->related_products))->get();
+        $products = Product::whereIn('id' ,$this->related_products ? json_decode($this->related_products) : [])->get();
         return [
             'name' => $this->name,
             'image' => $this->image_path,

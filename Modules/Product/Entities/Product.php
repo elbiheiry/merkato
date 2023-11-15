@@ -13,7 +13,7 @@ class Product extends Model
 {
     use HasFactory , ImageTrait , Sluggable;
 
-    protected $fillable = ['id' , 'name' , 'description' , 'price' , 'category_id' , 'type_id' , 'slug' , 'image' , 'special_price'];
+    protected $fillable = ['id' , 'name' , 'description' , 'price' , 'category_id' , 'type_id' , 'slug' , 'image' , 'special_price' , 'discount'];
 
     protected $hidden = ['created_at' , 'updated_at'];
     /**
@@ -40,6 +40,14 @@ class Product extends Model
     }
 
     public function getPrice()
+    {
+        if ($this->discount) {
+            return $this->price - ($this->price * $this->discount / 100);
+        }
+        return $this->price;
+    }
+
+    public function price_before_discount()
     {
         return $this->price;
     }
