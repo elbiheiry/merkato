@@ -16,10 +16,11 @@ class OfferResource extends JsonResource
      */
     public function toArray($request)
     {
-        $products = Product::whereIn('id' ,$this->related_products ? json_decode($this->related_products) : [])->get();
+        $products = Product::whereIn('id' ,$this->related_products ? json_decode($this->related_products) : [])->paginate(10);
         return [
-            'name' => $this->name,
-            'image' => $this->image_path,
+            'id' => (int) $this->id,
+            'name' => (string) $this->name,
+            'image' => (string) $this->image_path,
             'products' => ProductResource::collection($products)->response()->getData(true)
         ];
     }
