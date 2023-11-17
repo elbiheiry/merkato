@@ -24,10 +24,23 @@ class HomeController extends Controller
             $offers = Offer::all()->except('created_at' , 'updated_at');
             $banner = Banner::first();
             $categories = Category::all()->except(['created_at' , 'updated_at'])->sortByDesc('id');
+            $data = [];
+            
+            foreach($offers as $offer)
+            {
+                array_push($data , [
+                    'id' => (int) $offer->id,
+                    'name' => (string) $offer->name,
+                    'image' => (string) $offer->image_path,
+                    'isproducts' => (boolean) $offer->related_products ? true : false,
+                ]);
+                
+                
+            }
 
             return api_response_success([
                 'banner' => new BannerResource($banner),
-                'offers' => OfferResource::collection($offers)->response()->getData(true),
+                'offers' => $data,
                 'categories' => CategoryResource::collection($categories)->response()->getData(true)
             ]);
 
