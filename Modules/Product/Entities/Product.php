@@ -49,7 +49,7 @@ class Product extends Model
 
     public function price_before_discount()
     {
-        return $this->price;
+        return ($this->discount || $this->discount != 0) ? $this->price : null;
     }
 
     public function scopeFilter($query,ProductFilter $filter)

@@ -21,7 +21,8 @@ class ProductResource extends JsonResource
             'price' => (float) $this->getPrice(),
             'price_before_discount' => (float) $this->price_before_discount(),
             'description' => (string) $this->description,
-            'slug' => (string) $this->slug
+            'slug' => (string) $this->slug,
+            'has_discount' => (boolean) ($this->discount || $this->discount != 0) ? true : false
         ];
     }
 }
