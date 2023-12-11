@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Modules\Coupon\Entities\Coupon;
 use Modules\Order\Entities\Order;
 use Modules\Order\Transformers\OrderResource;
+use Modules\Product\Entities\Product;
+use Modules\Type\Entities\Type;
 
 class OrderController extends Controller
 {
@@ -79,6 +81,11 @@ class OrderController extends Controller
         }
 
         $total = $subtotal - $discount;
+        $minimum = Type::where('id' , $user->type_id)->first()->minimum;
+
+        if ($total < $minimum) {
+            return api_response_error('أقل قيمة ممكنة  لإتمام الطلب هي : '.$minimum);
+        }
 
         $order = Order::create([
             'user_id' => $user->id,
@@ -97,6 +104,9 @@ class OrderController extends Controller
                 'quantity' => $item->quantity,
                 'price' => $item->subtotal
             ]);
+            
+            $product = Product::where('id' , $item->product_id)->first();
+            $product->decrement('quantity' ,$item->quantity);
 
             $item->delete();
         }

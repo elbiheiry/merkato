@@ -21,7 +21,7 @@ class TypeController extends Controller
     public function index()
     {
         $types = app(Pipeline::class)
-            ->send(Type::select(['id','name','image','slug']))
+            ->send(Type::select(['id','name','image','slug' , 'minimum' , 'free_shipping']))
             ->thenReturn()
             ->orderByDesc('id')
             ->paginate(15);
@@ -40,7 +40,8 @@ class TypeController extends Controller
             Type::create([
                 'name' => $request->name,
                 'image' => $this->image_manipulate($request->image , 'types'),
-                'slug' => SlugService::createSlug(Type::class , 'slug' , $request->name , ['unique' => true])
+                'slug' => SlugService::createSlug(Type::class , 'slug' , $request->name , ['unique' => true]),
+                'minimum' => $request->minimum
             ]);
 
             $url = route('admin.type.index');

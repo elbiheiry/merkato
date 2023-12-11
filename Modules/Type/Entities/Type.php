@@ -12,7 +12,7 @@ class Type extends Model
 {
     use HasFactory , ImageTrait , Sluggable;
 
-    protected $fillable = ['id' , 'name' , 'slug' , 'image'];
+    protected $fillable = ['id' , 'name' , 'slug' , 'image' , 'minimum' , 'free_shipping'];
 
     /**
      * Return the sluggable configuration array for this model.

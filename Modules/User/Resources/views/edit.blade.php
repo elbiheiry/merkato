@@ -51,11 +51,12 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>النوع </label>
-                                            <select class="form-control" name="type">
-                                                <option value="0" {{ !$user->type ? 'selected' : '' }}>عميل عادي
-                                                </option>
-                                                <option value="1" {{ $user->type ? 'selected' : '' }}>عميل مميز
-                                                </option>
+                                            <select class="form-control" name="type_id">
+                                                @foreach ($types as $type)
+                                                    <option value="{{ $type->id }}"
+                                                        {{ $type->id == $user->type_id ? 'selected' : '' }}>
+                                                        {{ $type->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

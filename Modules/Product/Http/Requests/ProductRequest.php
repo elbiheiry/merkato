@@ -22,6 +22,9 @@ class ProductRequest extends FormRequest
             'name' => ['required' , 'string' , 'max:255'],
             'description' => ['required' , 'string' , 'max:255'],
             'price' => ['required' , 'numeric'],
+            'quantity' => ['required' , 'numeric' , 'gt:0'],
+            'minimum' => ['required' , 'numeric' , 'gt:0' , 'lt:'.$this->maximum , 'lt:'.$this->quantity],
+            'maximum' => ['required' , 'numeric' , 'lt:'.$this->quantity , 'gt:'.$this->minimum]
             // 'special_price' => ['required' , 'numeric']
         ];
     }
@@ -35,7 +38,20 @@ class ProductRequest extends FormRequest
             'type_id' => 'النوع',
             'description' => 'الوصف',
             'price' => 'السعر',
-            'special_price' => 'السعر للعملاء المميزين'
+            'special_price' => 'السعر للعملاء المميزين',
+            'quantity' => 'الكمية',
+            'minimum' => 'أقل قيمة للطلب',
+            'maximum' => 'أكبر قيمة للطلب'
+        ];   
+    }
+
+    public function messages()
+    {
+        return [
+            'quantity.gt' => 'الكمية يجب أن تكون أكبر من 0',
+            'minimum.lt' => 'أقل كمية للطلب يجب أن تكون أقل من :attribute',
+            'maximum.lt' => 'أقصي كمية للطلب يجب أن تكون أقل من :attribute',
+            'maximum.gt' => 'أقصي كمية للطلب يجب أن تكون أكثر من :attribute',
         ];   
     }
 

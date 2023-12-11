@@ -18,7 +18,9 @@ class TypeResource extends JsonResource
             'id' => (int) $this->id,
             'name' => (string) $this->name,
             'slug' => (string) $this->slug,
-            'image' => (string) $this->image_path
+            'image' => (string) $this->image_path,
+            'minimum_for_order' => (float) $this->minimum,
+            'free_shipping' => (float) $this->free_shipping
         ];
     }
 }

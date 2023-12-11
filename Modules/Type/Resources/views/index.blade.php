@@ -57,6 +57,8 @@
                                             <th class="small-wide">#</th>
                                             <th>الصورة</th>
                                             <th>الإسم</th>
+                                            <th>أقل قيمة للطلب</th>
+                                            <th>أقل قيمة للطلب للتوصيل المجاني</th>
                                             <th class="text-center"></th>
                                         </tr>
                                     </thead>
@@ -70,6 +72,8 @@
                                                 <td><img class="img-table" src="{{ $type->image_path }}" width="50">
                                                 </td>
                                                 <td>{{ $type->name }}</td>
+                                                <td>{{ $type->minimum }}</td>
+                                                <td>{{ $type->free_shipping }}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('admin.type.edit', ['type' => $type->slug]) }}"
                                                         class="icon">

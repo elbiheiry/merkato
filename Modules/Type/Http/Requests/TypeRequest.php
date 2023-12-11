@@ -17,7 +17,9 @@ class TypeRequest extends FormRequest
     {
         return [
             'image' => $this->isMethod('post') ? ['required' , 'image' , 'max:2024'] : ['image' , 'max:2024'],
-            'name' => ['required' , 'string' , 'max:255']
+            'name' => ['required' , 'string' , 'max:255'],
+            'minimum' => ['required' , 'numeric'],
+            'free_shipping' => ['required' , 'numeric' ]
         ];
     }
 
@@ -25,7 +27,9 @@ class TypeRequest extends FormRequest
     {
         return [
             'image' => 'الصورة',
-            'name' => 'الإسم'
+            'name' => 'الإسم',
+            'minimum' => 'أقل سعر للطلب',
+            'free_shipping' => 'أقل قيمة للطلب للتوصيل المجاني'
         ];   
     }
 

@@ -27,7 +27,7 @@ class ProductController extends Controller
         $types = Type::all('id' , 'name');
 
         $products = app(Pipeline::class)
-            ->send(Product::select(['id','name','image','slug','price']))
+            ->send(Product::select(['id','name','image','slug','price' , 'quantity']))
             ->thenReturn()
             ->orderByDesc('id')
             ->paginate(15);

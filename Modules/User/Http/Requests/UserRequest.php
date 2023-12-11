@@ -17,7 +17,7 @@ class UserRequest extends FormRequest
             'email' => ['required' , 'string' , 'max:255' , 'email' , 'unique:users,email'],
             'mobile' => ['required'],
             'password' => ['required','string',Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised()],
-            'type' => ['required'],
+            'type_id' => ['required' , 'exists:types,id'],
             'facility_name' => ['required' , 'string' , 'max:255'],
             'facility_number' => ['required' , 'numeric'],
             'city' => ['required' , 'string'],
@@ -38,7 +38,7 @@ class UserRequest extends FormRequest
             'email' => ['required' , 'string' , 'max:255' , 'email' , 'unique:users,email,'.$user->id],
             'mobile' => ['required'],
             'password' => $this->password ? ['string',Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised()] : '',
-            'type' => ['required'],
+            'type_id' => ['required', 'exists:types,id'],
             'facility_name' => ['required' , 'string' , 'max:255'],
             'facility_number' => ['required' , 'numeric'],
             'city' => ['required' , 'string'],
@@ -78,7 +78,7 @@ class UserRequest extends FormRequest
             'facility_number' => 'رقم المنشأة',
             'floor' => 'رقم الدور',
             'mobile' => 'رقم الموبايل',
-            'type' => 'نوع العميل'
+            'type_id' => 'نوع العميل'
         ];
     }
 

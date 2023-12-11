@@ -67,6 +67,18 @@ class CartController extends Controller
             ->first();
 
         if ($cartItem) {
+            if (($cartItem->quantity + $request->quantity) > $cartItem->quantity) {
+                return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
+            }
+
+            if (($cartItem->quantity + $request->quantity) > $cartItem->maximum) {
+                return api_response_error('لا يمكن طلب أكثر من '.$cartItem->maximum.' من هذا المنتج');
+            }
+            
+            if (($cartItem->quantity + $request->quantity) < $cartItem->minimum) {
+                return api_response_error('لا يمكن طلب أقل من '.$cartItem->minimum.' من هذا المنتج');
+            }
+            
             $cartItem->quantity = $cartItem->quantity + $request->quantity;
 
             $cartItem->save();
@@ -74,6 +86,18 @@ class CartController extends Controller
             return api_response_success([
                 'message' => 'تم تحديث بيانات المنتج بنجاح',
             ]);
+        }
+
+        if ($request->quantity > $cartItem->quantity) {
+            return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
+        }
+        
+        if ($request->quantity > $cartItem->maximum) {
+            return api_response_error('لا يمكن طلب أكثر من '.$cartItem->maximum.' من هذا المنتج');
+        }
+        
+        if ($request->quantity < $cartItem->minimum) {
+            return api_response_error('لا يمكن طلب أقل من '.$cartItem->minimum.' من هذا المنتج');
         }
 
         // Create a new cart item   

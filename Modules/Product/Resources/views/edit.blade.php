@@ -85,6 +85,27 @@
                                                 value="{{ $product->discount }}" />
                                         </div>
                                     </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>الكمية </label>
+                                            <input type="number" class="form-control" name="quantity"
+                                                value="{{ $product->quantity }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أقل قيمة للطلب </label>
+                                            <input type="number" class="form-control" name="minimum"
+                                                value="{{ $product->minimum }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أكثر قيمة للطلب </label>
+                                            <input type="number" class="form-control" name="maximum"
+                                                value="{{ $product->maximum }}" />
+                                        </div>
+                                    </div>
 
                                     <div class="col-12">
                                         <button class="link"><span> حفظ</span></button>

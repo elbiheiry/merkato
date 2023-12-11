@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Order\Entities\Order;
 use Modules\Product\Entities\CartItem;
+use Modules\Type\Entities\Type;
 use Modules\User\Entities\Address;
 
 class User extends Authenticatable
@@ -32,7 +33,7 @@ class User extends Authenticatable
         'facility_name',
         'floor',
         'code' ,
-        'type'
+        'type_id'
     ];
 
     /**
@@ -67,5 +68,10 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
     }
 }

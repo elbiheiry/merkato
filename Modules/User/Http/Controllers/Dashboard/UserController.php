@@ -8,6 +8,7 @@ use Illuminate\Pipeline\Pipeline;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Modules\Auth\Entities\User;
+use Modules\Type\Entities\Type;
 use Modules\User\Http\Requests\UserRequest;
 
 class UserController extends Controller
@@ -19,13 +20,15 @@ class UserController extends Controller
     public function index()
     {
         $users = app(Pipeline::class)
-            ->send(User::select(['id','name','type','email','mobile']))
+            ->send(User::select(['id','name','type_id','email','mobile']))
             ->thenReturn()
             ->orderByDesc('id')
             ->paginate(15);
+        $types = Type::all('id' , 'name');
 
         return view('user::index' , [
-            'users' => $users
+            'users' => $users,
+            'types' => $types
         ]);
     }
 
@@ -75,7 +78,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user::edit' , ['user' => $user]);
+        $types = Type::all('id' , 'name');
+
+        return view('user::edit' , [
+            'user' => $user,
+            'types' => $types
+        ]);
     }
 
     /**

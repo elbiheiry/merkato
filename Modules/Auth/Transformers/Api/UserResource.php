@@ -3,6 +3,7 @@
 namespace Modules\Auth\Transformers\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Type\Transformers\TypeResource;
 
 class UserResource extends JsonResource
 {
@@ -24,7 +25,8 @@ class UserResource extends JsonResource
             'facility_number' => (int) $this->facility_number,
             'street' => (string) $this->street,
             'district' => (string) $this->district,
-            'city' => (string) $this->city
+            'city' => (string) $this->city,
+            'type' => new TypeResource($this->type)
         ];
     }
 }

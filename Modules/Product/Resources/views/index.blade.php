@@ -72,6 +72,24 @@
                                             <input type="number" class="form-control" name="discount" />
                                         </div>
                                     </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>الكمية </label>
+                                            <input type="number" class="form-control" name="quantity" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أقل قيمة للطلب </label>
+                                            <input type="number" class="form-control" name="minimum" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أكثر قيمة للطلب </label>
+                                            <input type="number" class="form-control" name="maximum" />
+                                        </div>
+                                    </div>
 
                                     <div class="col-12">
                                         <button class="link"><span> حفظ</span></button>
@@ -97,8 +115,8 @@
                                         <th class="small-wide">#</th>
                                         <th>الصورة</th>
                                         <th>الإسم</th>
-                                        <th>السعر العادي</th>
-                                        <th>السعر للعملاء المميزين</th>
+                                        <th>السعر</th>
+                                        <th>الكمية</th>
                                         <th class="text-center"></th>
                                     </tr>
                                 </thead>
@@ -113,7 +131,7 @@
                                             </td>
                                             <td>{{ $product->name }}</td>
                                             <td>{{ $product->price }}</td>
-                                            <td>{{ $product->special_price }}</td>
+                                            <td>{{ $product->quantity }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('admin.product.edit', ['product' => $product->slug]) }}"
                                                     class="icon">

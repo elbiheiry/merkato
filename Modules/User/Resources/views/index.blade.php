@@ -46,9 +46,10 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>النوع </label>
-                                            <select class="form-control" name="type">
-                                                <option value="0">عميل عادي</option>
-                                                <option value="1">عميل مميز</option>
+                                            <select class="form-control" name="type_id">
+                                                @foreach ($types as $type)
+                                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -129,7 +130,7 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->mobile }}</td>
-                                            <td>{{ $user->type ? 'عميل مميز' : 'عميل عادي' }}</td>
+                                            <td>{{ $user?->type?->name }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('admin.user.edit', ['user' => $user->id]) }}"
                                                     class="icon">

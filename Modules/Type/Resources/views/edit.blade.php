@@ -38,6 +38,20 @@
                                                 value="{{ $type->name }}" />
                                         </div>
                                     </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أقل سعر للطلب </label>
+                                            <input type="number" class="form-control" name="minimum"
+                                                value="{{ $type->minimum }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أقل قيمة للطلب للتوصيل المجاني</label>
+                                            <input type="number" class="form-control" name="free_shipping"
+                                                value="{{ $type->free_shipping }}" />
+                                        </div>
+                                    </div>
 
                                     <div class="col-12">
                                         <button class="link"><span> حفظ</span></button>

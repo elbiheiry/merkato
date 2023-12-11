@@ -13,7 +13,12 @@ class Product extends Model
 {
     use HasFactory , ImageTrait , Sluggable;
 
-    protected $fillable = ['id' , 'name' , 'description' , 'price' , 'category_id' , 'type_id' , 'slug' , 'image' , 'special_price' , 'discount'];
+    protected $fillable = [
+        'id' , 'name' , 'description' , 'price' ,
+        'category_id' , 'type_id' , 'slug' , 'image' ,
+        'special_price' , 'discount' , 'quantity' , 
+        'minimum' , 'maximum'
+    ];
 
     protected $hidden = ['created_at' , 'updated_at'];
     /**
