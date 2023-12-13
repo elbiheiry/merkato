@@ -10,6 +10,7 @@ use Modules\Product\Entities\CartItem;
 use Modules\Product\Transformers\CartResource;
 use Illuminate\Support\Str;
 use Modules\Coupon\Entities\Coupon;
+use Modules\Product\Entities\Product;
 
 class CartController extends Controller
 {
@@ -87,17 +88,18 @@ class CartController extends Controller
                 'message' => 'تم تحديث بيانات المنتج بنجاح',
             ]);
         }
+        $product = Product::find($request->product_id);
 
-        if ($request->quantity > $cartItem->quantity) {
+        if ($request->quantity > $product->quantity) {
             return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
         }
         
-        if ($request->quantity > $cartItem->maximum) {
-            return api_response_error('لا يمكن طلب أكثر من '.$cartItem->maximum.' من هذا المنتج');
+        if ($request->quantity > $product->maximum) {
+            return api_response_error('لا يمكن طلب أكثر من '.$product->maximum.' من هذا المنتج');
         }
         
-        if ($request->quantity < $cartItem->minimum) {
-            return api_response_error('لا يمكن طلب أقل من '.$cartItem->minimum.' من هذا المنتج');
+        if ($request->quantity < $product->minimum) {
+            return api_response_error('لا يمكن طلب أقل من '.$product->minimum.' من هذا المنتج');
         }
 
         // Create a new cart item   
