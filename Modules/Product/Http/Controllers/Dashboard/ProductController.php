@@ -59,6 +59,7 @@ class ProductController extends Controller
             $data = $request->except('image');
 
             $data['image'] = $this->image_manipulate($request->image , 'products');
+            $data['minimum'] = 1;
 
             Product::create($data);
 
@@ -117,7 +118,6 @@ class ProductController extends Controller
                 $data['slug'] = SlugService::createSlug(Product::class , 'slug' , $request->name , ['unique' => true]);
             }
             
-
             $product->update($data);
 
             $url = route('admin.product.index');

@@ -24,7 +24,7 @@ class ProductResource extends JsonResource
             'slug' => (string) $this->slug,
             'has_discount' => (boolean) ($this->discount || $this->discount != 0) ? true : false,
             'quantity' => (float) $this->quantity,
-            'minimum' => (float) $this->minimum,
+            // 'minimum' => (float) $this->minimum,
             'maximum' => (float) $this->maximum
         ];
     }

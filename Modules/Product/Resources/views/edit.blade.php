@@ -94,14 +94,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>أقل قيمة للطلب </label>
-                                            <input type="number" class="form-control" name="minimum"
-                                                value="{{ $product->minimum }}" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>أكثر قيمة للطلب </label>
+                                            <label>أكثر كمية للطلب </label>
                                             <input type="number" class="form-control" name="maximum"
                                                 value="{{ $product->maximum }}" />
                                         </div>
