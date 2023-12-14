@@ -63,16 +63,17 @@ class CartController extends Controller
         
         $user = sanctum()->user();
         $data['user_id'] = $user->id;
+        $product = Product::find($request->product_id);
         $cartItem = CartItem::where('user_id', $user->id)
             ->where('product_id', $request->product_id)
             ->first();
 
         if ($cartItem) {
-            if (($cartItem->quantity + $request->quantity) > $cartItem->quantity) {
+            if (($cartItem->quantity + $request->quantity) > $product->quantity) {
                 return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
             }
 
-            if (($cartItem->quantity + $request->quantity) > $cartItem->maximum) {
+            if (($cartItem->quantity + $request->quantity) > $product->maximum) {
                 return api_response_error('لا يمكن طلب أكثر من '.$cartItem->maximum.' من هذا المنتج');
             }
             
@@ -84,7 +85,7 @@ class CartController extends Controller
                 'message' => 'تم تحديث بيانات المنتج بنجاح',
             ]);
         }
-        $product = Product::find($request->product_id);
+        
 
         if ($request->quantity > $product->quantity) {
             return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');

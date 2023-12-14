@@ -17,9 +17,9 @@ class TypeController extends Controller
     public function index()
     {
         try {
-            $types = Type::all()->except(['created_at' , 'updated_at'])->sortByDesc('id');
+            $types = Type::orderByDesc('id')->get();
 
-            if (sanctum()->user()->type == 0) {
+            if (sanctum()->user()->type_id != 1) {
                 $types = $types->except('1');
             }
             $data = TypeResource::collection($types)->response()->getData();
