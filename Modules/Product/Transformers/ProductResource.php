@@ -14,7 +14,7 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $data = [
             'id' => (int) $this->id,
             'name' => (string) $this->name,
             'image' => (string) $this->image_path,
@@ -25,7 +25,14 @@ class ProductResource extends JsonResource
             'has_discount' => (boolean) ($this->discount || $this->discount != 0) ? true : false,
             'quantity' => (float) $this->quantity,
             // 'minimum' => (float) $this->minimum,
-            'maximum' => (float) $this->maximum
+            'maximum' => (float) $this->maximum,
+            'inCart' => (boolean) $this->isInCart(),
         ];
+
+        if ($this->isInCart()  == true) {
+            $data['quantity_in_cart'] = (int) $this->quantityInCart;
+        }
+
+        return $data;
     }
 }

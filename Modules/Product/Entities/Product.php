@@ -61,6 +61,28 @@ class Product extends Model
     {
         return $filter->apply($query);
     }
+
+    public function isInCart()
+    {
+        $cartItems = CartItem::where('user_id' , sanctum()->id())->where('product_id' , $this->id)->count();
+
+        if ($cartItems > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function quantityInCart()
+    {
+        $cartItems = CartItem::where('user_id' , sanctum()->id())->where('product_id' , $this->id)->count();
+        
+        if ($cartItems > 0) {
+            return $cartItems;
+        } else {
+            return 1;
+        }
+    }
     
     public function getRouteKeyName()
     {
