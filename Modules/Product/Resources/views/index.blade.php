@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>أكثر كمية للطلب </label>
+                                            <label>أقصي كمية للطلب </label>
                                             <input type="number" class="form-control" name="maximum" />
                                         </div>
                                     </div>

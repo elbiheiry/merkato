@@ -76,10 +76,6 @@ class CartController extends Controller
                 return api_response_error('لا يمكن طلب أكثر من '.$cartItem->maximum.' من هذا المنتج');
             }
             
-            if (($cartItem->quantity + $request->quantity) < $cartItem->minimum) {
-                return api_response_error('لا يمكن طلب أقل من '.$cartItem->minimum.' من هذا المنتج');
-            }
-            
             $cartItem->quantity = $cartItem->quantity + $request->quantity;
 
             $cartItem->save();
@@ -96,10 +92,6 @@ class CartController extends Controller
         
         if ($request->quantity > $product->maximum) {
             return api_response_error('لا يمكن طلب أكثر من '.$product->maximum.' من هذا المنتج');
-        }
-        
-        if ($request->quantity < $product->minimum) {
-            return api_response_error('لا يمكن طلب أقل من '.$product->minimum.' من هذا المنتج');
         }
 
         // Create a new cart item   

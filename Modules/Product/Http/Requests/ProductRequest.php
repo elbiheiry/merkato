@@ -24,7 +24,7 @@ class ProductRequest extends FormRequest
             'price' => ['required' , 'numeric'],
             'quantity' => ['required' , 'numeric' , 'gt:0'],
             // 'minimum' => ['required' , 'numeric' , 'gt:0' , 'lt:'.$this->maximum , 'lt:'.$this->quantity],
-            'maximum' => ['required' , 'numeric' , 'lt:'.$this->quantity , 'gt:'.$this->minimum]
+            'maximum' => ['required' , 'numeric' , 'lt:'.$this->quantity]
             // 'special_price' => ['required' , 'numeric']
         ];
     }
@@ -50,8 +50,7 @@ class ProductRequest extends FormRequest
         return [
             'quantity.gt' => 'الكمية يجب أن تكون أكبر من 0',
             // 'minimum.lt' => 'أقل كمية للطلب يجب أن تكون أقل من :attribute',
-            'maximum.lt' => 'أقصي كمية للطلب يجب أن تكون أقل من :attribute',
-            'maximum.gt' => 'أقصي كمية للطلب يجب أن تكون أكثر من :attribute',
+            'maximum.lt' => 'أقصي كمية للطلب يجب أن تكون أقل من :attribute'
         ];   
     }
 
