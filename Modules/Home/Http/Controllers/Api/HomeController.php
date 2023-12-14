@@ -41,7 +41,8 @@ class HomeController extends Controller
             return api_response_success([
                 'banner' => new BannerResource($banner),
                 'offers' => $data,
-                'categories' => CategoryResource::collection($categories)->response()->getData(true)
+                'categories' => CategoryResource::collection($categories)->response()->getData(true),
+                'free_shipping' => sanctum()->user()->type->free_shipping
             ]);
 
         } catch (\Throwable $th) {
