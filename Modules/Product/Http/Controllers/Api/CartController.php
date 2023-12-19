@@ -74,7 +74,7 @@ class CartController extends Controller
             }
 
             if (($cartItem->quantity + $request->quantity) > $product->maximum) {
-                return api_response_error('لا يمكن طلب أكثر من '.$cartItem->maximum.' من هذا المنتج');
+                return api_response_error('لا يمكن طلب أكثر من '.$product->maximum.' من هذا المنتج');
             }
             
             $cartItem->quantity = $cartItem->quantity + $request->quantity;

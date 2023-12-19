@@ -81,7 +81,7 @@ class OrderController extends Controller
         }
 
         $total = $subtotal - $discount;
-        $minimum = Type::where('id' , $user->type_id)->first()->minimum;
+        $minimum = Type::where('id' , $request->type_id)->first()->minimum;
 
         if ($total < $minimum) {
             return api_response_error('أقل قيمة ممكنة  لإتمام الطلب هي : '.$minimum);

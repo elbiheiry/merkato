@@ -42,7 +42,7 @@ class HomeController extends Controller
                 'banner' => new BannerResource($banner),
                 'offers' => $data,
                 'categories' => CategoryResource::collection($categories)->response()->getData(true),
-                'free_shipping' => sanctum()?->user()?->type?->free_shipping
+                'free_shipping' => (float) sanctum()?->user()?->type?->free_shipping
             ]);
 
         } catch (\Throwable $th) {

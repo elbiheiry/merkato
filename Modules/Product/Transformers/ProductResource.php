@@ -30,7 +30,7 @@ class ProductResource extends JsonResource
         ];
 
         if ($this->isInCart()  == true) {
-            $data['quantity_in_cart'] = (int) $this->quantityInCart;
+            $data['quantity_in_cart'] = (int) $this->quantityInCart();
         }
 
         return $data;
