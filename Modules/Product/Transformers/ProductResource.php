@@ -27,11 +27,12 @@ class ProductResource extends JsonResource
             // 'minimum' => (float) $this->minimum,
             'maximum' => (float) $this->maximum,
             'inCart' => (boolean) $this->isInCart(),
+            'quantity_in_cart' => (int) $this->quantityInCart()
         ];
 
-        if ($this->isInCart()  == true) {
-            $data['quantity_in_cart'] = (int) $this->quantityInCart();
-        }
+        // if ($this->isInCart()  == true) {
+        //     $data['quantity_in_cart'] = (int) $this->quantityInCart();
+        // }
 
         return $data;
     }

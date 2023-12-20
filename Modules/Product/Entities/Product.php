@@ -75,12 +75,12 @@ class Product extends Model
 
     public function quantityInCart()
     {
-        $cartItems = CartItem::where('user_id' , sanctum()->id())->where('product_id' , $this->id)->count();
+        $cartItem = CartItem::where('user_id' , sanctum()->id())->where('product_id' , $this->id)->first();
         
-        if ($cartItems > 0) {
-            return $cartItems;
+        if ($cartItem) {
+            return $cartItem->quantity;
         } else {
-            return 1;
+            return 0;
         }
     }
     
