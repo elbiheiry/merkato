@@ -14,6 +14,15 @@ class CategoryController extends Controller
 {
     use ImageTrait;
 
+    public function __construct()
+    {
+        $this->middleware('permission:عرض الأقسام')->only('index');
+        $this->middleware('permission:إنشاء قسم')->only('store');
+        $this->middleware('permission:عرض قسم')->only('edit');
+        $this->middleware('permission:تعديل قسم')->only('update');
+        $this->middleware('permission:حذف قسم')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

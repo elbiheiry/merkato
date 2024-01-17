@@ -12,6 +12,11 @@ use Modules\Page\Http\Requests\PageRequest;
 
 class PageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:عرض الصفحات')->only('index');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

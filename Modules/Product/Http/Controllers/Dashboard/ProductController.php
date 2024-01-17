@@ -17,6 +17,15 @@ class ProductController extends Controller
 {
     use ImageTrait;
 
+    public function __construct()
+    {
+        $this->middleware('permission:عرض المنتجات')->only('index');
+        $this->middleware('permission:إنشاء منتج')->only('store');
+        $this->middleware('permission:عرض منتج')->only('edit');
+        $this->middleware('permission:تعديل منتج')->only('update');
+        $this->middleware('permission:حذف منتج')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

@@ -10,6 +10,12 @@ use Modules\Order\Entities\Order;
 
 class OrderController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:عرض الطلبات')->only('index');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

@@ -14,6 +14,15 @@ class OfferController extends Controller
 {
     use ImageTrait;
 
+    public function __construct()
+    {
+        $this->middleware('permission:عرض العروض')->only('index');
+        $this->middleware('permission:إنشاء عرض')->only('store');
+        $this->middleware('permission:عرض عرض')->only('edit');
+        $this->middleware('permission:تعديل عرض')->only('update');
+        $this->middleware('permission:حذف عرض')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

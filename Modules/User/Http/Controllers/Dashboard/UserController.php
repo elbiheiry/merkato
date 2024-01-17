@@ -13,6 +13,16 @@ use Modules\User\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:عرض المستخدمين')->only('index');
+        $this->middleware('permission:إنشاء مستخدم')->only('store');
+        $this->middleware('permission:عرض مستخدم')->only('edit');
+        $this->middleware('permission:تعديل مستخدم')->only('update');
+        $this->middleware('permission:حذف مستخدم')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable

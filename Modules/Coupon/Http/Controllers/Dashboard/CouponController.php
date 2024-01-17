@@ -11,7 +11,16 @@ use Modules\Coupon\Http\Requests\CouponRequest;
 
 class CouponController extends Controller
 {
-        /**
+    public function __construct()
+    {
+        $this->middleware('permission:عرض الكوبونات')->only('index');
+        $this->middleware('permission:إنشاء كوبون')->only('store');
+        $this->middleware('permission:عرض كوبون')->only('edit');
+        $this->middleware('permission:تعديل كوبون')->only('update');
+        $this->middleware('permission:حذف كوبون')->only('destroy');
+    }
+
+    /**
      * Display a listing of the resource.
      * @return Renderable
      */

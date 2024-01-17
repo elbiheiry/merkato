@@ -20,7 +20,7 @@ class RegisterRequest extends FormRequest
             'first_name' => ['required' , 'string' , 'max:255'],
             'last_name' => ['required' , 'string' , 'max:255'],
             'email' => ['required' , 'string' , 'max:255' , 'email' , 'unique:users,email'],
-            'password' => 'required','string',Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(),
+            'password' => 'required','string',Password::min(8)->mixedCase()->numbers()->uncompromised(),
             'facility_name' => ['required' , 'string' , 'max:255'],
             'city' => ['required' , 'string'],
             'district' => ['required' , 'string'],

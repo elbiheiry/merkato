@@ -8,5 +8,8 @@
     "Page": true,
     "Home": true,
     "Order": true,
-    "Coupon": true
+    "Coupon": true,
+    "Permission": true,
+    "Role": true,
+    "Admin": true
 }

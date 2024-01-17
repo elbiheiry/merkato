@@ -13,6 +13,15 @@ class BannerController extends Controller
 {
     use ImageTrait;
 
+    public function __construct()
+    {
+        $this->middleware('permission:عرض البانرات')->only('index');
+        $this->middleware('permission:إنشاء البانر')->only('store');
+        $this->middleware('permission:عرض البانر')->only('edit');
+        $this->middleware('permission:تعديل البانر')->only('update');
+        $this->middleware('permission:حذف البانر')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -90,7 +99,6 @@ class BannerController extends Controller
             
             return update_response($url);
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             return error_response();
         }
     }

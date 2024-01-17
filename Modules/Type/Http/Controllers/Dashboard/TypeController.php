@@ -14,6 +14,15 @@ class TypeController extends Controller
 {
     use ImageTrait;
 
+    public function __construct()
+    {
+        $this->middleware('permission:عرض الأنواع')->only('index');
+        $this->middleware('permission:إنشاء نوع')->only('store');
+        $this->middleware('permission:عرض نوع')->only('edit');
+        $this->middleware('permission:تعديل نوع')->only('update');
+        $this->middleware('permission:حذف نوع')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
