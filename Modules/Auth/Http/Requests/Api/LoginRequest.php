@@ -16,7 +16,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required' , 'string' , 'max:255' , 'email' , 'exists:users,email'],
+            'mobile' => ['required' , 'exists:users,mobile'],
             'password' => ['required' , 'min:8']
         ];
     }
@@ -29,7 +29,7 @@ class LoginRequest extends FormRequest
     public function attributes()
     {
         return [
-            'email' => 'البريد الإلكتروني',
+            'mobile' => 'رقم الهاتف',
             'password' => 'الرقم السري'
         ];
     }

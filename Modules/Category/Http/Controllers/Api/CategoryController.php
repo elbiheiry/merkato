@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-            $categories = Category::all()->except(['created_at' , 'updated_at'])->sortByDesc('id');
+            $categories = Category::all()->except(['created_at' , 'updated_at'])->where('parent_id' , null)->sortByDesc('id');
             $data = CategoryResource::collection($categories)->response()->getData();
 
             return api_response_success($data);
@@ -36,9 +36,18 @@ class CategoryController extends Controller
         try {
             $category = Category::where('slug' , $slug)->first();
 
-            $data = new CategoryResource($category);
+            if ($category->parent_id != null) {
+                $subCategories = CategoryResource::collection(Category::where('parent_id' , $category->id)->orderByDesc('id')->get())->response()->getData(true);
+            }else{
+                $subCategories = null;
+            }
 
-            return api_response_success($data);
+            $main = new CategoryResource($category);
+
+            return api_response_success([
+                'category' => $main,
+                'subCategories' => $subCategories
+            ]);
         } catch (\Throwable $th) {
             return api_response_error();
         }

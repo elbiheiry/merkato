@@ -84,6 +84,15 @@
                                             <input type="number" class="form-control" name="maximum" />
                                         </div>
                                     </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>إضافة للأكثر مبيعا ؟</label>
+                                            <select class="form-control" name="is_best_sell">
+                                                <option value="0">لا</option>
+                                                <option value="1">نعم</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="col-12">
                                         <button class="link"><span> حفظ</span></button>
@@ -111,6 +120,7 @@
                                         <th>الإسم</th>
                                         <th>السعر</th>
                                         <th>الكمية</th>
+                                        <th>الأكثر مبيعا ؟</th>
                                         <th class="text-center"></th>
                                     </tr>
                                 </thead>
@@ -126,6 +136,7 @@
                                             <td>{{ $product->name }}</td>
                                             <td>{{ $product->price }}</td>
                                             <td>{{ $product->quantity }}</td>
+                                            <td>{{ $product->is_best_sell ? 'نعم' : 'لا' }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('admin.product.edit', ['product' => $product->slug]) }}"
                                                     class="icon">

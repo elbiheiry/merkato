@@ -99,6 +99,17 @@
                                                 value="{{ $product->maximum }}" />
                                         </div>
                                     </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>إضافة للأكثر مبيعا ؟</label>
+                                            <select class="form-control" name="is_best_sell">
+                                                <option value="0" {{ $product->is_best_sell == 0 ? 'selected' : '' }}>
+                                                    لا</option>
+                                                <option value="1" {{ $product->is_best_sell == 1 ? 'selected' : '' }}>
+                                                    نعم</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="col-12">
                                         <button class="link"><span> حفظ</span></button>

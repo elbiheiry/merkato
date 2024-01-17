@@ -31,7 +31,7 @@ class CouponController extends Controller
 
         // Check if the coupon has reached its maximum usage limit
         if ($coupon->max_usage !== null && $coupon->usage_count >= $coupon->max_usage) {
-            return api_response_error('لقد بلغت الحد الاقصي لاستخدام هذا الكوبون');
+            return api_response_error('لقد تم إستخدام هذا البروموكود من قبل');
         }
 
         // Check if the coupon has expired

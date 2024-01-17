@@ -21,7 +21,8 @@ class CategoryResource extends JsonResource
             'id' => (int) $this->id,
             'name' => (string) $this->name,
             'slug' => (string) $this->slug,
-            'image' => (string) $this->image_path
+            'image' => (string) $this->image_path,
+            'is_main' => (boolean) $this->parent_id ? true : false
         ];
     }
 }

@@ -11,6 +11,8 @@ use Modules\Home\Entities\Banner;
 use Modules\Home\Entities\Offer;
 use Modules\Home\Transformers\BannerResource;
 use Modules\Home\Transformers\OfferResource;
+use Modules\Product\Entities\Product;
+use Modules\Product\Transformers\ProductResource;
 
 class HomeController extends Controller
 {
@@ -23,7 +25,7 @@ class HomeController extends Controller
         try {
             $offers = Offer::all()->except('created_at' , 'updated_at');
             $banner = Banner::first();
-            $categories = Category::all()->except(['created_at' , 'updated_at'])->sortByDesc('id');
+            $categories = Category::all()->except(['created_at' , 'updated_at'])->where('parent_id' , null)->sortByDesc('id');
             $data = [];
             
             foreach($offers as $offer)
@@ -34,15 +36,15 @@ class HomeController extends Controller
                     'image' => (string) $offer->image_path,
                     'isproducts' => (boolean) $offer->related_products ? true : false,
                 ]);
-                
-                
             }
+            $products = Product::where('is_best_sell' , true)->orderByDesc('id')->get();
 
             return api_response_success([
                 'banner' => new BannerResource($banner),
                 'offers' => $data,
                 'categories' => CategoryResource::collection($categories)->response()->getData(true),
-                'free_shipping' => (float) sanctum()?->user()?->type?->free_shipping
+                'free_shipping' => (float) sanctum()?->user()?->type?->free_shipping,
+                'best_sells' => ProductResource::collection($products)->response()->getData(true)
             ]);
 
         } catch (\Throwable $th) {

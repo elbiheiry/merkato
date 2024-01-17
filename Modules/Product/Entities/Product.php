@@ -17,7 +17,7 @@ class Product extends Model
         'id' , 'name' , 'description' , 'price' ,
         'category_id' , 'type_id' , 'slug' , 'image' ,
         'special_price' , 'discount' , 'quantity' , 
-        'minimum' , 'maximum'
+        'minimum' , 'maximum' , 'is_best_sell'
     ];
 
     protected $hidden = ['created_at' , 'updated_at'];

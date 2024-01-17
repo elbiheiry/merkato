@@ -27,7 +27,7 @@ class RegisterRequest extends FormRequest
             'street' => ['required' , 'string' , 'max:255'],
             'facility_number' => ['required' , 'numeric'],
             'floor' => ['required' , 'numeric'],
-            'mobile' => ['required']
+            'mobile' => ['required' , 'unique:users,mobile']
         ];
     }
 

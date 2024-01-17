@@ -50,7 +50,8 @@ class AuthController extends Controller
 
     public function login(LoginRequest $loginRequest)
     {
-        $user = User::where('email', $loginRequest->email)->first();
+        $user = User::where('mobile', $loginRequest->mobile)->first();
+
         if ($user) {
             if (Hash::check($loginRequest->password, $user->password)) {
                 $token = $user->createToken('login')->plainTextToken;
@@ -134,8 +135,7 @@ class AuthController extends Controller
     public function change_password(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'email' => ['required', 'exists:users,email'],
-            'token' => ['required'],
+            'mobile' => ['required', 'exists:users,mobile'],
             'password' => [
                 'required',
                 'string',
@@ -147,8 +147,7 @@ class AuthController extends Controller
                 'confirmed',
             ],
         ], [], [
-            'email' => 'البريد الإلكتروني',
-            'token' => 'الرمز التعريفي',
+            'mobile' => 'رقم الهاتف',
             'password' => 'الرقم السري الجديد',
         ]);
 
@@ -156,22 +155,19 @@ class AuthController extends Controller
             return api_response_error($validation->errors()->first());
         }
 
-        $user = User::where('email', $request['email'])->first();
+        $user = User::where('mobile', $request['mobile'])->first();
 
         if (!$user) {
             return api_response_error('لا توجد مثل هذه البيانات في قاعدة البيانات');
         }
 
-        $resetRequest = PasswordReset::where('email', $request['email'])->first();
+        $resetRequest = PasswordReset::where('mobile', $request['mobile'])->first();
 
-        if (!$resetRequest || $resetRequest->token != $request['token']) {
-            return api_response_error('الرمز التعريفي غير صحيح');
-        }
         $user->update([
             'password' => Hash::make($request['password']),
         ]);
 
-        PasswordReset::where('email', $request['email'])->delete();
+        PasswordReset::where('email', $user->email)->delete();
 
         $token = $user->createToken('login')->plainTextToken;
 

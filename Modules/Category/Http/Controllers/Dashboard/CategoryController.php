@@ -29,13 +29,24 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $data = Category::select(['id','name','image','slug' , 'parent_id']);
         $categories = app(Pipeline::class)
-            ->send(Category::select(['id','name','image','slug']))
+            ->send($data)
             ->thenReturn()
             ->orderByDesc('id')
             ->paginate(15);
-            
-        return view('category::index' , ['categories' => $categories]);
+
+        $parentCategories = app(Pipeline::class)
+            ->send($data)
+            ->thenReturn()
+            ->where('parent_id' , null)
+            ->orderByDesc('id')
+            ->get();
+
+        return view('category::index' , [
+            'categories' => $categories,
+            'parentCategories' => $parentCategories
+        ]);
     }
 
     /**
@@ -47,6 +58,7 @@ class CategoryController extends Controller
     {
         try {
             Category::create([
+                'parent_id' => $request->parent_id == 0 ? null : $request->parent_id,
                 'name' => $request->name,
                 'image' => $this->image_manipulate($request->image , 'categories'),
                 'slug' => SlugService::createSlug(Category::class , 'slug' , $request->name , ['unique' => true])
@@ -76,7 +88,15 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('category::edit' , ['category' => $category]);
+        $parentCategories = Category::select(['id','name','image','slug' , 'parent_id'])
+                            ->where('parent_id' , null)
+                            ->orderByDesc('id')
+                            ->get();
+
+        return view('category::edit' , [
+            'category' => $category,
+            'parentCategories' => $parentCategories
+        ]);
     }
 
     /**
@@ -97,6 +117,8 @@ class CategoryController extends Controller
                 $this->image_delete($category->image , 'categories');
                 $data['image'] = $this->image_manipulate($request->image , 'categories');
             }
+
+            $data['parent_id'] = $request->parent_id == 0 ? null : $request->parent_id;
 
             $category->update($data);
 
