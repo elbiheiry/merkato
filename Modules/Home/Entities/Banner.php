@@ -11,7 +11,7 @@ class Banner extends Model
 {
     use HasFactory , ImageTrait;
 
-    protected $fillable = ['title' , 'subtitle' , 'image' ];
+    protected $fillable = ['image' ];
     
     // protected static function newFactory()
     // {

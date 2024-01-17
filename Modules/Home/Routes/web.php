@@ -15,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 use Modules\Home\Http\Controllers\Dashboard\BannerController;
 use Modules\Home\Http\Controllers\Dashboard\OfferController;
 
-Route::middleware('auth:web')->name('admin.')->controller(BannerController::class)->prefix('admin')->group(function () {
-    Route::get('/banner' , 'index')->name('banner.index');
-    Route::put('/banner/update' , 'update')->name('banner.update');
+Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function () {
+    Route::resource('banner' , BannerController::class);
 });
 
 Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function () {

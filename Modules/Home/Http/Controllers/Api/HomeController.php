@@ -24,7 +24,7 @@ class HomeController extends Controller
     {
         try {
             $offers = Offer::all()->except('created_at' , 'updated_at');
-            $banner = Banner::first();
+            $banner = Banner::all();
             $categories = Category::all()->except(['created_at' , 'updated_at'])->where('parent_id' , null)->sortByDesc('id');
             $data = [];
             
@@ -40,7 +40,7 @@ class HomeController extends Controller
             $products = Product::where('is_best_sell' , true)->orderByDesc('id')->get();
 
             return api_response_success([
-                'banner' => new BannerResource($banner),
+                'banner' => BannerResource::collection($banner)->response()->getData(true),
                 'offers' => $data,
                 'categories' => CategoryResource::collection($categories)->response()->getData(true),
                 'free_shipping' => (float) sanctum()?->user()?->type?->free_shipping,

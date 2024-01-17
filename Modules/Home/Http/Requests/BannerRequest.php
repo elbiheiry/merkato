@@ -16,18 +16,14 @@ class BannerRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => ['image' , 'max:2024'],
-            'title' => ['required' , 'string' , 'max:255'],
-            'subtitle' => ['required' , 'string' , 'max:255']
+            'image' => $this->isMethod('put') ? ['image' , 'max:2024'] : ['required' , 'image' , 'max:2024']
         ];
     }
 
     public function attributes()
     {
         return [
-            'image' => 'الصورة',
-            'title' => 'العنوان',
-            'subtitle' => 'الوصف'
+            'image' => 'الصورة'
         ];   
     }
 

@@ -28,9 +28,9 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banner = Banner::first();
+        $banners = Banner::all();
 
-        return view('home::banner.index' , compact('banner'));
+        return view('home::banner.index' , compact('banners'));
     }
 
     /**
@@ -47,9 +47,19 @@ class BannerController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(BannerRequest $request)
     {
-        //
+        try {
+            $data['image'] = $this->image_manipulate($request->image , 'banners');
+
+            Banner::create($data);
+
+            $url = route('admin.banner.index');
+            
+            return add_response($url);
+        } catch (\Throwable $th) {
+            return error_response();
+        }
     }
 
     /**
@@ -67,9 +77,9 @@ class BannerController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Banner $banner)
     {
-        return view('home::edit');
+        return view('home::banner.edit' , ['banner' => $banner]);
     }
 
     /**
@@ -78,16 +88,9 @@ class BannerController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(BannerRequest $request)
+    public function update(BannerRequest $request , Banner $banner)
     {
         try {
-            $banner = Banner::first();
-
-            $data = [
-                'title' => $request->title,
-                'subtitle' => $request->subtitle,
-            ];
-
             if ($request->hasFile('image')) {
                 $this->image_delete($banner->image , 'banners');
                 $data['image'] = $this->image_manipulate($request->image , 'banners');
@@ -105,11 +108,14 @@ class BannerController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
+     * @param Banner $banner
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Banner $banner)
     {
-        //
+        $this->image_delete($banner->image , 'banners');
+        $banner->delete();
+
+        return redirect()->back();
     }
 }
