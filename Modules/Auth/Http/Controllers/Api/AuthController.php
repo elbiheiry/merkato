@@ -161,7 +161,7 @@ class AuthController extends Controller
             return api_response_error('لا توجد مثل هذه البيانات في قاعدة البيانات');
         }
 
-        $resetRequest = PasswordReset::where('mobile', $request['mobile'])->first();
+        $resetRequest = PasswordReset::where('email', $user->email)->first();
 
         $user->update([
             'password' => Hash::make($request['password']),
