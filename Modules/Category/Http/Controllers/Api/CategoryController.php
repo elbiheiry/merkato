@@ -36,7 +36,7 @@ class CategoryController extends Controller
         try {
             $category = Category::where('slug' , $slug)->first();
 
-            if ($category->parent_id != null) {
+            if ($category->parent_id == null) {
                 $subCategories = CategoryResource::collection(Category::where('parent_id' , $category->id)->orderByDesc('id')->get())->response()->getData(true);
             }else{
                 $subCategories = null;

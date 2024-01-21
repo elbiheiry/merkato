@@ -43,19 +43,6 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label> النوع</label>
-                                            <select class="form-control" name="type_id">
-                                                <option value="0">إختر النوع</option>
-                                                @foreach ($types as $type)
-                                                    <option value="{{ $type->id }}"
-                                                        {{ $type->id == $product->type_id ? 'selected' : '' }}>
-                                                        {{ $type->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
                                             <label> الصورة</label>
                                             <input type="file" class="jfilestyle" name="image" />
                                         </div>
@@ -70,46 +57,122 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>الوصف </label>
-                                            <input type="text" class="form-control" name="description"
-                                                value="{{ $product->description }}" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>السعر </label>
-                                            <input type="number" class="form-control" name="price"
-                                                value="{{ $product->price }}" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>الخصم </label>
-                                            <input type="number" class="form-control" name="discount"
-                                                value="{{ $product->discount }}" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>الكمية </label>
+                                            <label>إجمالي الكمية </label>
                                             <input type="number" class="form-control" name="quantity"
                                                 value="{{ $product->quantity }}" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>أقصي كمية للطلب </label>
+                                            <label> الوصف لكبار العملاء </label>
+                                            <input type="text" class="form-control" name="description"
+                                                value="{{ $product->description }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>السعر لكبار العملاء</label>
+                                            <input type="number" class="form-control" name="price"
+                                                value="{{ $product->price ?? 0 }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>الخصم لكبار العملاء</label>
+                                            <input type="number" class="form-control" name="discount"
+                                                value="{{ $product->discount ?? 0 }}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أقصي كمية للطلب لكبار العملاء</label>
                                             <input type="number" class="form-control" name="maximum"
-                                                value="{{ $product->maximum }}" />
+                                                value="{{ $product->maximum ?? 0 }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label> الوصف لعملاء الجملة </label>
+                                            <input type="text" class="form-control" name="description1"
+                                                value="{{ $product->description1 }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>السعر لعملاء الجملة</label>
+                                            <input type="number" class="form-control" name="price1"
+                                                value="{{ $product->price1 ?? 0 }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>الخصم لعملاء الجملة</label>
+                                            <input type="number" class="form-control" name="discount1"
+                                                value="{{ $product->discount1 ?? 0 }}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أقصي كمية للطلب لعملاء الجملة</label>
+                                            <input type="number" class="form-control" name="maximum1"
+                                                value="{{ $product->maximum1 ?? 0 }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label> الوصف لعملاء القطاعي </label>
+                                            <input type="text" class="form-control" name="description2"
+                                                value="{{ $product->description2 }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>السعر لعملاء القطاعي</label>
+                                            <input type="number" class="form-control" name="price2"
+                                                value="{{ $product->price2 ?? 0 }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>الخصم لعملاء القطاعي</label>
+                                            <input type="number" class="form-control" name="discount2"
+                                                value="{{ $product->discount2 ?? 0 }}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أقصي كمية للطلب لعملاء القطاعي</label>
+                                            <input type="number" class="form-control" name="maximum2"
+                                                value="{{ $product->maximum2 ?? 0 }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>معامل التحويل الأول</label>
+                                            <input type="number" class="form-control" name="convert1"
+                                                value="{{ $product->convert1 ?? 0 }}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>معامل التحويل الثاني</label>
+                                            <input type="number" class="form-control" name="convert2"
+                                                value="{{ $product->convert2 ?? 0 }}" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>إضافة للأكثر مبيعا ؟</label>
                                             <select class="form-control" name="is_best_sell">
-                                                <option value="0" {{ $product->is_best_sell == 0 ? 'selected' : '' }}>
+                                                <option value="0"
+                                                    {{ $product->is_best_sell == 0 ? 'selected' : '' }}>
                                                     لا</option>
-                                                <option value="1" {{ $product->is_best_sell == 1 ? 'selected' : '' }}>
+                                                <option value="1"
+                                                    {{ $product->is_best_sell == 1 ? 'selected' : '' }}>
                                                     نعم</option>
                                             </select>
                                         </div>

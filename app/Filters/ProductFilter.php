@@ -10,9 +10,4 @@ class ProductFilter extends Filters
     {
         return $this->builder->where('category_id' , $category);
     }
-
-    public function type($type)
-    {
-        return $this->builder->where('type_id' , $type);
-    }
 }

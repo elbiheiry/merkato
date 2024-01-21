@@ -17,15 +17,18 @@ class ProductRequest extends FormRequest
     {
         return [
             'category_id' => ['required' , 'not_in:0'],
-            'type_id' => ['required' , 'not_in:0'],
             'image' => $this->isMethod('post') ? ['required' , 'image' , 'max:2024'] : ['image' , 'max:2024'],
             'name' => ['required' , 'string' , 'max:255'],
+            'quantity' => ['required' , 'numeric' , 'gt:0'],
             'description' => ['required' , 'string' , 'max:255'],
             'price' => ['required' , 'numeric'],
-            'quantity' => ['required' , 'numeric' , 'gt:0'],
-            // 'minimum' => ['required' , 'numeric' , 'gt:0' , 'lt:'.$this->maximum , 'lt:'.$this->quantity],
-            'maximum' => ['required' , 'numeric' , 'lt:'.$this->quantity]
-            // 'special_price' => ['required' , 'numeric']
+            'maximum' => ['required' , 'numeric' , 'lt:'.$this->quantity],
+            'description1' => ['required' , 'string' , 'max:255'],
+            'price1' => ['required' , 'numeric'],
+            'maximum1' => ['required' , 'numeric' , 'lt:'.$this->quantity],
+            'description2' => ['required' , 'string' , 'max:255'],
+            'price2' => ['required' , 'numeric'],
+            'maximum2' => ['required' , 'numeric' , 'lt:'.$this->quantity],
         ];
     }
 
@@ -35,13 +38,16 @@ class ProductRequest extends FormRequest
             'image' => 'الصورة',
             'name' => 'الإسم',
             'category_id' => 'القسم',
-            'type_id' => 'النوع',
-            'description' => 'الوصف',
-            'price' => 'السعر',
-            'special_price' => 'السعر للعملاء المميزين',
             'quantity' => 'الكمية',
-            // 'minimum' => 'أقل قيمة للطلب',
-            'maximum' => 'أكبر قيمة للطلب'
+            'description' => 'الوصف لكبار العملاء',
+            'price' => 'السعر لكبار العملاء',
+            'maximum' => 'أكبر قيمة للطلب لكبار العملاء',
+            'description1' => 'الوصف لعملاء الجملة',
+            'price1' => 'السعر لعملاء الجملة',
+            'maximum1' => 'أكبر قيمة للطلب لعملاء الجملة',
+            'description2' => 'الوصف لكبار لعملاء القطاعي',
+            'price2' => 'السعر لكبار لعملاء القطاعي',
+            'maximum2' => 'أكبر قيمة للطلب لعملاء القطاعي'
         ];   
     }
 

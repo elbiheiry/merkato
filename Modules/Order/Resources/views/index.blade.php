@@ -76,6 +76,9 @@
                                                     @endif
 
 
+                                                    <a href="{{ route('admin.order.show', ['order' => $order->id]) }}"
+                                                        class="icon" title="عرض"><i class="fas fa-eye"></i></a>
+
                                                     <a href="javascript:;" class="icon delete-btn"
                                                         style="background-color:red"
                                                         data-url="{{ route('admin.order.destroy', ['order' => $order->id]) }}"><i

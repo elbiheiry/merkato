@@ -106,7 +106,14 @@ class OrderController extends Controller
             ]);
             
             $product = Product::where('id' , $item->product_id)->first();
-            $product->decrement('quantity' ,$item->quantity);
+
+            if ($product->convert1 != 0) {
+                $product->decrement('quantity' ,($item->quantity * $product->convert1));
+            }elseif ($product->convert2 != 0) {
+                $quantity = $item->quantity * $product->convert1 * $product->convert2;
+                $product->decrement('quantity' ,$quantity);    
+            }
+            
 
             $item->delete();
         }

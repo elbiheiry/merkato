@@ -20,11 +20,11 @@ class ProductResource extends JsonResource
             'image' => (string) $this->image_path,
             'price' => (float) $this->getPrice(),
             'price_before_discount' => (float) $this->price_before_discount(),
-            'description' => (string) $this->description,
+            'description' => (string) $this->getDescription(),
             'slug' => (string) $this->slug,
-            'has_discount' => (boolean) ($this->discount || $this->discount != 0) ? true : false,
+            'has_discount' => (boolean) ($this->getDiscount() || $this->getDiscount() != 0) ? true : false,
             'quantity' => (float) $this->quantity,
-            'maximum' => (float) $this->maximum,
+            'maximum' => (float) $this->getMaximum(),
             'inCart' => (boolean) $this->isInCart(),
             'quantity_in_cart' => (int) $this->quantityInCart()
         ];

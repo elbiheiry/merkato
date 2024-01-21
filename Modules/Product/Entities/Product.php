@@ -8,16 +8,24 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Storage;
+use Modules\Type\Entities\Type;
 
 class Product extends Model
 {
     use HasFactory , ImageTrait , Sluggable;
 
     protected $fillable = [
-        'id' , 'name' , 'description' , 'price' ,
-        'category_id' , 'type_id' , 'slug' , 'image' ,
-        'special_price' , 'discount' , 'quantity' , 
-        'minimum' , 'maximum' , 'is_best_sell'
+        'id' , 'name' ,
+        'description' , 'price' ,
+        'category_id' ,  'slug' ,
+        'image' , 'discount' , 
+        'quantity', 'minimum' ,
+        'maximum' , 'is_best_sell',
+        'description1' , 'maximum1',
+        'price1' , 'discount1' ,
+        'description2' , 'maximum2',
+        'price2' , 'discount2' ,
+        'convert1' , 'convert2' ,
     ];
 
     protected $hidden = ['created_at' , 'updated_at'];
@@ -46,15 +54,77 @@ class Product extends Model
 
     public function getPrice()
     {
-        if ($this->discount || $this->discount != 0) {
-            return $this->price - ($this->price * $this->discount / 100);
+        if (request()->get('type') == 1) {
+            $price = $this->price;
+            $discount = $this->discount;
+        }else if(request()->get('type') == 2){
+            $price = $this->price1;
+            $discount = $this->discount1;
+        }else{
+            $price = $this->price2;
+            $discount = $this->discount2;
         }
-        return $this->price;
+
+        if ($discount || $discount != 0) {
+            return $price - ($price * $discount / 100);
+        }
+        return $price;
     }
 
     public function price_before_discount()
     {
-        return ($this->discount || $this->discount != 0) ? $this->price : null;
+        if (request()->get('type') == 1) {
+            $price = $this->price;
+            $discount = $this->discount;
+        }else if(request()->get('type') == 2){
+            $price = $this->price1;
+            $discount = $this->discount1;
+        }else{
+            $price = $this->price2;
+            $discount = $this->discount2;
+        }
+
+        return ($discount || $discount != 0) ? $price : null;
+    }
+
+
+    public function getMaximum()
+    {
+        if (request()->get('type') == 1) {
+            $maximum = $this->maximum;
+        }else if(request()->get('type') == 2){
+            $maximum = $this->maximum1;
+        }else{
+            $maximum = $this->maximum2;
+        }
+
+        return $maximum;
+    }
+
+    public function getDiscount()
+    {
+        if (request()->get('type') == 1) {
+            $discount = $this->discount;
+        }else if(request()->get('type') == 2){
+            $discount = $this->discount1;
+        }else{
+            $discount = $this->discount2;
+        }
+
+        return $discount;
+    }
+
+    public function getDescription()
+    {
+        if (request()->get('type') == 1) {
+            $description = $this->description;
+        }else if(request()->get('type') == 2){
+            $description = $this->description1;
+        }else{
+            $description = $this->description2;
+        }
+
+        return $description;
     }
 
     public function scopeFilter($query,ProductFilter $filter)

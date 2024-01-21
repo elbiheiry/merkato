@@ -36,17 +36,6 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label> النوع</label>
-                                            <select class="form-control" name="type_id">
-                                                <option value="0">إختر النوع</option>
-                                                @foreach ($types as $type)
-                                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
                                             <label> الصورة</label>
                                             <input type="file" class="jfilestyle" name="image" />
                                         </div>
@@ -60,32 +49,96 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>الوصف </label>
-                                            <input type="text" class="form-control" name="description" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>السعر </label>
-                                            <input type="number" class="form-control" name="price" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>الخصم </label>
-                                            <input type="number" class="form-control" name="discount" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>الكمية </label>
+                                            <label>إجمالي الكمية </label>
                                             <input type="number" class="form-control" name="quantity" />
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>أقصي كمية للطلب </label>
+                                            <label> الوصف لكبار العملاء </label>
+                                            <input type="text" class="form-control" name="description" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>السعر لكبار العملاء</label>
+                                            <input type="number" class="form-control" name="price" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>الخصم لكبار العملاء</label>
+                                            <input type="number" class="form-control" name="discount" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أقصي كمية للطلب لكبار العملاء</label>
                                             <input type="number" class="form-control" name="maximum" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label> الوصف لعملاء الجملة </label>
+                                            <input type="text" class="form-control" name="description1" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>السعر لعملاء الجملة</label>
+                                            <input type="number" class="form-control" name="price1" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>الخصم لعملاء الجملة</label>
+                                            <input type="number" class="form-control" name="discount1" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أقصي كمية للطلب لعملاء الجملة</label>
+                                            <input type="number" class="form-control" name="maximum1" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label> الوصف لعملاء القطاعي </label>
+                                            <input type="text" class="form-control" name="description2" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>السعر لعملاء القطاعي</label>
+                                            <input type="number" class="form-control" name="price2" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>الخصم لعملاء القطاعي</label>
+                                            <input type="number" class="form-control" name="discount2" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>أقصي كمية للطلب لعملاء القطاعي</label>
+                                            <input type="number" class="form-control" name="maximum2" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>معامل التحويل الأول</label>
+                                            <input type="number" class="form-control" name="convert1" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>معامل التحويل الثاني</label>
+                                            <input type="number" class="form-control" name="convert2" />
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -147,7 +200,8 @@
                                                     <i class="fas fa-edit" data-toggle="tooltip" data-placement="top"
                                                         title="تعديل "></i></a>
 
-                                                <a href="javascript:;" class="icon delete-btn" style="background-color:red"
+                                                <a href="javascript:;" class="icon delete-btn"
+                                                    style="background-color:red"
                                                     data-url="{{ route('admin.product.destroy', ['product' => $product->slug]) }}"><i
                                                         class="fas fa-trash"></i></a>
                                             </td>

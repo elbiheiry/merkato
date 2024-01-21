@@ -33,7 +33,6 @@ class ProductController extends Controller
     public function index()
     {
         $categories = Category::all('id' , 'name')->where('parent_id' , null);
-        $types = Type::all('id' , 'name');
 
         $products = app(Pipeline::class)
             ->send(Product::select(['id','name','image','slug','price' , 'quantity']))
@@ -43,8 +42,7 @@ class ProductController extends Controller
 
         return view('product::index' , [
             'products' => $products,
-            'categories' => $categories,
-            'types' => $types
+            'categories' => $categories
         ]);
     }
 
@@ -98,11 +96,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all()->except('image' , 'created_at' , 'updated_at' , 'slug')->where('parent_id' , null);
-        $types = Type::all()->except('image' , 'created_at' , 'updated_at' , 'slug');
 
         return view('product::edit' , [
             'categories' => $categories,
-            'types' => $types,
             'product' => $product
         ]);
     }
