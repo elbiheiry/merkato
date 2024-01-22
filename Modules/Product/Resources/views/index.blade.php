@@ -6,7 +6,8 @@
         <!--End Header -->
         <div class="dashboard_content">
             <div class="col-lg-12">
-                <div class="widget">
+                @can('إضافة منتج')
+                    <div class="widget">
                     <div class="row">
                         <div class="col-12">
                             <div class="widget_title d-flex justify-content-between align-items-center">
@@ -159,66 +160,72 @@
                         </div>
                     </div>
                 </div>
+                @endcan
             </div>
-            <div class="widget">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="widget_title d-flex justify-content-between align-items-center">
-                            <h3 class="m-0">
-                                <i class="fas fa-list"></i> المنتجات
-                            </h3>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-bordered" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th class="small-wide">#</th>
-                                        <th>الصورة</th>
-                                        <th>الإسم</th>
-                                        <th>السعر</th>
-                                        <th>الكمية</th>
-                                        <th>الأكثر مبيعا ؟</th>
-                                        <th class="text-center"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $x = 1;
-                                    @endphp
-                                    @foreach ($products as $product)
+            @can('عرض المنتجات')
+                <div class="widget">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget_title d-flex justify-content-between align-items-center">
+                                <h3 class="m-0">
+                                    <i class="fas fa-list"></i> المنتجات
+                                </h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="width: 100%">
+                                    <thead>
                                         <tr>
-                                            <td class="small-wide">{{ $x }}</td>
-                                            <td><img class="img-table" src="{{ $product->image_path }}" width="150">
-                                            </td>
-                                            <td>{{ $product->name }}</td>
-                                            <td>{{ $product->price }}</td>
-                                            <td>{{ $product->quantity }}</td>
-                                            <td>{{ $product->is_best_sell ? 'نعم' : 'لا' }}</td>
-                                            <td class="text-center">
-                                                <a href="{{ route('admin.product.edit', ['product' => $product->slug]) }}"
-                                                    class="icon">
-                                                    <i class="fas fa-edit" data-toggle="tooltip" data-placement="top"
-                                                        title="تعديل "></i></a>
-
-                                                <a href="javascript:;" class="icon delete-btn"
-                                                    style="background-color:red"
-                                                    data-url="{{ route('admin.product.destroy', ['product' => $product->slug]) }}"><i
-                                                        class="fas fa-trash"></i></a>
-                                            </td>
+                                            <th class="small-wide">#</th>
+                                            <th>الصورة</th>
+                                            <th>الإسم</th>
+                                            <th>السعر</th>
+                                            <th>الكمية</th>
+                                            <th>الأكثر مبيعا ؟</th>
+                                            <th class="text-center"></th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
                                         @php
-                                            $x++;
+                                            $x = 1;
                                         @endphp
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <div class="mt-5">
-                                {!! $products->links() !!}
+                                        @foreach ($products as $product)
+                                            <tr>
+                                                <td class="small-wide">{{ $x }}</td>
+                                                <td><img class="img-table" src="{{ $product->image_path }}" width="150">
+                                                </td>
+                                                <td>{{ $product->name }}</td>
+                                                <td>{{ $product->price }}</td>
+                                                <td>{{ $product->quantity }}</td>
+                                                <td>{{ !$product->is_best_sell ? 'نعم' : 'لا' }}</td>
+                                                <td class="text-center">
+                                                    @can('تعديل منتج')
+                                                        <a href="{{ route('admin.product.edit', ['product' => $product->slug]) }}"
+                                                            class="icon">
+                                                            <i class="fas fa-edit" data-toggle="tooltip" data-placement="top"
+                                                                title="تعديل "></i></a>
+                                                    @endcan
+                                                    @can('حذف منتج')
+                                                        <a href="javascript:;" class="icon delete-btn"
+                                                            style="background-color:red"
+                                                            data-url="{{ route('admin.product.destroy', ['product' => $product->slug]) }}"><i
+                                                                class="fas fa-trash"></i></a>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                            @php
+                                                $x++;
+                                            @endphp
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <div class="mt-5">
+                                    {!! $products->links() !!}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endcan
         </div>
     </main>
 @endsection
