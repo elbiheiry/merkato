@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Routing\Controller;
 use Modules\Category\Entities\Category;
+use Modules\Product\Entities\CartItem;
 use Modules\Category\Http\Requests\Dashboard\CategoryRequest;
 
 class CategoryController extends Controller
@@ -137,6 +138,10 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $this->image_delete($category->image , 'categories');
+        foreach($category->products as $product){
+        CartItem::where('product_id' , $product->id)->delete();
+        $product->delete();
+        }
         $category->delete();
 
         return redirect()->back();

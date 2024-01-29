@@ -43,7 +43,7 @@
                                         <div class="form-group">
                                             <label>القسم الرئيسي </label>
                                             <select class="form-control" name="parent_id">
-                                                <option value="0">نعم</option>
+                                                <option value="0" {{$category->parent_id == null ? 'selected' : ''}}>نعم</option>
                                                 @foreach ($parentCategories as $item)
                                                     <option value="{{ $item->id }}"
                                                         {{ $item->id == $category->parent_id ? 'selected' : '' }}>ينتمي إلي

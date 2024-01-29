@@ -84,7 +84,7 @@ class OrderController extends Controller
         $minimum = Type::where('id' , $request->type_id)->first()->minimum;
 
         if ($total < $minimum) {
-            return api_response_error('أقل قيمة ممكنة  لإتمام الطلب هي : '.$minimum);
+            return api_response_error('أقل قيمة ممكنة  لإتمام الطلب هي : '.$minimum.' جنيه');
         }
 
         $order = Order::create([

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
+use Modules\Product\Entities\Product;
 class Category extends Model
 {
     use HasFactory , ImageTrait , Sluggable;
@@ -57,6 +58,11 @@ class Category extends Model
         }else{
             return 'https://placehold.co/600x400';
         }
+    }
+    
+    public function products()
+    {
+    return $this->hasMany(Product::class);
     }
     
     public function getRouteKeyName()
