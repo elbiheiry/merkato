@@ -107,7 +107,7 @@ class OrderController extends Controller
             
             $product = Product::where('id' , $item->product_id)->first();
 
-            if ($product->convert1 != 0) {
+            if ($product->convert1 != 0 && $product->convert2 == 0) {
                 $quantity = $item->quantity * $product->convert1;
                 
             }elseif ($product->convert2 != 0) {
