@@ -13,6 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Home\Http\Controllers\Dashboard\BannerController;
+use Modules\Home\Http\Controllers\Dashboard\HomeController;
 use Modules\Home\Http\Controllers\Dashboard\OfferController;
 
 Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function () {
@@ -21,4 +22,9 @@ Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function (
 
 Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function () {
     Route::resource('offer' , OfferController::class);
+});
+
+Route::middleware('auth:web')->name('admin.')->prefix('admin/home-data')->group(function () {
+    Route::get('/' , [HomeController::class , 'index'])->name('home.index');
+    Route::put('/update' , [HomeController::class , 'update'])->name('home.update');
 });

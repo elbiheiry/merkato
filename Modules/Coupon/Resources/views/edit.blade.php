@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>قيمة الخصم</label>
+                                            <label>قيمة الخصم (%)</label>
                                             <input type="number" class="form-control" name="discount"
                                                 value="{{ $coupon->discount }}" />
                                         </div>

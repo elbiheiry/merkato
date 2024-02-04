@@ -16,4 +16,5 @@ use Modules\User\Http\Controllers\Dashboard\UserController;
 
 Route::middleware('auth:web')->name('admin.')->prefix('admin')->group(function () {
     Route::resource('user' , UserController::class);
+    Route::get('change-status/{user}' , [UserController::class , 'changeStatus'])->name('user.status');
 });

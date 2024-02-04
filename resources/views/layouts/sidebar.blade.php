@@ -11,6 +11,12 @@
                 <i class="fas fa-meteor"></i> لوحــة التحكــم
             </a>
         </li>
+        <li>
+            <a href="{{ route('admin.home.index') }}"
+                class="nav-item {{ request()->is('admin/home-data') ? 'active' : '' }}">
+                <i class="fas fa-home"></i> الصفحة الرئيسيه
+            </a>
+        </li>
         @can('عرض البانرات')
             <li>
                 <a href="{{ route('admin.banner.index') }}"

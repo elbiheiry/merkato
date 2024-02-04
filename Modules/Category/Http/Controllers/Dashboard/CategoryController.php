@@ -139,8 +139,8 @@ class CategoryController extends Controller
     {
         $this->image_delete($category->image , 'categories');
         foreach($category->products as $product){
-        CartItem::where('product_id' , $product->id)->delete();
-        $product->delete();
+            CartItem::where('product_id' , $product->id)->delete();
+            $product->delete();
         }
         $category->delete();
 

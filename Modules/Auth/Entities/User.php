@@ -33,7 +33,8 @@ class User extends Authenticatable
         'facility_name',
         'floor',
         'code' ,
-        'type_id'
+        'type_id',
+        'block_status'
     ];
 
     /**
@@ -73,5 +74,14 @@ class User extends Authenticatable
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+
+    public function delete()
+    {
+        $this->cartItems()->delete();
+        $this->addresses()->delete();
+        $this->orders()->delete();
+        
+        return parent::delete();   
     }
 }

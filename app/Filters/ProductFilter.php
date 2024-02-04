@@ -8,6 +8,10 @@ class ProductFilter extends Filters
 
     public function category($category)
     {
-        return $this->builder->where('category_id' , $category);
+        return $this->builder->whereHas('category' , function ($query) use ($category){
+            $query->where('id' , $category)->orWhereHas('mainCategory' , function ($query2) use ($category) {
+                $query2->where('id' , $category);
+            });
+        });
     }
 }

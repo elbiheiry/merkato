@@ -19,7 +19,7 @@ class TypeController extends Controller
         try {
             $types = Type::orderByDesc('id')->get();
 
-            if (sanctum()->user()->type_id != 1) {
+            if (sanctum()->user()->type_id != 1 || sanctum()->user()->type_id == null) {
                 $types = $types->except('1');
             }
             $data = TypeResource::collection($types)->response()->getData();

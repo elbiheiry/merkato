@@ -30,7 +30,7 @@ class UserController extends Controller
     public function index()
     {
         $users = app(Pipeline::class)
-            ->send(User::select(['id','name','type_id','email','mobile']))
+            ->send(User::select(['id','name','type_id','email','mobile' , 'block_status']))
             ->thenReturn()
             ->orderByDesc('id')
             ->paginate(15);
@@ -127,6 +127,15 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
+        return redirect()->back();
+    }
+
+    public function changeStatus(User $user)
+    {
+        $user->update([
+            'block_status' => !$user->block_status
+        ]);
 
         return redirect()->back();
     }

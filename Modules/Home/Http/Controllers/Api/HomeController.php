@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Category\Entities\Category;
 use Modules\Category\Transformers\CategoryResource;
 use Modules\Home\Entities\Banner;
+use Modules\Home\Entities\Home;
 use Modules\Home\Entities\Offer;
 use Modules\Home\Transformers\BannerResource;
 use Modules\Home\Transformers\OfferResource;
@@ -26,6 +27,7 @@ class HomeController extends Controller
             $offers = Offer::all()->except('created_at' , 'updated_at');
             $banner = Banner::all();
             $categories = Category::all()->except(['created_at' , 'updated_at'])->where('parent_id' , null)->sortByDesc('id');
+            $home = Home::first();
             $data = [];
             
             foreach($offers as $offer)
@@ -40,6 +42,8 @@ class HomeController extends Controller
             $products = Product::where('is_best_sell' , true)->orderByDesc('id')->get();
 
             return api_response_success([
+                'title1' => $home->title1,
+                'title2' => $home->title2,
                 'banner' => BannerResource::collection($banner)->response()->getData(true),
                 'offers' => $data,
                 'categories' => CategoryResource::collection($categories)->response()->getData(true),

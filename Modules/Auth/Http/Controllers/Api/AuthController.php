@@ -53,6 +53,9 @@ class AuthController extends Controller
         $user = User::where('mobile', $loginRequest->mobile)->first();
 
         if ($user) {
+            if ($user->block_status == 1) {
+                return api_response_error('هذا المستخدم غير مصرح له بتسجيل الدخول');
+            }
             if (Hash::check($loginRequest->password, $user->password)) {
                 $token = $user->createToken('login')->plainTextToken;
 
@@ -139,11 +142,7 @@ class AuthController extends Controller
             'password' => [
                 'required',
                 'string',
-                Password::min(8)
-                    ->mixedCase()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised(),
+                Password::min(8),
                 'confirmed',
             ],
         ], [], [
@@ -159,6 +158,10 @@ class AuthController extends Controller
 
         if (!$user) {
             return api_response_error('لا توجد مثل هذه البيانات في قاعدة البيانات');
+        }
+
+        if ($user->block_status == 1) {
+            return api_response_error('هذا المستخدم غير مصرح له بهذه العملية');
         }
 
         $resetRequest = PasswordReset::where('email', $user->email)->first();

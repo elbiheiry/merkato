@@ -7,7 +7,9 @@ use App\Traits\ImageTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
+use Modules\Category\Entities\Category;
 use Modules\Type\Entities\Type;
 
 class Product extends Model
@@ -29,6 +31,7 @@ class Product extends Model
     ];
 
     protected $hidden = ['created_at' , 'updated_at'];
+
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -41,6 +44,16 @@ class Product extends Model
                 'source' => 'name'
             ]
         ];
+    }
+
+    /**
+     * return parent category
+     *
+     * @return BelongsTo
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function getImagePathAttribute()
@@ -157,5 +170,12 @@ class Product extends Model
     public function getRouteKeyName()
     {
         return 'slug';   
+    }
+
+    public function delete()
+    {
+        CartItem::where('product_id' , $this->id)->delete();
+        
+        return parent::delete();
     }
 }

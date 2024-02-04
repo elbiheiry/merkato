@@ -137,6 +137,12 @@
                                                 <td>{{ $user?->type?->name }}</td>
                                                 <td class="text-center">
                                                     @can('تعديل مستخدم')
+                                                        <a href="{{ route('admin.user.status', ['user' => $user->id]) }}"
+                                                            class="icon"
+                                                            style="background-color : {{ $user->block_status ? 'green' : 'black' }}">
+                                                            <i class="fas fa-{{ $user->block_status ? 'check' : 'ban' }}"
+                                                                title="{{ $user->block_status ? 'فك الحذر' : 'حذر' }}"></i>
+                                                        </a>
                                                         <a href="{{ route('admin.user.edit', ['user' => $user->id]) }}"
                                                             class="icon">
                                                             <i class="fas fa-edit" data-toggle="tooltip" data-placement="top"

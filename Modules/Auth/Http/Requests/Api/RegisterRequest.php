@@ -19,8 +19,8 @@ class RegisterRequest extends FormRequest
         return [
             'first_name' => ['required' , 'string' , 'max:255'],
             'last_name' => ['required' , 'string' , 'max:255'],
-            'email' => ['required' , 'string' , 'max:255' , 'email' , 'unique:users,email'],
-            'password' => 'required','string',Password::min(8)->mixedCase()->numbers()->uncompromised(),
+            'email' => ['nullable' , 'string' , 'max:255' , 'email' , 'unique:users,email'],
+            'password' => 'required','string',Password::min(8),
             'facility_name' => ['required' , 'string' , 'max:255'],
             'city' => ['required' , 'string'],
             'district' => ['required' , 'string'],
