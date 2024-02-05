@@ -40,7 +40,10 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if ($request->is('api/*')) {
-            throw new HttpResponseException(api_response_error('غير مصرح'));
+            throw new HttpResponseException(response()->json([
+            'status' => false,
+            'message' => 'غير مصرح',
+        ], 401));
         } else {
             if (Arr::first($this->guards) === 'web') {
                 return route('admin.login');
