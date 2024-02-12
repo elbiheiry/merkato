@@ -93,6 +93,19 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
+                                            <label>إضافة للأكثر مبيعا لكبار العملاء ؟</label>
+                                            <select class="form-control" name="is_best_sell_1">
+                                                <option value="0"
+                                                    {{ $product->is_best_sell_1 == 0 ? 'selected' : '' }}>
+                                                    لا</option>
+                                                <option value="1"
+                                                    {{ $product->is_best_sell_1 == 1 ? 'selected' : '' }}>
+                                                    نعم</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
                                             <label> الوصف لعملاء الجملة </label>
                                             <input type="text" class="form-control" name="description1"
                                                 value="{{ $product->description1 }}" />
@@ -118,6 +131,19 @@
                                             <label>أقصي كمية للطلب لعملاء الجملة</label>
                                             <input type="number" class="form-control" name="maximum1"
                                                 value="{{ $product->maximum1 ?? 0 }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>إضافة للأكثر مبيعا لعملاء الجملة ؟</label>
+                                            <select class="form-control" name="is_best_sell_2">
+                                                <option value="0"
+                                                    {{ $product->is_best_sell_2 == 0 ? 'selected' : '' }}>
+                                                    لا</option>
+                                                <option value="1"
+                                                    {{ $product->is_best_sell_2 == 1 ? 'selected' : '' }}>
+                                                    نعم</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -151,6 +177,19 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
+                                            <label>إضافة للأكثر مبيعا لعملاء االقطاعي ؟</label>
+                                            <select class="form-control" name="is_best_sell_3">
+                                                <option value="0"
+                                                    {{ $product->is_best_sell_3 == 0 ? 'selected' : '' }}>
+                                                    لا</option>
+                                                <option value="1"
+                                                    {{ $product->is_best_sell_3 == 1 ? 'selected' : '' }}>
+                                                    نعم</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
                                             <label>معامل التحويل الأول</label>
                                             <input type="number" class="form-control" name="convert1"
                                                 value="{{ $product->convert1 ?? 0 }}" />
@@ -162,19 +201,6 @@
                                             <label>معامل التحويل الثاني</label>
                                             <input type="number" class="form-control" name="convert2"
                                                 value="{{ $product->convert2 ?? 0 }}" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>إضافة للأكثر مبيعا ؟</label>
-                                            <select class="form-control" name="is_best_sell">
-                                                <option value="0"
-                                                    {{ $product->is_best_sell == 0 ? 'selected' : '' }}>
-                                                    لا</option>
-                                                <option value="1"
-                                                    {{ $product->is_best_sell == 1 ? 'selected' : '' }}>
-                                                    نعم</option>
-                                            </select>
                                         </div>
                                     </div>
 

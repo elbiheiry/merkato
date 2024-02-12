@@ -39,7 +39,17 @@ class HomeController extends Controller
                     'isproducts' => (boolean) $offer->related_products ? true : false,
                 ]);
             }
-            $products = Product::where('is_best_sell' , true)->orderByDesc('id')->get();
+            $products = Product::query();
+            
+            if (request()->get('type') == 1) {
+                $products = $products->where('is_best_sell_1' , 1);
+            }else if(request()->get('type') == 2){
+                $products = $products->where('is_best_sell_2' , 1);
+            }else{
+                $products = $products->where('is_best_sell_3' , 1);
+            }
+            
+            $products = $products->orderByDesc('id')->get();
 
             return api_response_success([
                 'title1' => $home->title1,

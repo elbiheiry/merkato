@@ -72,11 +72,21 @@
                                             <input type="number" class="form-control" name="discount" />
                                         </div>
                                     </div>
+                                    
 
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>أقصي كمية للطلب لكبار العملاء</label>
                                             <input type="number" class="form-control" name="maximum" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>إضافة للأكثر مبيعا لكبار العملاء ؟</label>
+                                            <select class="form-control" name="is_best_sell_1">
+                                                <option value="0">لا</option>
+                                                <option value="1">نعم</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -106,6 +116,15 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
+                                            <label>إضافة للأكثر مبيعا لعملاء الجملة ؟</label>
+                                            <select class="form-control" name="is_best_sell_2">
+                                                <option value="0">لا</option>
+                                                <option value="1">نعم</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
                                             <label> الوصف لعملاء القطاعي </label>
                                             <input type="text" class="form-control" name="description2" />
                                         </div>
@@ -131,6 +150,15 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
+                                            <label>إضافة للأكثر مبيعا لعملاء االقطاعي ؟</label>
+                                            <select class="form-control" name="is_best_sell_3">
+                                                <option value="0">لا</option>
+                                                <option value="1">نعم</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
                                             <label>معامل التحويل الأول</label>
                                             <input type="number" class="form-control" name="convert1" />
                                         </div>
@@ -140,15 +168,6 @@
                                         <div class="form-group">
                                             <label>معامل التحويل الثاني</label>
                                             <input type="number" class="form-control" name="convert2" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>إضافة للأكثر مبيعا ؟</label>
-                                            <select class="form-control" name="is_best_sell">
-                                                <option value="0">لا</option>
-                                                <option value="1">نعم</option>
-                                            </select>
                                         </div>
                                     </div>
 
@@ -180,7 +199,6 @@
                                             <th>الإسم</th>
                                             <th>السعر</th>
                                             <th>الكمية</th>
-                                            <th>الأكثر مبيعا ؟</th>
                                             <th class="text-center"></th>
                                         </tr>
                                     </thead>
@@ -196,7 +214,6 @@
                                                 <td>{{ $product->name }}</td>
                                                 <td>{{ $product->price }}</td>
                                                 <td>{{ $product->quantity }}</td>
-                                                <td>{{ !$product->is_best_sell ? 'نعم' : 'لا' }}</td>
                                                 <td class="text-center">
                                                     @can('تعديل منتج')
                                                         <a href="{{ route('admin.product.edit', ['product' => $product->slug]) }}"
