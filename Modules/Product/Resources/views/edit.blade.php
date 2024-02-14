@@ -78,7 +78,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>الخصم لكبار العملاء</label>
+                                            <label>الخصم لكبار العملاء (%)</label>
                                             <input type="number" class="form-control" name="discount"
                                                 value="{{ $product->discount ?? 0 }}" />
                                         </div>
@@ -120,7 +120,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>الخصم لعملاء الجملة</label>
+                                            <label>الخصم لعملاء الجملة (%)</label>
                                             <input type="number" class="form-control" name="discount1"
                                                 value="{{ $product->discount1 ?? 0 }}" />
                                         </div>
@@ -162,7 +162,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>الخصم لعملاء القطاعي</label>
+                                            <label>الخصم لعملاء القطاعي (%)</label>
                                             <input type="number" class="form-control" name="discount2"
                                                 value="{{ $product->discount2 ?? 0 }}" />
                                         </div>

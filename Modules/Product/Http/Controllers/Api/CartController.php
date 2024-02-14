@@ -68,13 +68,27 @@ class CartController extends Controller
             ->where('product_id', $request->product_id)
             ->first();
 
+        $productAfterConvert = $product->getMaximum();
         if ($cartItem) {
+            
+            if ($product->convert1 != 0 && $product->convert2 == 0) {
+                $quantity = ($cartItem->quantity + $request->quantity) * $product->convert1;
+                if($quantity > $productAfterConvert){
+                    return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
+                }
+            }elseif ($product->convert2 != 0) {
+                $quantity = ($cartItem->quantity + $request->quantity) * $product->convert1 * $product->convert2;
+                if($quantity > $productAfterConvert){
+                    return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
+                }
+            }
+            
             if (($cartItem->quantity + $request->quantity) > $product->quantity) {
                 return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
             }
 
-            if (($cartItem->quantity + $request->quantity) > $product->maximum) {
-                return api_response_error('لا يمكن طلب أكثر من '.$product->maximum.' من هذا المنتج');
+            if (($cartItem->quantity + $request->quantity) > $product->getMaximum()) {
+                return api_response_error('لا يمكن طلب أكثر من '.$product->getMaximum().' من هذا المنتج');
             }
             
             $cartItem->quantity = $cartItem->quantity + $request->quantity;
@@ -87,12 +101,25 @@ class CartController extends Controller
         }
         
 
+        if ($product->convert1 != 0 && $product->convert2 == 0) {
+            $quantity = $request->quantity * $product->convert1;
+            if($quantity > $productAfterConvert){
+                return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
+            }
+        }elseif ($product->convert2 != 0) {
+            $quantity = $request->quantity * $product->convert1 * $product->convert2;
+            
+            if($quantity > $productAfterConvert){
+                return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
+            }
+        }
+        
         if ($request->quantity > $product->quantity) {
             return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
         }
         
-        if ($request->quantity > $product->maximum) {
-            return api_response_error('لا يمكن طلب أكثر من '.$product->maximum.' من هذا المنتج');
+        if ($request->quantity > $product->getMaximum()) {
+            return api_response_error('لا يمكن طلب أكثر من '.$product->getMaximum().' من هذا المنتج');
         }
 
         // Create a new cart item   

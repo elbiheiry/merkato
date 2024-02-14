@@ -68,8 +68,8 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>الخصم لكبار العملاء</label>
-                                            <input type="number" class="form-control" name="discount" />
+                                            <label>الخصم لكبار العملاء (%)</label>
+                                            <input type="number" class="form-control" name="discount" value="0" />
                                         </div>
                                     </div>
                                     
@@ -103,8 +103,8 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>الخصم لعملاء الجملة</label>
-                                            <input type="number" class="form-control" name="discount1" />
+                                            <label>الخصم لعملاء الجملة (%)</label>
+                                            <input type="number" class="form-control" name="discount1" value="0" />
                                         </div>
                                     </div>
 
@@ -137,8 +137,8 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>الخصم لعملاء القطاعي</label>
-                                            <input type="number" class="form-control" name="discount2" />
+                                            <label>الخصم لعملاء القطاعي (%)</label>
+                                            <input type="number" class="form-control" name="discount2" value="0" />
                                         </div>
                                     </div>
 
