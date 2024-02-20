@@ -14,24 +14,24 @@ use Modules\Type\Entities\Type;
 
 class Product extends Model
 {
-    use HasFactory , ImageTrait , Sluggable;
+    use HasFactory, ImageTrait, Sluggable;
 
     protected $fillable = [
-        'id' , 'name' ,
-        'description' , 'price' ,
-        'category_id' ,  'slug' ,
-        'image' , 'discount' , 
-        'quantity', 'minimum' ,
-        'maximum' , 'is_best_sell_1',
-        'is_best_sell_2','is_best_sell_3',
-        'description1' , 'maximum1',
-        'price1' , 'discount1' ,
-        'description2' , 'maximum2',
-        'price2' , 'discount2' ,
-        'convert1' , 'convert2' ,
+        'id', 'name',
+        'description', 'price',
+        'category_id',  'slug',
+        'image', 'discount',
+        'quantity', 'minimum',
+        'maximum', 'is_best_sell_1',
+        'is_best_sell_2', 'is_best_sell_3',
+        'description1', 'maximum1',
+        'price1', 'discount1',
+        'description2', 'maximum2',
+        'price2', 'discount2',
+        'convert1', 'convert2',
     ];
 
-    protected $hidden = ['created_at' , 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -59,9 +59,9 @@ class Product extends Model
 
     public function getImagePathAttribute()
     {
-        if (Storage::disk('public')->exists('products/'.$this->image)) {
+        if (Storage::disk('public')->exists('products/' . $this->image)) {
             return $this->get_image($this->image,  'products');
-        }else{
+        } else {
             return 'https://placehold.co/600x400';
         }
     }
@@ -71,10 +71,10 @@ class Product extends Model
         if (request()->get('type') == 1) {
             $price = $this->price;
             $discount = $this->discount;
-        }else if(request()->get('type') == 2){
+        } else if (request()->get('type') == 2) {
             $price = $this->price1;
             $discount = $this->discount1;
-        }else{
+        } else {
             $price = $this->price2;
             $discount = $this->discount2;
         }
@@ -90,10 +90,10 @@ class Product extends Model
         if (request()->get('type') == 1) {
             $price = $this->price;
             $discount = $this->discount;
-        }else if(request()->get('type') == 2){
+        } else if (request()->get('type') == 2) {
             $price = $this->price1;
             $discount = $this->discount1;
-        }else{
+        } else {
             $price = $this->price2;
             $discount = $this->discount2;
         }
@@ -106,9 +106,9 @@ class Product extends Model
     {
         if (request()->get('type') == 1) {
             $maximum = $this->maximum;
-        }else if(request()->get('type') == 2){
+        } else if (request()->get('type') == 2) {
             $maximum = $this->maximum1;
-        }else{
+        } else {
             $maximum = $this->maximum2;
         }
 
@@ -119,9 +119,9 @@ class Product extends Model
     {
         if (request()->get('type') == 1) {
             $discount = $this->discount;
-        }else if(request()->get('type') == 2){
+        } else if (request()->get('type') == 2) {
             $discount = $this->discount1;
-        }else{
+        } else {
             $discount = $this->discount2;
         }
 
@@ -132,23 +132,23 @@ class Product extends Model
     {
         if (request()->get('type') == 1) {
             $description = $this->description;
-        }else if(request()->get('type') == 2){
+        } else if (request()->get('type') == 2) {
             $description = $this->description1;
-        }else{
+        } else {
             $description = $this->description2;
         }
 
         return $description;
     }
 
-    public function scopeFilter($query,ProductFilter $filter)
+    public function scopeFilter($query, ProductFilter $filter)
     {
         return $filter->apply($query);
     }
 
     public function isInCart()
     {
-        $cartItems = CartItem::where('user_id' , sanctum()->id())->where('product_id' , $this->id)->count();
+        $cartItems = CartItem::where('user_id', sanctum()->id())->where('product_id', $this->id)->count();
 
         if ($cartItems > 0) {
             return true;
@@ -159,24 +159,24 @@ class Product extends Model
 
     public function quantityInCart()
     {
-        $cartItem = CartItem::where('user_id' , sanctum()->id())->where('product_id' , $this->id)->first();
-        
+        $cartItem = CartItem::where('user_id', sanctum()->id())->where('product_id', $this->id)->first();
+
         if ($cartItem) {
             return $cartItem->quantity;
         } else {
             return 0;
         }
     }
-    
+
     public function getRouteKeyName()
     {
-        return 'slug';   
+        return 'slug';
     }
 
     public function delete()
     {
-        CartItem::where('product_id' , $this->id)->delete();
-        
+        CartItem::where('product_id', $this->id)->delete();
+
         return parent::delete();
     }
 }

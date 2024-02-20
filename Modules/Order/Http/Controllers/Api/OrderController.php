@@ -21,12 +21,11 @@ class OrderController extends Controller
     public function index()
     {
         try {
-            $orders = Order::orderByDesc('id')->where('user_id' , sanctum()->id())->paginate(10);
+            $orders = Order::orderByDesc('id')->where('user_id', sanctum()->id())->paginate(10);
 
             $data = OrderResource::collection($orders)->response()->getData(true);
 
             return api_response_success($data);
-
         } catch (\Throwable $th) {
             return api_response_error();
         }
@@ -72,19 +71,19 @@ class OrderController extends Controller
 
         $discount = 0;
         $couponCode = null;
-        
+
         $couponCode = $cartItems->first()->coupon;
         $coupon = Coupon::where('code', $couponCode)->first();
 
         if ($coupon) {
-            $discount = $subtotal * $coupon->discount/100;
+            $discount = $subtotal * $coupon->discount / 100;
         }
 
         $total = $subtotal - $discount;
-        $minimum = Type::where('id' , $request->type_id)->first()->minimum;
+        $minimum = Type::where('id', $request->type)->first()->minimum;
 
         if ($total < $minimum) {
-            return api_response_error('أقل قيمة ممكنة  لإتمام الطلب هي : '.$minimum.' جنيه');
+            return api_response_error('أقل قيمة ممكنة  لإتمام الطلب هي : ' . $minimum . ' جنيه');
         }
 
         $order = Order::create([
@@ -104,20 +103,18 @@ class OrderController extends Controller
                 'quantity' => $item->quantity,
                 'price' => $item->subtotal
             ]);
-            
-            $product = Product::where('id' , $item->product_id)->first();
+
+            $product = Product::where('id', $item->product_id)->first();
 
             if ($product->convert1 != 0 && $product->convert2 == 0) {
                 $quantity = $item->quantity * $product->convert1;
-                
-            }elseif ($product->convert2 != 0) {
+            } elseif ($product->convert2 != 0) {
                 $quantity = $item->quantity * $product->convert1 * $product->convert2;
-                
-            }else{
+            } else {
                 $quantity = $item->quantity;
             }
-            $product->decrement('quantity' ,$quantity);
-            
+
+            $product->decrement('quantity', $quantity);
 
             $item->delete();
         }
@@ -141,7 +138,6 @@ class OrderController extends Controller
             $data = new OrderResource($order);
 
             return api_response_success($data);
-
         } catch (\Throwable $th) {
             return api_response_error();
         }
@@ -173,8 +169,15 @@ class OrderController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Order $order)
     {
-        //
+        try {
+            $order->items()->delete();
+            $order->delete();
+
+            return api_response_success('تم إلغاء الطلب بنجاح');
+        } catch (\Throwable $th) {
+            return api_response_error();
+        }
     }
 }

@@ -13,8 +13,8 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id' , 'address_id' , 'user_id' , 'total' , 'coupon_discount' , 'status' , 'payment_status' , 'notes'];
-    
+    protected $fillable = ['id', 'address_id', 'user_id', 'total', 'coupon_discount', 'status', 'payment_status', 'notes'];
+
     // protected static function newFactory()
     // {
     //     return \Modules\Order\Database\factories\OrderFactory::new();
@@ -45,7 +45,7 @@ class Order extends Model
             case 'delivered':
                 return 'تم التسليم';
                 break;
-            
+
             default:
                 # code...
                 break;

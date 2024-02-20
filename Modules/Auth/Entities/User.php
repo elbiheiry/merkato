@@ -32,7 +32,7 @@ class User extends Authenticatable
         'district',
         'facility_name',
         'floor',
-        'code' ,
+        'code',
         'type_id',
         'block_status'
     ];
@@ -81,7 +81,7 @@ class User extends Authenticatable
         $this->cartItems()->delete();
         $this->addresses()->delete();
         $this->orders()->delete();
-        
-        return parent::delete();   
+
+        return parent::delete();
     }
 }

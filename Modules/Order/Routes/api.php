@@ -15,8 +15,9 @@ use Modules\Order\Http\Controllers\Api\OrderController;
 |
 */
 
-Route::middleware('auth:sanctum')->controller(OrderController::class)->prefix('orders')->group(function (){
-    Route::get('/' , 'index')->name('index');
-    Route::post('/store' , 'store')->name('store');
-    Route::get('/{id}' , 'show')->name('show');
+Route::middleware('auth:sanctum')->controller(OrderController::class)->prefix('orders')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/{id}', 'show')->name('show');
+    Route::delete('/delete/{order}', 'destroy')->name('delete');
 });

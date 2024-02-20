@@ -24,31 +24,30 @@ class HomeController extends Controller
     public function index()
     {
         try {
-            $offers = Offer::all()->except('created_at' , 'updated_at');
+            $offers = Offer::all()->except('created_at', 'updated_at');
             $banner = Banner::all();
-            $categories = Category::all()->except(['created_at' , 'updated_at'])->where('parent_id' , null)->sortByDesc('id');
+            $categories = Category::all()->except(['created_at', 'updated_at'])->where('parent_id', null)->sortByDesc('id');
             $home = Home::first();
             $data = [];
-            
-            foreach($offers as $offer)
-            {
-                array_push($data , [
+
+            foreach ($offers as $offer) {
+                array_push($data, [
                     'id' => (int) $offer->id,
                     'name' => (string) $offer->name,
                     'image' => (string) $offer->image_path,
-                    'isproducts' => (boolean) $offer->related_products ? true : false,
+                    'isproducts' => (bool) $offer->related_products ? true : false,
                 ]);
             }
             $products = Product::query();
-            
+
             if (request()->get('type') == 1) {
-                $products = $products->where('is_best_sell_1' , 1);
-            }else if(request()->get('type') == 2){
-                $products = $products->where('is_best_sell_2' , 1);
-            }else{
-                $products = $products->where('is_best_sell_3' , 1);
+                $products = $products->where('is_best_sell_1', 1);
+            } else if (request()->get('type') == 2) {
+                $products = $products->where('is_best_sell_2', 1);
+            } else if (request()->get('type') == 3) {
+                $products = $products->where('is_best_sell_3', 1);
             }
-            
+
             $products = $products->orderByDesc('id')->get();
 
             return api_response_success([
@@ -60,7 +59,6 @@ class HomeController extends Controller
                 'free_shipping' => (float) sanctum()?->user()?->type?->free_shipping,
                 'best_sells' => ProductResource::collection($products)->response()->getData(true)
             ]);
-
         } catch (\Throwable $th) {
             return api_response_error();
         }

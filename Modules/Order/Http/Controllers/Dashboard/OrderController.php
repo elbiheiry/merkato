@@ -23,8 +23,8 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::orderByDesc('id')->paginate(20);
-        
-        return view('order::index' , ['orders' => $orders]);
+
+        return view('order::index', ['orders' => $orders]);
     }
 
     /**
@@ -53,7 +53,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('order::show' , ['order' => $order]);
+        return view('order::show', ['order' => $order]);
     }
 
     /**
@@ -86,8 +86,11 @@ class OrderController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Order $order)
     {
-        //
+        $order->items()->delete();
+        $order->delete();
+
+        return redirect()->route('admin.order.index');
     }
 }

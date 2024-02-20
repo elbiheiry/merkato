@@ -22,10 +22,10 @@ class ProductResource extends JsonResource
             'price_before_discount' => (float) $this->price_before_discount(),
             'description' => (string) $this->getDescription(),
             'slug' => (string) $this->slug,
-            'has_discount' => (boolean) ($this->getDiscount() || $this->getDiscount() != 0) ? true : false,
+            'has_discount' => (bool) ($this->getDiscount() || $this->getDiscount() != 0) ? true : false,
             'quantity' => (float) $this->quantity,
             'maximum' => (float) $this->getMaximum(),
-            'inCart' => (boolean) $this->isInCart(),
+            'inCart' => (bool) $this->isInCart(),
             'quantity_in_cart' => (int) $this->quantityInCart()
         ];
 
