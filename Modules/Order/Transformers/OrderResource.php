@@ -17,6 +17,7 @@ class OrderResource extends JsonResource
     public function toArray($request)
     {
         $new_date = Carbon::parse($this->created_at)->addHours(12);
+        $now = Carbon::now();
 
         return [
             'id' => (int) $this->id,
@@ -28,7 +29,7 @@ class OrderResource extends JsonResource
             'status' => (string) $this->status,
             'payment_method' => (string) $this->payment_status,
             'notes' => (string) $this->notes,
-            'delete_btn' => (bool) $new_date > $this->created_at ? true : false,
+            'delete_btn' => (bool) $new_date->gt($now) ? true : false,
             'items' => OrderItemResource::collection($this->items)->response()->getData(true)
         ];
     }
