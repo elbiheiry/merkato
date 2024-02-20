@@ -16,16 +16,19 @@ class OrderResource extends JsonResource
      */
     public function toArray($request)
     {
+        $new_date = Carbon::parse($this->created_at)->addHours(12);
+
         return [
             'id' => (int) $this->id,
-            'name' => (string) 'طلب بتاريخ : ' .Carbon::parse($this->created_at)->format('d/m/y'),
+            'name' => (string) 'طلب بتاريخ : ' . Carbon::parse($this->created_at)->format('d/m/y'),
             'orders_count' => (int) $this->items->count(),
             'order_number' => (int) $this->id,
             'address' => new AddressResource($this->address),
-            'total' => (double) $this->total,
+            'total' => (float) $this->total,
             'status' => (string) $this->status,
             'payment_method' => (string) $this->payment_status,
             'notes' => (string) $this->notes,
+            'delete_btn' => (bool) $new_date > $this->created_at ? true : false,
             'items' => OrderItemResource::collection($this->items)->response()->getData(true)
         ];
     }
