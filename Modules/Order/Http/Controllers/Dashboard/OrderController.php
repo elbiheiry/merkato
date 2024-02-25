@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Routing\Controller;
+use Modules\Product\Entities\Product;
 use Modules\Order\Entities\Order;
 
 class OrderController extends Controller
@@ -88,6 +89,10 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
+        foreach($order->items() as $item){
+            Product::where('product_id' , $item->product_id)->increment($item->quantity);
+        }
+        
         $order->items()->delete();
         $order->delete();
 

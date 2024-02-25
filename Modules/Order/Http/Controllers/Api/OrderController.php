@@ -172,6 +172,10 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         try {
+            foreach($order->items() as $item){
+                Product::where('product_id' , $item->product_id)->increment($item->quantity);
+            }
+            
             $order->items()->delete();
             $order->delete();
 
