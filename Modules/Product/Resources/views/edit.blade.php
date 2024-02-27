@@ -203,6 +203,13 @@
                                                 value="{{ $product->convert2 ?? 0 }}" />
                                         </div>
                                     </div>
+                                    
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>معامل التحويل للقطاعي</label>
+                                            <input type="number" class="form-control" name="convert3" value="{{ $product->convert3 ?? 0 }}" />
+                                        </div>
+                                    </div>
 
                                     <div class="col-12">
                                         <button class="link"><span> حفظ</span></button>

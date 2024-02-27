@@ -113,6 +113,10 @@ class OrderController extends Controller
             } else {
                 $quantity = $item->quantity;
             }
+            
+            if($request->type == 3 && $product->convert3 != 0){
+                $quantity = $item->quantity * $product->convert3;
+            }
 
             $product->decrement('quantity', $quantity);
 
