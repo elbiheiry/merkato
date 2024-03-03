@@ -6,7 +6,7 @@
         <!--End Header -->
         <div class="dashboard_content">
             <div class="col-lg-12">
-                @can('إضافة مستخدم')
+                @can('إنشاء مستخدم')
                     <div class="widget">
                         <div class="row">
                             <div class="col-12">

@@ -86,7 +86,11 @@
                                             <tr>
                                                 <td class="small-wide">{{ $x }}</td>
                                                 <td>{{ $admin->name }}</td>
-                                                <td>{{ $admin->roles[0]['name'] }}</td>
+                                                <td>
+                                                    @foreach($admin->roles as $role)
+                                                        {{ $role->name }}
+                                                    @endforeach
+                                                </td>
                                                 <td class="text-center">
                                                     @can('عرض مستخدم لوحة التحكم')
                                                         <a href="{{ route('admin.admin.edit', ['admin' => $admin->id]) }}"

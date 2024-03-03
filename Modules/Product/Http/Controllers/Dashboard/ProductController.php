@@ -32,7 +32,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories = Category::all('id' , 'name')->where('parent_id' , null);
+        $categories = Category::where('parent_id' , null)->get();
 
         $products = app(Pipeline::class)
             ->send(Product::select(['id','name','image','slug','price' , 'quantity']))
