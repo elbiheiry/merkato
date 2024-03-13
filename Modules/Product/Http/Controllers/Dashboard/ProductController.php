@@ -32,17 +32,19 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories = Category::where('parent_id' , null)->get();
+        $categories = Category::where('parent_id', null)->get();
+        $types = Type::all();
 
         $products = app(Pipeline::class)
-            ->send(Product::select(['id','name','image','slug','price' , 'quantity']))
+            ->send(Product::select(['id', 'name', 'image', 'slug', 'price', 'quantity']))
             ->thenReturn()
             ->orderByDesc('id')
             ->paginate(15);
 
-        return view('product::index' , [
+        return view('product::index', [
             'products' => $products,
-            'categories' => $categories
+            'categories' => $categories,
+            'types' => $types
         ]);
     }
 
@@ -65,8 +67,9 @@ class ProductController extends Controller
         try {
             $data = $request->except('image');
 
-            $data['image'] = $this->image_manipulate($request->image , 'products');
+            $data['image'] = $this->image_manipulate($request->image, 'products');
             $data['minimum'] = 1;
+            $data['types'] = json_encode($request->types);
 
             Product::create($data);
 
@@ -95,11 +98,13 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = Category::all()->except('image' , 'created_at' , 'updated_at' , 'slug')->where('parent_id' , null);
+        $categories = Category::all()->except('image', 'created_at', 'updated_at', 'slug')->where('parent_id', null);
+        $types = Type::all();
 
-        return view('product::edit' , [
+        return view('product::edit', [
             'categories' => $categories,
-            'product' => $product
+            'product' => $product,
+            'types' => $types
         ]);
     }
 
@@ -115,14 +120,14 @@ class ProductController extends Controller
             $data = $request->except('image');
 
             if ($request->has('image')) {
-                $this->image_delete($product->image , 'products');
-                $data['image'] = $this->image_manipulate($request->image , 'products');
+                $this->image_delete($product->image, 'products');
+                $data['image'] = $this->image_manipulate($request->image, 'products');
             }
 
             if ($request->name != $product->name) {
-                $data['slug'] = SlugService::createSlug(Product::class , 'slug' , $request->name , ['unique' => true]);
+                $data['slug'] = SlugService::createSlug(Product::class, 'slug', $request->name, ['unique' => true]);
             }
-            
+
             $product->update($data);
 
             $url = route('admin.product.index');
@@ -140,7 +145,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $this->image_delete($product->image , 'products');
+        $this->image_delete($product->image, 'products');
 
         $product->delete();
 

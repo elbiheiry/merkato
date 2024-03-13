@@ -47,7 +47,19 @@
                                             <input type="file" class="jfilestyle" name="image" />
                                         </div>
                                     </div>
-
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label> الأنواع</label>
+                                            <select class="form-control select2" name="types[]" multiple="multiple">
+                                                <option value="0">إختر النوع</option>
+                                                @foreach ($types as $type)
+                                                    <option value="{{ $type->id }}"
+                                                        {{ in_array($type->id, json_decode($product->types)) ? 'selected' : '' }}>
+                                                        {{ $type->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>الإسم </label>
@@ -203,11 +215,12 @@
                                                 value="{{ $product->convert2 ?? 0 }}" />
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>معامل التحويل للقطاعي</label>
-                                            <input type="number" class="form-control" name="convert3" value="{{ $product->convert3 ?? 0 }}" />
+                                            <input type="number" class="form-control" name="convert3"
+                                                value="{{ $product->convert3 ?? 0 }}" />
                                         </div>
                                     </div>
 

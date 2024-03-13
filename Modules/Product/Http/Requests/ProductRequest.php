@@ -16,19 +16,20 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => ['required' , 'not_in:0'],
-            'image' => $this->isMethod('post') ? ['required' , 'image' , 'max:2024'] : ['image' , 'max:2024'],
-            'name' => ['required' , 'string' , 'max:255'],
-            'quantity' => ['required' , 'numeric' , 'gt:0'],
-            'description' => ['required' , 'string' , 'max:255'],
-            'price' => ['required' , 'numeric'],
-            'maximum' => ['required' , 'numeric' , 'lt:'.$this->quantity],
-            'description1' => ['required' , 'string' , 'max:255'],
-            'price1' => ['required' , 'numeric'],
-            'maximum1' => ['required' , 'numeric' , 'lt:'.$this->quantity],
-            'description2' => ['required' , 'string' , 'max:255'],
-            'price2' => ['required' , 'numeric'],
-            'maximum2' => ['required' , 'numeric' , 'lt:'.$this->quantity],
+            'category_id' => ['required', 'not_in:0'],
+            'image' => $this->isMethod('post') ? ['required', 'image', 'max:2024'] : ['image', 'max:2024'],
+            'types' => ['required'],
+            'name' => ['required', 'string', 'max:255'],
+            'quantity' => ['required', 'numeric', 'gt:0'],
+            'description' => in_array(1, $this->types) ? ['required', 'string', 'max:255'] : [],
+            'price' => in_array(1, $this->types) ? ['required', 'numeric'] : [],
+            'maximum' => in_array(1, $this->types) ? ['required', 'numeric', 'lt:' . $this->quantity] : [],
+            'description1' => in_array(2, $this->types) ? ['required', 'string', 'max:255'] : [],
+            'price1' => in_array(2, $this->types) ? ['required', 'numeric'] : [],
+            'maximum1' => in_array(2, $this->types) ? ['required', 'numeric', 'lt:' . $this->quantity] : [],
+            'description2' => in_array(3, $this->types) ? ['required', 'string', 'max:255'] : [],
+            'price2' => in_array(3, $this->types) ? ['required', 'numeric'] : [],
+            'maximum2' => in_array(3, $this->types) ? ['required', 'numeric', 'lt:' . $this->quantity] : [],
         ];
     }
 
@@ -48,7 +49,7 @@ class ProductRequest extends FormRequest
             'description2' => 'الوصف لكبار لعملاء القطاعي',
             'price2' => 'السعر لكبار لعملاء القطاعي',
             'maximum2' => 'أكبر قيمة للطلب لعملاء القطاعي'
-        ];   
+        ];
     }
 
     public function messages()
@@ -57,7 +58,7 @@ class ProductRequest extends FormRequest
             'quantity.gt' => 'الكمية يجب أن تكون أكبر من 0',
             // 'minimum.lt' => 'أقل كمية للطلب يجب أن تكون أقل من :attribute',
             'maximum.lt' => 'أقصي كمية للطلب يجب أن تكون أقل من :attribute'
-        ];   
+        ];
     }
 
     /**
@@ -72,7 +73,7 @@ class ProductRequest extends FormRequest
     {
         throw new HttpResponseException(response()->json($validator->errors()->first(), 400));
     }
-    
+
     /**
      * Determine if the user is authorized to make this request.
      *

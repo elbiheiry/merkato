@@ -30,12 +30,12 @@ class TypeController extends Controller
     public function index()
     {
         $types = app(Pipeline::class)
-            ->send(Type::select(['id','name','image','slug' , 'minimum' , 'free_shipping']))
+            ->send(Type::select(['id', 'name', 'image', 'slug', 'minimum', 'free_shipping', 'shipping_fee']))
             ->thenReturn()
             ->orderByDesc('id')
             ->paginate(15);
-            
-        return view('type::index' , ['types' => $types]);
+
+        return view('type::index', ['types' => $types]);
     }
 
     /**
@@ -48,8 +48,8 @@ class TypeController extends Controller
         try {
             Type::create([
                 'name' => $request->name,
-                'image' => $this->image_manipulate($request->image , 'types'),
-                'slug' => SlugService::createSlug(Type::class , 'slug' , $request->name , ['unique' => true]),
+                'image' => $this->image_manipulate($request->image, 'types'),
+                'slug' => SlugService::createSlug(Type::class, 'slug', $request->name, ['unique' => true]),
                 'minimum' => $request->minimum
             ]);
 
@@ -77,7 +77,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        return view('type::edit' , ['type' => $type]);
+        return view('type::edit', ['type' => $type]);
     }
 
     /**
@@ -88,15 +88,15 @@ class TypeController extends Controller
      */
     public function update(TypeRequest $request, Type $type)
     {
-        try{
+        try {
             $data = $request->all();
             if ($request->name != $type->name) {
-                $data['slug'] = SlugService::createSlug(Type::class , 'slug' , $request->name , ['unique' => true]);
+                $data['slug'] = SlugService::createSlug(Type::class, 'slug', $request->name, ['unique' => true]);
             }
 
             if ($request->has('image')) {
-                $this->image_delete($type->image , 'types');
-                $data['image'] = $this->image_manipulate($request->image , 'types');
+                $this->image_delete($type->image, 'types');
+                $data['image'] = $this->image_manipulate($request->image, 'types');
             }
 
             $type->update($data);

@@ -38,7 +38,7 @@ class HomeController extends Controller
                     'isproducts' => (bool) $offer->related_products ? true : false,
                 ]);
             }
-            $products = Product::query();
+            $products = Product::query()->whereJsonContains('types', request()->get('type'));
 
             if (request()->get('type') == 1) {
                 $products = $products->where('is_best_sell_1', 1);

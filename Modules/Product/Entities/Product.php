@@ -28,7 +28,8 @@ class Product extends Model
         'price1', 'discount1',
         'description2', 'maximum2',
         'price2', 'discount2',
-        'convert1', 'convert2','convert3'
+        'convert1', 'convert2', 'convert3',
+        'types'
     ];
 
     protected $hidden = ['created_at', 'updated_at'];

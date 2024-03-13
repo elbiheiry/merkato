@@ -8,184 +8,195 @@
             <div class="col-lg-12">
                 @can('إضافة منتج')
                     <div class="widget">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="widget_title d-flex justify-content-between align-items-center">
-                                <h3 class="m-0">
-                                    <i class="fas fa-plus"></i> منتج جديد
-                                </h3>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="widget_title d-flex justify-content-between align-items-center">
+                                    <h3 class="m-0">
+                                        <i class="fas fa-plus"></i> منتج جديد
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <form class="ajax-form" method="{{ route('admin.product.store') }}" method="post">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label> القسم</label>
+                                                <select class="form-control" name="category_id">
+                                                    <option value="0">إختر القسم</option>
+                                                    @foreach ($categories as $category)
+                                                        <optgroup label="{{ $category->name }}">
+                                                            @foreach ($category->subCategories as $item)
+                                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                            @endforeach
+                                                        </optgroup>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label> الصورة</label>
+                                                <input type="file" class="jfilestyle" name="image" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label> الأنواع</label>
+                                                <select class="form-control select2" name="types[]" multiple="multiple">
+                                                    <option value="0">إختر النوع</option>
+                                                    @foreach ($types as $type)
+                                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>الإسم </label>
+                                                <input type="text" class="form-control" name="name" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>إجمالي الكمية </label>
+                                                <input type="number" class="form-control" name="quantity" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label> الوصف لكبار العملاء </label>
+                                                <input type="text" class="form-control" name="description" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>السعر لكبار العملاء</label>
+                                                <input type="number" class="form-control" name="price" value="0" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>الخصم لكبار العملاء (%)</label>
+                                                <input type="number" class="form-control" name="discount" value="0" />
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>أقصي كمية للطلب لكبار العملاء</label>
+                                                <input type="number" class="form-control" name="maximum" value="0" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>إضافة للأكثر مبيعا لكبار العملاء ؟</label>
+                                                <select class="form-control" name="is_best_sell_1">
+                                                    <option value="0">لا</option>
+                                                    <option value="1">نعم</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label> الوصف لعملاء الجملة </label>
+                                                <input type="text" class="form-control" name="description1" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>السعر لعملاء الجملة</label>
+                                                <input type="number" class="form-control" name="price1" value="0" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>الخصم لعملاء الجملة (%)</label>
+                                                <input type="number" class="form-control" name="discount1" value="0" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>أقصي كمية للطلب لعملاء الجملة</label>
+                                                <input type="number" class="form-control" name="maximum1" value="0" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>إضافة للأكثر مبيعا لعملاء الجملة ؟</label>
+                                                <select class="form-control" name="is_best_sell_2">
+                                                    <option value="0">لا</option>
+                                                    <option value="1">نعم</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label> الوصف لعملاء القطاعي </label>
+                                                <input type="text" class="form-control" name="description2" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>السعر لعملاء القطاعي</label>
+                                                <input type="number" class="form-control" name="price2" value="0" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>الخصم لعملاء القطاعي (%)</label>
+                                                <input type="number" class="form-control" name="discount2"
+                                                    value="0" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>أقصي كمية للطلب لعملاء القطاعي</label>
+                                                <input type="number" class="form-control" name="maximum2" value="0" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>إضافة للأكثر مبيعا لعملاء االقطاعي ؟</label>
+                                                <select class="form-control" name="is_best_sell_3">
+                                                    <option value="0">لا</option>
+                                                    <option value="1">نعم</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>معامل التحويل الأول</label>
+                                                <input type="number" class="form-control" name="convert1" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>معامل التحويل الثاني</label>
+                                                <input type="number" class="form-control" name="convert2" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>معامل التحويل للقطاعي</label>
+                                                <input type="number" class="form-control" name="convert3" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <button class="link"><span> حفظ</span></button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <form class="ajax-form" method="{{ route('admin.product.store') }}" method="post">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label> القسم</label>
-                                            <select class="form-control" name="category_id">
-                                                <option value="0">إختر القسم</option>
-                                                @foreach ($categories as $category)
-                                                    <optgroup label="{{ $category->name }}">
-                                                        @foreach ($category->subCategories as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label> الصورة</label>
-                                            <input type="file" class="jfilestyle" name="image" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>الإسم </label>
-                                            <input type="text" class="form-control" name="name" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>إجمالي الكمية </label>
-                                            <input type="number" class="form-control" name="quantity" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label> الوصف لكبار العملاء </label>
-                                            <input type="text" class="form-control" name="description" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>السعر لكبار العملاء</label>
-                                            <input type="number" class="form-control" name="price" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>الخصم لكبار العملاء (%)</label>
-                                            <input type="number" class="form-control" name="discount" value="0" />
-                                        </div>
-                                    </div>
-                                    
-
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>أقصي كمية للطلب لكبار العملاء</label>
-                                            <input type="number" class="form-control" name="maximum" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>إضافة للأكثر مبيعا لكبار العملاء ؟</label>
-                                            <select class="form-control" name="is_best_sell_1">
-                                                <option value="0">لا</option>
-                                                <option value="1">نعم</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label> الوصف لعملاء الجملة </label>
-                                            <input type="text" class="form-control" name="description1" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>السعر لعملاء الجملة</label>
-                                            <input type="number" class="form-control" name="price1" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>الخصم لعملاء الجملة (%)</label>
-                                            <input type="number" class="form-control" name="discount1" value="0" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>أقصي كمية للطلب لعملاء الجملة</label>
-                                            <input type="number" class="form-control" name="maximum1" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>إضافة للأكثر مبيعا لعملاء الجملة ؟</label>
-                                            <select class="form-control" name="is_best_sell_2">
-                                                <option value="0">لا</option>
-                                                <option value="1">نعم</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label> الوصف لعملاء القطاعي </label>
-                                            <input type="text" class="form-control" name="description2" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>السعر لعملاء القطاعي</label>
-                                            <input type="number" class="form-control" name="price2" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>الخصم لعملاء القطاعي (%)</label>
-                                            <input type="number" class="form-control" name="discount2" value="0" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>أقصي كمية للطلب لعملاء القطاعي</label>
-                                            <input type="number" class="form-control" name="maximum2" />
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>إضافة للأكثر مبيعا لعملاء االقطاعي ؟</label>
-                                            <select class="form-control" name="is_best_sell_3">
-                                                <option value="0">لا</option>
-                                                <option value="1">نعم</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>معامل التحويل الأول</label>
-                                            <input type="number" class="form-control" name="convert1" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>معامل التحويل الثاني</label>
-                                            <input type="number" class="form-control" name="convert2" />
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>معامل التحويل للقطاعي</label>
-                                            <input type="number" class="form-control" name="convert3" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <button class="link"><span> حفظ</span></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
                     </div>
-                </div>
                 @endcan
             </div>
             @can('عرض المنتجات')

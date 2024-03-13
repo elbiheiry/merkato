@@ -63,6 +63,7 @@
                                                 <th>الإسم</th>
                                                 <th>أقل قيمة للطلب</th>
                                                 <th>أقل قيمة للطلب للتوصيل المجاني</th>
+                                                <th>قيمة التوصيل</th>
                                                 <th class="text-center"></th>
                                             </tr>
                                         </thead>
@@ -78,6 +79,7 @@
                                                     <td>{{ $type->name }}</td>
                                                     <td>{{ $type->minimum }}</td>
                                                     <td>{{ $type->free_shipping }}</td>
+                                                    <td>{{ $type->shipping_fee }}</td>
                                                     <td class="text-center">
                                                         @can('عرض نوع')
                                                             <a href="{{ route('admin.type.edit', ['type' => $type->slug]) }}"
@@ -85,12 +87,12 @@
                                                                 <i class="fas fa-edit" data-toggle="tooltip" data-placement="top"
                                                                     title="تعديل "></i></a>
                                                         @endcan
-                                                        @can('حذف نوع')
-                                                            {{-- <a href="javascript:;" class="icon delete-btn"
+                                                        {{-- @can('حذف نوع') --}}
+                                                        {{-- <a href="javascript:;" class="icon delete-btn"
                                                         style="background-color:red"
                                                         data-url="{{ route('admin.type.destroy', ['type' => $type->slug]) }}"><i
                                                             class="fas fa-trash"></i></a> --}}
-                                                        @endcan
+                                                        {{-- @endcan --}}
                                                     </td>
                                                 </tr>
                                                 @php

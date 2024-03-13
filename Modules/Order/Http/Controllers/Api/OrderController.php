@@ -80,7 +80,8 @@ class OrderController extends Controller
         }
 
         $total = $subtotal - $discount;
-        $minimum = Type::where('id', $request->type)->first()->minimum;
+        $type = Type::where('id', $request->type)->first();
+        $minimum = $type->minimum;
 
         if ($total < $minimum) {
             return api_response_error('أقل قيمة ممكنة  لإتمام الطلب هي : ' . $minimum . ' جنيه');
@@ -89,7 +90,7 @@ class OrderController extends Controller
         $order = Order::create([
             'user_id' => $user->id,
             'address_id' => $request['address_id'],
-            'total' => $total,
+            'total' => $total + $type->shipping_fee,
             'coupon_discount' => $discount,
             'status' => 'preparing',
             'notes' => $request['notes'],
@@ -113,8 +114,8 @@ class OrderController extends Controller
             } else {
                 $quantity = $item->quantity;
             }
-            
-            if($request->type == 3 && $product->convert3 != 0){
+
+            if ($request->type == 3 && $product->convert3 != 0) {
                 $quantity = $item->quantity * $product->convert3;
             }
 
@@ -176,10 +177,10 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         try {
-            foreach($order->items() as $item){
-                Product::where('product_id' , $item->product_id)->increment($item->quantity);
+            foreach ($order->items() as $item) {
+                Product::where('product_id', $item->product_id)->increment($item->quantity);
             }
-            
+
             $order->items()->delete();
             $order->delete();
 
