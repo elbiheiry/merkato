@@ -28,7 +28,7 @@ class AdminRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(api_response_error($validator->errors()->first()));
+        throw new HttpResponseException(response()->json($validator->errors()->first(), 400));
     }
 
     /**

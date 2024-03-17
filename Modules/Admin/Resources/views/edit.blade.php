@@ -47,7 +47,7 @@
                                                 <label>الدور</label>
                                                 <select class="form-control select2" name="role">
                                                     @foreach ($roles as $role)
-                                                        <option value="{{ $role->id }}"
+                                                        <option value="{{ $role->name }}"
                                                             {{ $admin->roles()->exists() ? ($admin->roles[0]['name'] == $role->name ? 'selected' : '') : '' }}>
                                                             {{ $role->name }}
                                                         </option>

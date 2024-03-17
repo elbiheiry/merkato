@@ -42,7 +42,7 @@
                                                 <label>الدور</label>
                                                 <select class="form-control select2" name="role">
                                                     @foreach ($roles as $role)
-                                                        <option value="{{ $role->id }}">{{ $role->name }}
+                                                        <option value="{{ $role->name }}">{{ $role->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
