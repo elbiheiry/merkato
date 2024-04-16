@@ -42,8 +42,7 @@ class CartController extends Controller
             'cart_items' => CartResource::collection($cartItems)->response()->getData(true),
             'subtotal' => (float) $subtotal,
             'discount' => (float) $discount,
-            'total' => (float) $total,
-            // 'couponeCode' => $couponCode
+            'total' => number_format($total, 2)
         ]);
     }
 
