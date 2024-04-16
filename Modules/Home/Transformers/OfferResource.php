@@ -16,7 +16,7 @@ class OfferResource extends JsonResource
      */
     public function toArray($request)
     {
-        $products = Product::whereIn('id' ,$this->related_products ? json_decode($this->related_products) : [])->paginate(10);
+        $products = Product::whereIn('id' ,$this->related_products != 'null' ? json_decode($this->related_products) : [])->paginate(10);
         return [
             'id' => (int) $this->id,
             'name' => (string) $this->name,
