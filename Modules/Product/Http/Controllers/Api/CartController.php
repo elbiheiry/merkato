@@ -32,7 +32,7 @@ class CartController extends Controller
             $coupon = Coupon::where('code', $couponCode)->first();
 
             if ($coupon) {
-                $discount = $subtotal * $coupon->discount/100; 
+                $discount = $subtotal * $coupon->discount / 100;
             }
         }
 
@@ -40,19 +40,19 @@ class CartController extends Controller
 
         return api_response_success([
             'cart_items' => CartResource::collection($cartItems)->response()->getData(true),
-            'subtotal' => (double) $subtotal,
-            'discount' => (double) $discount,
-            'total' => (double) $total,
+            'subtotal' => (float) $subtotal,
+            'discount' => (float) $discount,
+            'total' => (float) $total,
             // 'couponeCode' => $couponCode
         ]);
     }
 
     public function addItem(Request $request)
     {
-        $validator = Validator::make($request->all() , [
-            'product_id' => ['required' , 'exists:products,id'],
-            'quantity' => ['required' , 'numeric']
-        ] , [] ,[
+        $validator = Validator::make($request->all(), [
+            'product_id' => ['required', 'exists:products,id'],
+            'quantity' => ['required', 'numeric']
+        ], [], [
             'product_id' => locale() == 'en' ? 'Product' : 'المنتج',
             'quantity' => locale() == 'en' ? 'Quantity' : 'الكمية'
         ]);
@@ -60,7 +60,7 @@ class CartController extends Controller
         if ($validator->fails()) {
             return api_response_error($validator->errors()->first());
         }
-        
+
         $user = sanctum()->user();
         $data['user_id'] = $user->id;
         $product = Product::find($request->product_id);
@@ -70,27 +70,27 @@ class CartController extends Controller
 
         $productAfterConvert = $product->getMaximum();
         if ($cartItem) {
-            
+
             if ($product->convert1 != 0 && $product->convert2 == 0) {
                 $quantity = ($cartItem->quantity + $request->quantity) * $product->convert1;
-                if($quantity > $productAfterConvert){
+                if ($productAfterConvert != 0 && $quantity > $productAfterConvert) {
                     return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
                 }
-            }elseif ($product->convert2 != 0) {
+            } elseif ($product->convert2 != 0) {
                 $quantity = ($cartItem->quantity + $request->quantity) * $product->convert1 * $product->convert2;
-                if($quantity > $productAfterConvert){
+                if ($productAfterConvert != 0 && $quantity > $productAfterConvert) {
                     return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
                 }
             }
-            
+
             if (($cartItem->quantity + $request->quantity) > $product->quantity) {
                 return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
             }
 
-            if (($cartItem->quantity + $request->quantity) > $product->getMaximum()) {
-                return api_response_error('لا يمكن طلب أكثر من '.$product->getMaximum().' من هذا المنتج');
+            if ($product->getMaximum() != 0 && (($cartItem->quantity + $request->quantity) > $product->getMaximum())) {
+                return api_response_error('لا يمكن طلب أكثر من ' . $product->getMaximum() . ' من هذا المنتج');
             }
-            
+
             $cartItem->quantity = $cartItem->quantity + $request->quantity;
 
             $cartItem->save();
@@ -99,27 +99,27 @@ class CartController extends Controller
                 'message' => 'تم تحديث بيانات المنتج بنجاح',
             ]);
         }
-        
+
 
         if ($product->convert1 != 0 && $product->convert2 == 0) {
             $quantity = $request->quantity * $product->convert1;
-            if($quantity > $productAfterConvert){
+            if ($productAfterConvert != 0 && $quantity > $productAfterConvert) {
                 return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
             }
-        }elseif ($product->convert2 != 0) {
+        } elseif ($product->convert2 != 0) {
             $quantity = $request->quantity * $product->convert1 * $product->convert2;
-            
-            if($quantity > $productAfterConvert){
+
+            if ($productAfterConvert != 0 && $quantity > $productAfterConvert) {
                 return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
             }
         }
-        
+
         if ($request->quantity > $product->quantity) {
             return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
         }
-        
-        if ($request->quantity > $product->getMaximum()) {
-            return api_response_error('لا يمكن طلب أكثر من '.$product->getMaximum().' من هذا المنتج');
+
+        if ($product->getMaximum() != 0 && $request->quantity > $product->getMaximum()) {
+            return api_response_error('لا يمكن طلب أكثر من ' . $product->getMaximum() . ' من هذا المنتج');
         }
 
         // Create a new cart item   
@@ -131,17 +131,16 @@ class CartController extends Controller
         return api_response_success([
             'message' => 'تم إضافة المنتج لسلة الشراء بنجاح'
         ]);
-
     }
 
-    public function deleteCartItem(Request $request , $id)
+    public function deleteCartItem(Request $request, $id)
     {
         try {
             $user = sanctum()->user();
             $cartItem = CartItem::where('user_id', $user->id)
                 ->where('product_id', $id)
                 ->first();
-            
+
             $cartItem->delete();
 
             return api_response_success('تم حذف العنصر بنجاح');
@@ -149,6 +148,4 @@ class CartController extends Controller
             return api_response_error();
         }
     }
-
-
 }

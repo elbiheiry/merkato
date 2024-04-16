@@ -23,13 +23,10 @@ class ProductRequest extends FormRequest
             'quantity' => ['required', 'numeric', 'gt:0'],
             'description' => in_array(1, $this->types) ? ['required', 'string', 'max:255'] : [],
             'price' => in_array(1, $this->types) ? ['required', 'numeric'] : [],
-            'maximum' => in_array(1, $this->types) ? ['required', 'numeric', 'lt:' . $this->quantity] : [],
             'description1' => in_array(2, $this->types) ? ['required', 'string', 'max:255'] : [],
             'price1' => in_array(2, $this->types) ? ['required', 'numeric'] : [],
-            'maximum1' => in_array(2, $this->types) ? ['required', 'numeric', 'lt:' . $this->quantity] : [],
             'description2' => in_array(3, $this->types) ? ['required', 'string', 'max:255'] : [],
-            'price2' => in_array(3, $this->types) ? ['required', 'numeric'] : [],
-            'maximum2' => in_array(3, $this->types) ? ['required', 'numeric', 'lt:' . $this->quantity] : [],
+            'price2' => in_array(3, $this->types) ? ['required', 'numeric'] : []
         ];
     }
 

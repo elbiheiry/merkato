@@ -70,6 +70,9 @@ class ProductController extends Controller
             $data['image'] = $this->image_manipulate($request->image, 'products');
             $data['minimum'] = 1;
             $data['types'] = json_encode($request->types);
+            $data['maximum'] = $request->maximum ?? 0;
+            $data['maximum1'] = $request->maximum1 ?? 0;
+            $data['maximum2'] = $request->maximum2 ?? 0;
 
             Product::create($data);
 

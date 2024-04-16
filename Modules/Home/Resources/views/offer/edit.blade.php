@@ -44,7 +44,7 @@
                                             <select class="form-control select2" name="related_products[]" multiple>
                                                 @foreach ($products as $product)
                                                     <option value="{{ $product->id }}"
-                                                        {{ $offer->related_products ? (in_array($product->id, json_decode($offer->related_products, true)) ? 'selected' : '') : '' }}>
+                                                        {{ $offer->related_products != 'null' ? (in_array($product->id, json_decode($offer->related_products, true)) ? 'selected' : '') : '' }}>
                                                         {{ $product->name }}</option>
                                                 @endforeach
                                             </select>

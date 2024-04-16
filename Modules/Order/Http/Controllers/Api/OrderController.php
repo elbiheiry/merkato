@@ -80,7 +80,7 @@ class OrderController extends Controller
         }
 
         $total = $subtotal - $discount;
-        $type = Type::where('id', $request->type_id)->first();
+        $type = Type::where('id', $request->type)->first();
         $minimum = $type->minimum;
 
         if ($total < $minimum) {
