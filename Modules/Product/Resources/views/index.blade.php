@@ -209,6 +209,47 @@
                                 </h3>
                             </div>
                             <div class="table-responsive">
+                                <form class="" method="{{ url()->current() }}" method="get">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label> الإسم</label>
+                                                <input type="text" class="form-control" name="name"
+                                                    value="{{ request()->name }}" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label> القسم</label>
+                                                <select class="form-control" name="category">
+                                                    <option value="0">إختر القسم</option>
+                                                    @foreach ($categories as $category)
+                                                        <optgroup label="{{ $category->name }}">
+                                                            @foreach ($category->subCategories as $item)
+                                                                <option value="{{ $item->id }}">{{ $item->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </optgroup>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label> الأنواع</label>
+                                                <select class="form-control" name="type_id">
+                                                    <option value="0">إختر النوع</option>
+                                                    @foreach ($types as $type)
+                                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="link"><span>بحث</span></button>
+                                        </div>
+                                    </div>
+                                </form>
                                 <table class="table table-bordered" style="width: 100%">
                                     <thead>
                                         <tr>

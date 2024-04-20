@@ -30,16 +30,26 @@ class ProductController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         $categories = Category::where('parent_id', null)->get();
         $types = Type::all();
 
-        $products = app(Pipeline::class)
-            ->send(Product::select(['id', 'name', 'image', 'slug', 'price', 'quantity']))
-            ->thenReturn()
-            ->orderByDesc('id')
-            ->paginate(15);
+        $products = Product::select(['id', 'name', 'image', 'slug', 'price', 'quantity']);
+
+        if ($request->name) {
+            $products->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->type_id) {
+            $products->whereJsonContains('types', $request->type_id);
+        }
+
+        if ($request->category) {
+            $products->where('category_id', $request->category);
+        }
+
+        $products = $products->orderByDesc('id')->paginate(15);
 
         return view('product::index', [
             'products' => $products,
