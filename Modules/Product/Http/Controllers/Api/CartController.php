@@ -67,26 +67,10 @@ class CartController extends Controller
             ->where('product_id', $request->product_id)
             ->first();
 
-        $productAfterConvert = $product->getMaximum();
         if ($cartItem) {
+            $quantity = $cartItem->quantity + $request->quantity;
 
-            if ($product->convert1 != 0 && $product->convert2 == 0) {
-                $quantity = ($cartItem->quantity + $request->quantity) * $product->convert1;
-                if ($productAfterConvert != 0 && $quantity > $productAfterConvert) {
-                    return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
-                }
-            } elseif ($product->convert2 != 0) {
-                $quantity = ($cartItem->quantity + $request->quantity) * $product->convert1 * $product->convert2;
-                if ($productAfterConvert != 0 && $quantity > $productAfterConvert) {
-                    return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
-                }
-            }
-
-            if (($cartItem->quantity + $request->quantity) > $product->quantity) {
-                return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
-            }
-
-            if ($product->getMaximum() != 0 && (($cartItem->quantity + $request->quantity) > $product->getMaximum())) {
+            if ($product->getMaximum() != 0 && ($quantity > $product->getMaximum())) {
                 return api_response_error('لا يمكن طلب أكثر من ' . $product->getMaximum() . ' من هذا المنتج');
             }
 
@@ -99,25 +83,7 @@ class CartController extends Controller
             ]);
         }
 
-
-        if ($product->convert1 != 0 && $product->convert2 == 0) {
-            $quantity = $request->quantity * $product->convert1;
-            if ($productAfterConvert != 0 && $quantity > $productAfterConvert) {
-                return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
-            }
-        } elseif ($product->convert2 != 0) {
-            $quantity = $request->quantity * $product->convert1 * $product->convert2;
-
-            if ($productAfterConvert != 0 && $quantity > $productAfterConvert) {
-                return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
-            }
-        }
-
-        if ($request->quantity > $product->quantity) {
-            return api_response_error('هذه الكمية أكبر من الكمية المتاحة حاليا من هذا المنتج');
-        }
-
-        if ($product->getMaximum() != 0 && $request->quantity > $product->getMaximum()) {
+        if ($product->getMaximum() != 0 && ($request->quantity > $product->getMaximum())) {
             return api_response_error('لا يمكن طلب أكثر من ' . $product->getMaximum() . ' من هذا المنتج');
         }
 
