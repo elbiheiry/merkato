@@ -50,7 +50,9 @@ class TypeController extends Controller
                 'name' => $request->name,
                 'image' => $this->image_manipulate($request->image, 'types'),
                 'slug' => SlugService::createSlug(Type::class, 'slug', $request->name, ['unique' => true]),
-                'minimum' => $request->minimum
+                'minimum' => $request->minimum,
+                'free_shipping' => $request->free_shipping,
+                'shipping_fee' => $request->shipping_fee
             ]);
 
             $url = route('admin.type.index');

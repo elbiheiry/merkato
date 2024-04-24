@@ -10,10 +10,10 @@
                     <div class="col-12">
                         <div class="widget_title d-flex justify-content-between align-items-center">
                             <h3 class="m-0"><i class="far fa-chart-bar"></i> بيانات الطلب</h3>
-                            
+
                         </div>
                     </div>
-                    <div class="col-lg-4 col-12">
+                    <div class="col-lg-3 col-12">
                         <div class="counter">
                             <h3>الإسم</h3>
                             <span> {{ $order->user->name }} </span>
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <!--End Col-->
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-3 col-md-6">
                         <div class="counter">
                             <h3>قيمة الطلب </h3>
                             <span> {{ $order->total }} </span>
@@ -29,10 +29,18 @@
                         </div>
                     </div>
                     <!--End Col-->
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-3 col-md-6">
                         <div class="counter">
                             <h3>قيمة الخصم (إن وجدت )</h3>
                             <span> {{ $order->coupon_discount }} </span>
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                    <!--End Col-->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="counter">
+                            <h3>كوبون الخصم (إن وجد)</h3>
+                            <span> {{ $order->coupon_code ?? 'غير مستخدم' }} </span>
                             <i class="fas fa-dollar-sign"></i>
                         </div>
                     </div>
@@ -67,10 +75,10 @@
                                             $x++;
                                         @endphp
                                     @endforeach
-                                        <tr>
-                                            <td>الملاحظات</td>
-                                            <td>{{ $order->notes }}</td>
-                                        </tr>
+                                    <tr>
+                                        <td>الملاحظات</td>
+                                        <td>{{ $order->notes }}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

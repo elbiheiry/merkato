@@ -71,12 +71,14 @@ class OrderController extends Controller
 
         $discount = 0;
         $couponCode = null;
+        $code = null;
 
         $couponCode = $cartItems->first()->coupon;
         $coupon = Coupon::where('code', $couponCode)->first();
 
         if ($coupon) {
             $discount = $subtotal * $coupon->discount / 100;
+            $code = $coupon->discount;
         }
 
         $total = $subtotal - $discount;
@@ -92,6 +94,7 @@ class OrderController extends Controller
             'address_id' => $request['address_id'],
             'total' => $total + $type->shipping_fee,
             'coupon_discount' => $discount,
+            'coupon_code' => $code,
             'status' => 'preparing',
             'notes' => $request['notes'],
             'order_option' => 'delivery',

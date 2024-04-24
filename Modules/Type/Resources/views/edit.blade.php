@@ -52,6 +52,13 @@
                                                 value="{{ $type->free_shipping }}" />
                                         </div>
                                     </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>قيمة التوصيل</label>
+                                            <input type="number" class="form-control" name="shipping_fee"
+                                                value="{{ $type->shipping_fee }}" />
+                                        </div>
+                                    </div>
 
                                     <div class="col-12">
                                         <button class="link"><span> حفظ</span></button>
