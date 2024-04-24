@@ -11,6 +11,7 @@ use Modules\Product\Transformers\CartResource;
 use Illuminate\Support\Str;
 use Modules\Coupon\Entities\Coupon;
 use Modules\Product\Entities\Product;
+use Modules\Type\Entities\Type;
 
 class CartController extends Controller
 {
@@ -19,7 +20,9 @@ class CartController extends Controller
     {
         $user = sanctum()->user();
         $cartItems = $user->cartItems;
-
+        $type = Type::where('id', $request->type)->first();
+        $shipping_fee = $type->shipping_fee;
+        
         $subtotal = $cartItems->sum(function ($cartItem) {
             return $cartItem->subtotal;
         });
@@ -42,7 +45,8 @@ class CartController extends Controller
             'cart_items' => CartResource::collection($cartItems)->response()->getData(true),
             'subtotal' => (float) $subtotal,
             'discount' => (float) $discount,
-            'total' => number_format($total, 2)
+            'total' => number_format($total, 2),
+            'delivery' => (float) $shipping_fee
         ]);
     }
 
