@@ -10,6 +10,7 @@ use Modules\Product\Entities\CartItem;
 use Modules\Product\Transformers\CartResource;
 use Illuminate\Support\Str;
 use Modules\Coupon\Entities\Coupon;
+use Modules\Order\Entities\Order;
 use Modules\Product\Entities\Product;
 use Modules\Type\Entities\Type;
 
@@ -22,7 +23,7 @@ class CartController extends Controller
         $cartItems = $user->cartItems;
         $type = Type::where('id', $request->type)->first();
         $shipping_fee = $type->shipping_fee;
-        
+
         $subtotal = $cartItems->sum(function ($cartItem) {
             return $cartItem->subtotal;
         });
@@ -40,6 +41,13 @@ class CartController extends Controller
         }
 
         $total = $subtotal - $discount;
+
+        if ($total > $type->free_shipping) {
+            $shipping_fee = 0;
+        } else {
+            $shipping_fee = $type->shipping_fee;
+        }
+
 
         return api_response_success([
             'cart_items' => CartResource::collection($cartItems)->response()->getData(true),
@@ -65,6 +73,7 @@ class CartController extends Controller
         }
 
         $user = sanctum()->user();
+        $todayOrders = Order::where('user_id', $user->id)->whereDate('created_at', today())->get();
         $data['user_id'] = $user->id;
         $product = Product::find($request->product_id);
         $cartItem = CartItem::where('user_id', $user->id)
@@ -72,6 +81,14 @@ class CartController extends Controller
             ->first();
 
         if ($cartItem) {
+            foreach ($todayOrders as $order) {
+                if ($order->items()->contains('product_id', $request->product_id)) {
+                    if ($cartItem->quantity + $request->quantity > $product->getMaximum()) {
+                        return api_response_error('لقد تعديت الحد الاقصي للطلب اليوم من هذا المنتج');
+                    }
+                }
+            }
+
             $quantity = $cartItem->quantity + $request->quantity;
 
             if ($product->getMaximum() != 0 && ($quantity > $product->getMaximum())) {
@@ -86,6 +103,15 @@ class CartController extends Controller
                 'message' => 'تم تحديث بيانات المنتج بنجاح',
             ]);
         }
+
+        foreach ($todayOrders as $order) {
+            if ($order->items()->contains('product_id', $request->product_id)) {
+                if ($cartItem->quantity + $request->quantity > $product->getMaximum()) {
+                    return api_response_error('لقد تعديت الحد الاقصي للطلب اليوم من هذا المنتج');
+                }
+            }
+        }
+
 
         if ($product->getMaximum() != 0 && ($request->quantity > $product->getMaximum())) {
             return api_response_error('لا يمكن طلب أكثر من ' . $product->getMaximum() . ' من هذا المنتج');

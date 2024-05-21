@@ -92,7 +92,7 @@ class OrderController extends Controller
         $order = Order::create([
             'user_id' => $user->id,
             'address_id' => $request['address_id'],
-            'total' => $total + $type->shipping_fee,
+            'total' => $total + ($total > $type->free_shipping ? 0 : $type->shipping_fee),
             'coupon_discount' => $discount,
             'coupon_code' => $code,
             'status' => 'preparing',
@@ -180,12 +180,19 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         try {
-            foreach ($order->items() as $item) {
-                Product::where('product_id', $item->product_id)->increment($item->quantity);
+            foreach ($order->items()->get() as $item) {
+                // $product = Product::where('id', $item->product_id)->first();
+                $item->product()->update([
+                    'quantity' => $item->product->quantity + $item->quantity
+                ]);
             }
 
-            $order->items()->delete();
-            $order->delete();
+            // $order->items()->delete();
+            // $order->delete();
+
+            $order->update([
+                'deleted_by' => 1
+            ]);
 
             return api_response_success('تم إلغاء الطلب بنجاح');
         } catch (\Throwable $th) {

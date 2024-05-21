@@ -50,21 +50,26 @@
                                                     {{ $item->product->name }} x {{ $item->quantity }} <br />
                                                 @endforeach
                                             </td>
+
                                             <form method="post"
                                                 action="{{ route('admin.order.update', ['order' => $order->id]) }}">
                                                 @csrf
                                                 @method('put')
                                                 <td>
-                                                    @if ($order->status == 'preparing')
-                                                        <select class="form-control" name="status">
-                                                            <option value="preparing" selected>{{ $order->getStatus() }}
-                                                            </option>
-                                                            <option value="delivered">تم التسليم</option>
-                                                        </select>
+                                                    @if ($order->deleted_by == 1)
+                                                        تم الغاء الطلب من قبل العميل
                                                     @else
-                                                        {{ $order->getStatus() }}
+                                                        @if ($order->status == 'preparing')
+                                                            <select class="form-control" name="status">
+                                                                <option value="preparing" selected>
+                                                                    {{ $order->getStatus() }}
+                                                                </option>
+                                                                <option value="delivered">تم التسليم</option>
+                                                            </select>
+                                                        @else
+                                                            {{ $order->getStatus() }}
+                                                        @endif
                                                     @endif
-
                                                 </td>
                                                 <td>{{ $order->created_at }}</td>
                                                 <td class="text-center">
